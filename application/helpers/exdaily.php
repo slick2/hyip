@@ -1,5 +1,5 @@
 <?php
-require_once("connect.php");
+require_once("include/connect.php");
 $date = date("d/m/Y"); // Сегодняшняя дата в необходимом формате
 $context = stream_context_create(array('http' => array('header' => 'Connection: close\r\n')));
 $link = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=$date"; // Ссылка на XML-файл с курсами валют
