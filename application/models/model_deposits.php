@@ -5,6 +5,7 @@ class Model_Deposits extends Model
 
     public function add_deposit()
     {
+        $mysqli = $GLOBALS['mysqli'];
         $uid = Session::get('id');
         $qq = $mysqli->query("SELECT name FROM hyip_paysystems");
         

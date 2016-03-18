@@ -5,7 +5,13 @@ class Route
 
     static function start()
     {
-        $models = array('private' => 'Model_Orders', 'auth' => 'Model_Auth', 'deposits' => 'Model_Deposits', 'settings' => 'Model_Settings', 'referral' => 'Model_Referral');
+        $models = array(
+            'private' => 'Model_Orders', 
+            'auth' => 'Model_Auth', 
+            'deposits' => 'Model_Deposits', 
+            'settings' => 'Model_Settings', 
+            'referral' => 'Model_Referral',
+            'admin' => 'Model_Admin');
         $controllers = array('login' => 'auth', 'register' => 'auth', 'logout' => 'auth', 'activate' => 'auth');
         // контроллер и действие по умолчанию
         $controller_name = 'private';
