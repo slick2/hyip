@@ -7,4 +7,3 @@ require_once 'helpers/session.php';
 require_once 'helpers/Database.php';
 Session::init();
 Route::start(); // запускаем маршрутизатор
-?>

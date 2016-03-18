@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Private extends Controller
+class Controller_History extends Controller
 {
 
     function __construct()
@@ -14,7 +14,7 @@ class Controller_Private extends Controller
         if (Session::get('email') !== false)
         {
             $data = $this->model->get_data();
-            $this->view->generate('private_view.php', 'template_view.php', $data);
+            $this->view->generate('history_view.php', 'template_view.php', $data);
         }
         else
         {
