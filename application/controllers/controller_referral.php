@@ -16,7 +16,7 @@ class Controller_Referral extends Controller
         else
         {
             Session::destroy();
-            header("Location:/mvc/auth");
+            header("Location:/auth");
         }
     }
 }

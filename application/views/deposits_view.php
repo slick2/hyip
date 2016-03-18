@@ -19,7 +19,7 @@
             <?php
             foreach ($data['deposits'] as $value)
             {
-                echo "<tr><td>" . $value['date'] . "</td><td>" . $value['pname'] . "</td><td>" . $value['cash'] . "</td><td>" . $value['outs'] . "</td><td>" . $value['lastpaid'] . "</td><td>" . $value['nextpaid'] . "</td><td><a class='btn-lk' style='text-decoration:none;' href='/mvc/deposits?id=" . $value['id'] . "'>Детали</a></td></tr>";
+                echo "<tr><td>" . $value['date'] . "</td><td>" . $value['pname'] . "</td><td>" . $value['cash'] . "</td><td>" . $value['outs'] . "</td><td>" . $value['lastpaid'] . "</td><td>" . $value['nextpaid'] . "</td><td><a class='btn-lk' style='text-decoration:none;' href='/deposits?id=" . $value['id'] . "'>Детали</a></td></tr>";
             }
             ?>
         </table>

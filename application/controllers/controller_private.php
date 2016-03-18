@@ -19,7 +19,7 @@ class Controller_Private extends Controller
         else
         {
             Session::destroy();
-            header("Location:/mvc/auth");
+            header("Location:/auth");
         }
     }
 

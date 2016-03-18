@@ -1,60 +1,64 @@
 <?php
+
 class Controller_Deposits extends Controller
 {
-  function __construct()
-	{
-		$this->model = new Model_Deposits();
-		$this->view = new View();
-	}
 
-	function action_index()
-	{
-    if(Session::get('email') !== false)
+    function __construct()
     {
-      $td = $this->model->get_pager(10);
-      $data = array(
-        'first' => $this->model->get_deposit(),
-        'deposits' => $this->model->get_all_deposits(),
-        'page' => $td['page'],
-        'start' => $td['start'],
-        'total' => $td['total']
-        );
-		  $this->view->generate('deposits_view.php', 'template_view.php',$data);
+        $this->model = new Model_Deposits();
+        $this->view = new View();
     }
-    else
+
+    function action_index()
     {
-      Session::destroy();
-      header("Location:/mvc/auth");
-    }
-	}
-  function action_add()
-  {
-    if(Session::get('email') !== false)
-    {
-      if(isset($_POST['addcash']))
-      {
-        if(isset($_POST['sum'])&&isset($_POST['moneyadd']))
+        if (Session::get('email') !== false)
         {
-          $data = $this->model->add_deposit();
-          $this->view->generate('payhub_view.php', 'template_view.php',$data);
+            $td = $this->model->get_pager(10);
+            $data = array(
+                'first' => $this->model->get_deposit(),
+                'deposits' => $this->model->get_all_deposits(),
+                'page' => $td['page'],
+                'start' => $td['start'],
+                'total' => $td['total']
+            );
+            $this->view->generate('deposits_view.php', 'template_view.php', $data);
         }
         else
         {
-          $data = array('message' => 'Укажите сумму и платежную систему!');
-          $this->view->generate('newdeposit_view.php', 'template_view.php',$data);
+            Session::destroy();
+            header("Location:/auth");
         }
+    }
 
-      }
-      else
-      {
-        $this->view->generate('newdeposit_view.php', 'template_view.php');
-      }
-    }
-    else
+    function action_add()
     {
-      Session::destroy();
-      header("Location:/mvc/auth");
+        if (Session::get('email') !== false)
+        {
+            if (isset($_POST['addcash']))
+            {
+                if (isset($_POST['sum']) && isset($_POST['moneyadd']))
+                {
+                    $data = $this->model->add_deposit();
+                    $this->view->generate('payhub_view.php', 'template_view.php', $data);
+                }
+                else
+                {
+                    $data = array('message' => 'Укажите сумму и платежную систему!');
+                    $this->view->generate('newdeposit_view.php', 'template_view.php', $data);
+                }
+            }
+            else
+            {
+                $this->view->generate('newdeposit_view.php', 'template_view.php');
+            }
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
     }
-  }
+
 }
+
 ?>
