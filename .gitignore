@@ -1,7 +1,9 @@
-nbproject/private/
+nbproject/
 build/
 nbbuild/
 dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+/include/const.php
+include/const.php
