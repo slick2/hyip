@@ -1,0 +1,5 @@
+<?php
+define('BUSINESS_PERCENT',0.0236);
+define('HOLIDAY_PERCENT', 0.01);
+define('MIN_DEPOSIT',10);
+define('REFERRAL_PERCENT', 0.12);
