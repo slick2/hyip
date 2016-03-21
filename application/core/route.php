@@ -12,7 +12,8 @@ class Route
             'settings' => 'Model_Settings', 
             'referral' => 'Model_Referral',
             'admin' => 'Model_Admin',
-            'history'=>'Model_Orders');
+            'history'=>'Model_Orders',
+            'pay' => 'Model_Pay');
         $controllers = array('login' => 'auth', 'register' => 'auth', 'logout' => 'auth', 'activate' => 'auth');
         // контроллер и действие по умолчанию
         $controller_name = 'private';

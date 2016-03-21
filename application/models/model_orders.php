@@ -17,8 +17,13 @@ class Model_Orders extends Model
             $page = $total;
         $start = $page * $numposts - $numposts;
 
-        $qcash = $mysqli->query("SELECT id,cash FROM hyip_cash WHERE user_id=$uid")->fetchAll();
-        $qouts = $mysqli->query("SELECT id,sum FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) AND operation=1 AND code=0")->fetchAll();
+        $qcash = $mysqli->query("SELECT cash.id as id,cash.cash as cash,acc.currency as currency FROM hyip_cash as cash "
+                . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
+                . "WHERE user_id=$uid")->fetchAll();
+        $qouts = $mysqli->query("SELECT ord.id as id,ord.sum as sum,acc.currency as currency FROM hyip_orders as ord "
+                . "INNER JOIN hyip_cash as cash ON (cash.id = ord.cash_id) "
+                . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
+                . "WHERE cash.user_id=$uid AND ord.operation = 1 AND code=0")->fetchAll();
         $cash = 0;
         $outs = 0;
         $refs = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid")->fetchSingleRow()['percents'];
@@ -27,8 +32,7 @@ class Model_Orders extends Model
         {
             $mult = 1;
 
-            $cur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$crow['id']} )")->fetchSingleRow()['currency'];
-            if (strcasecmp($cur, 'USD') != 0)
+            if (strcasecmp($crow['currency'], 'USD') != 0)
             {
                 $mult = GetExchangeRate();
             }
@@ -37,13 +41,12 @@ class Model_Orders extends Model
         //sum of outs
         foreach ($qouts as $orow)
         {
-            $tcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id IN ( SELECT cash_id FROM hyip_orders WHERE id= {$orow['id']} ))")->fetchSingleRow()['currency'];
             $mult = 1;
-            if (strcasecmp($tcur, 'USD') != 0)
+            if (strcasecmp($orow['currency'], 'USD') != 0)
             {
                 $mult = GetExchangeRate();
             }
-            $outs += ((int)$orow['sum'] / $mult);
+            $outs += ($orow['sum'] / $mult);
         }
         $cash = round($cash, 2);
         $cashmas = explode('.', (string) $cash);
@@ -72,8 +75,7 @@ class Model_Orders extends Model
         
         foreach ($query as $row)
         {
-            $qpsname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$row['cash_id']}))");
-            $psname = $qpsname->fetch_assoc()['name'];
+            $psname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$row['cash_id']}))")->fetchSingleRow()['name'];
             $date = new DateTime($row['date']);
             $date = $date->format("d.m.y");
             $data['orders'][] = array(
