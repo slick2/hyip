@@ -3,6 +3,7 @@
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
+
 //include('include/const.php');
 class Database
 {
@@ -17,9 +18,16 @@ class Database
 
     private function __construct()
     {
-        $this->conn = new mysqli($this->servername, $this->username, $this->password);
-        $this->conn->set_charset("utf8");
-        $this->conn->select_db($this->db);
+        try
+        {
+            $this->conn = new mysqli($this->servername, $this->username, $this->password);
+            $this->conn->set_charset("utf8");
+            $this->conn->select_db($this->db);
+        }
+        catch (Exception $e)
+        {
+            echo "Произошла ошибка:" . $e->getMessage();
+        }
     }
 
     static public function getInstance()
@@ -45,12 +53,12 @@ class Database
         }
         return self::$_instance;
     }
-    
 
     public function close()
     {
         $this->conn->close();
     }
+
     public function fetchNumRows()
     {
         return count($this->result);
