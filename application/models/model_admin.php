@@ -27,7 +27,7 @@ class Model_Admin extends Model
         $cur = $mysqli->real_escape_string($_POST['currency']);
         $inout = $mysqli->real_escape_string($_POST['inout']);
 
-        $qsid = $mysqli->query("SELECT id FROM hyip_paysystems WHERE name='" . $system . "'")->fetch_assoc()['id'];
+        $qsid = $mysqli->query("SELECT id FROM hyip_paysystems WHERE name='$system'")->fetch_assoc()['id'];
         $qadd = $mysqli->query("INSERT INTO hyip_admaccounts (paysystem_id,paynumber,account,password,currency,`inout`) VALUES($qsid,'$number','$account','$pass','$cur','$inout')");
     }
 
@@ -41,13 +41,13 @@ class Model_Admin extends Model
             $did = 'delete_' . $row['id'];
             if (isset($_POST[$did]))
             {
-                $qdel = $mysqli->query("DELETE FROM hyip_admaccounts WHERE id=" . $row['id'] . "");
+                $qdel = $mysqli->query("DELETE FROM hyip_admaccounts WHERE id= {$row['id']}" );
             }
             else
             {
                 if (isset($_POST[$iid]))
                 {
-                    $qchange = $mysqli->query("UPDATE hyip_admaccounts SET `inout`=" . $_POST[$iid] . " WHERE id=" . $row['id'] . "");
+                    $qchange = $mysqli->query("UPDATE hyip_admaccounts SET `inout`='{ $_POST[$iid]} ' WHERE id={$row['id']}");
                 }
             }
         }
@@ -62,7 +62,7 @@ class Model_Admin extends Model
 
         while ($row = $qaccs->fetch_assoc())
         {
-            $syst = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id=" . $row['paysystem_id'] . "")->fetch_assoc()['name'];
+            $syst = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id={$row['paysystem_id']}")->fetch_assoc()['name'];
             $options = array("Ввод+вывод", "Ввод", "Вывод");
             $index = intval($row['inout']);
             switch ($index)

@@ -7,11 +7,10 @@ class Model_Orders extends Model
     {
         $mysqli = $GLOBALS['mysqli'];
         $numposts = 10;
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $uid = Session::get('id');
-        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetch_row()[0];
-        $total = intval(($posts - 1) / $numposts) + 1;
-        $page = intval($page);
+        $posts = intval($mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetch_row()[0]);
+        $total = ($posts - 1) / $numposts + 1;
         if (empty($page) or $page < 0)
             $page = 1;
         if ($page > $total)
@@ -30,7 +29,7 @@ class Model_Orders extends Model
         {
             $mult = 1;
 
-            $qcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id='" . $crow['id'] . "')");
+            $qcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$crow['id']} )");
             $cur = $qcur->fetch_assoc()['currency'];
             if (strcasecmp($cur, 'USD') != 0)
             {
@@ -41,7 +40,7 @@ class Model_Orders extends Model
         //sum of outs
         while ($orow = $qouts->fetch_assoc())
         {
-            $qtcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id IN ( SELECT cash_id FROM hyip_orders WHERE id='" . $orow['id'] . "'))");
+            $qtcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id IN ( SELECT cash_id FROM hyip_orders WHERE id= {$orow['id']} ))");
             echo $mysqli->error;
             $tcur = $qtcur->fetch_assoc()['currency'];
             $mult = 1;
@@ -49,7 +48,7 @@ class Model_Orders extends Model
             {
                 $mult = GetExchangeRate();
             }
-            $outs += ($orow['sum'] / $mult);
+            $outs += ((int)$orow['sum'] / $mult);
         }
         $cash = round($cash, 2);
         $cashmas = explode('.', (string) $cash);
@@ -76,7 +75,7 @@ class Model_Orders extends Model
         $status = array('Выполнено', 'Ожидается');
         while ($row = $query->fetch_assoc())
         {
-            $qpsname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id=" . $row['cash_id'] . "))");
+            $qpsname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$row['cash_id']}))");
             $psname = $qpsname->fetch_assoc()['name'];
             $date = new DateTime($row['date']);
             $date = $date->format("d.m.y");
@@ -94,5 +93,3 @@ class Model_Orders extends Model
     }
 
 }
-
-?>
