@@ -71,17 +71,21 @@ class Model_Orders extends Model
 
         $operations = array('Пополнение', 'Вывод');
         $status = array('Выполнено', 'Ожидается');
-        $query = $mysqli->query("SELECT operation,sum,code,cash_id,date FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) ORDER BY date DESC LIMIT $start,$numposts")->fetchAll();
+        $query = $mysqli->query("SELECT cash.id, ord.operation AS operation,ord.sum AS sum,ord.code "
+                . "AS code,ord.date AS date,syst.name AS name FROM hyip_orders AS ord "
+                . "INNER JOIN hyip_cash AS cash ON (ord.cash_id = cash.id) "
+                . "INNER JOIN hyip_payaccounts AS acc ON (cash.payaccount_id=acc.id) "
+                . "INNER JOIN hyip_paysystems AS syst ON (acc.paysystem_id=syst.id) "
+                . "WHERE cash.user_id=$uid ORDER BY date DESC LIMIT $start,$numposts")->fetchAll();
         
         foreach ($query as $row)
         {
-            $psname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$row['cash_id']}))")->fetchSingleRow()['name'];
             $date = new DateTime($row['date']);
             $date = $date->format("d.m.y");
             $data['orders'][] = array(
                 'operation' => $operations[$row['operation']],
                 'sum' => $row['sum'],
-                'paysystem' => $psname,
+                'paysystem' => $row['name'],
                 'status' => $status[$row['code']],
                 'date' => $date
             );
