@@ -5,45 +5,41 @@ class Model_Deposits extends Model
 
     public function add_deposit()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $uid = Session::get('id');
-        $qq = $mysqli->query("SELECT name FROM hyip_paysystems");
         
-        $sum = (float) $mysqli->real_escape_string($_POST['sum']);
-        $args = explode("_", $mysqli->real_escape_string($_POST['moneyadd']));
+        $sum = (float) $mysqli->quote($_POST['sum']);
+        $args = explode("_", $mysqli->quote($_POST['moneyadd']));
         $cur = isset($args[1]) ? strtoupper($args[1]) : "RUB";
+        $syst = $mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
+INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
+INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
+WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$args[0]}'")->fetchAll();
+
+
         $query = $mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
 INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
 INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
-WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$args[0]}'");
-
-
-        $syst = $query->fetch_assoc();
-        if ($query->num_rows == 0)
+WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$args[0]}'")->fetchNumRows();
+        if ($query == 0)
         {
-            $qqr = $mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id,currency) SELECT id,'$cur' FROM hyip_paysystems WHERE name='{$args[0]}'");
-            $cid = intval($mysqli->insert_id);
+            $cid = $mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id,currency) SELECT id,'$cur' FROM hyip_paysystems WHERE name='{$args[0]}'")->result->insert_id;
         }
         else
         {
-            $qqr = $mysqli->query("SELECT hp.id AS id "
+            $cid = $mysqli->query("SELECT hp.id AS id "
                     . "FROM hyip_payaccounts as hp "
                     . "INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id) "
                     . "INNER JOIN hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) "
-                    . "WHERE hsys.name = '{$args[0]}' AND hp.currency='$cur' AND hc.user_id=$uid LIMIT 1");
-            
-            $cid = intval($qqr->fetch_assoc()['id']);
+                    . "WHERE hsys.name = '{$args[0]}' AND hp.currency='$cur' AND hc.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
         }
 
-        $qr = $mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
-        $qsysid = $mysqli->query("SELECT id FROM hyip_paysystems WHERE name='{$args[0]}'");
-        $sysid = intval( $qsysid->fetch_assoc()['id']);
         $addorder = $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,sum,code) VALUES ({$mysqli->insert_id},0,$sum,0)");
 
-        $qparent = $mysql->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL");
-        if ($qparent->num_rows != 0)
+        $qparent = $mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchNumRows();
+        if ($qparent != 0)
         {
-            $parent = intval($qparent->fetch_assoc()['parent_id']);
+            $parent = $mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchAll()['parent_id'];
             $percent = (float)$_POST['sum'] * REFERRAL_PERCENT;
             if (strcasecmp($args[1], 'rub') == 0)
             {
@@ -63,25 +59,21 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
 
     public function get_deposit()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $uid = Session::get('id');
-        $query1 = $mysqli->query("SELECT id,user_id,payaccount_id,cash,created,outs FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC");
-        $first = $query1->fetch_assoc();
+        $first = $mysqli->query("SELECT id,user_id,payaccount_id,cash,created,outs FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC")->fetchSingleRow();
         $depname = "Последний депозит";
         if (isset($_GET['id']))
         {
-            $qfirst = $mysqli->query("SELECT * FROM hyip_cash WHERE id='" . (int) $_GET['id'] . "'");
-            $first = $qfirst->fetch_assoc();
+            $gid = intval($_GET['id']);
+            $first = $mysqli->query("SELECT payaccount_id,created,cash,outs,id FROM hyip_cash WHERE id=$gid")->fetchSingleRow();
             $depname = "Выбранный депозит";
         }
 
         $paid = $first['payaccount_id'];
-        $qq = $mysqli->query("SELECT paysystem_id,currency FROM hyip_payaccounts WHERE id=$paid");
-        $acc = $qq->fetch_assoc();
+        $acc = $mysqli->query("SELECT paysystem_id,currency FROM hyip_payaccounts WHERE id=$paid")->fetchSingleRow();
         $psid = $acc["paysystem_id"];
-        $qq3 = $mysqli->query("SELECT name,image FROM hyip_paysystems WHERE id=$psid");
-        $syst = $qq3->fetch_assoc();
-        $pname = $syst["name"];
+        $syst = $mysqli->query("SELECT name,image FROM hyip_paysystems WHERE id=$psid")->fetchSingleRow();
         $pimage = $syst["image"];
         $lastpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') - 1, date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y')));
         $nextpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') + 1, date('y')));
@@ -95,8 +87,8 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         $biz = $first['cash'] * BUSINESS_PERCENT;
         $nobiz = $first['cash'] * HOLIDAY_PERCENT;
         $prib = 0;
-        $qprib = $mysqli->query("SELECT sum FROM hyip_orders WHERE operation=1 AND cash_id=" . $first['id'] . "");
-        while ($row = $qprib->fetch_assoc())
+        $qprib = $mysqli->query("SELECT sum FROM hyip_orders WHERE operation=1 AND cash_id=" . $first['id'] . "")->fetchAll();
+        foreach ($qprib as $row)
         {
             $prib += $row['sum'];
         }
@@ -119,13 +111,12 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
 
     public function get_pager($numposts)
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $data = array();
 
-        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetch_row()[0];
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)'];
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $total = intval(($posts - 1) / $numposts) + 1;
-        $page = intval($page);
         if (empty($page) or $page < 0)
             $page = 1;
         if ($page > $total)
@@ -141,11 +132,11 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
 
     public function get_all_deposits()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $data = array();
         $numposts = 10;
 
-        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetch_row()[0];
+        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)'];
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $total = intval(($posts - 1) / $numposts) + 1;
         if (empty($page) or $page < 0)
@@ -155,15 +146,13 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         $start = $page * $numposts - $numposts;
 
         $uid = Session::get('id');
-        $query = $mysqli->query("SELECT payaccount_id,created,cash,outs,id FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC LIMIT $start,$numposts");
+        $query = $mysqli->query("SELECT payaccount_id,created,cash,outs,id FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC LIMIT $start,$numposts")->fetchAll();
 
-        while ($row = $query->fetch_assoc())
+        foreach ($query as $row)
         {
             $paid = $row['payaccount_id'];
-            $qq = $mysqli->query("SELECT paysystem_id FROM hyip_payaccounts WHERE id=$paid");
-            $psid = $qq->fetch_assoc()["paysystem_id"];
-            $qq2 = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id=$psid");
-            $pname = $qq2->fetch_assoc()["name"];
+            $psid = $mysqli->query("SELECT paysystem_id FROM hyip_payaccounts WHERE id=$paid")->fetchSingleRow()["paysystem_id"];
+            $pname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id=$psid")->fetchSingleRow()["name"];
 
             $lastpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') - 1, date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y')));
             $nextpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') + 1, date('y')));

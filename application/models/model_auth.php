@@ -3,41 +3,39 @@
 class Model_Auth extends Model
 {
 
-    public function add_user($full_name, $email, $password, $active, $role, $parent_id, $percents)
+    public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $uid = Session::get('id');
         $smail = Session::get('email');
-        $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents) VALUES('$full_name','$email', '$password', '$active','$role',NULL,'$percents')";
-        $result = $mysqli->query($sql);
-        echo $mysqli->error;
+        $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents) VALUES('$full_name','$email', '$password', '$active','$role',$parent_id,'$percents')";
+        $result = $mysqli->query($sql)->fetchAll();
         return $result;
     }
 
     public function activate_user($email)
     {
-        $mysqli = $GLOBALS['mysqli'];
-        $res = $mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'");
+        $mysqli = Database::getInstance();
+        $res = $mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'")->fetchAll();
         return $res;
     }
 
     public function get_num_users($email)
     {
-        $mysqli = $GLOBALS['mysqli'];
-        $query = $mysqli->query("SELECT id FROM hyip_users WHERE email='$email'");
-        $numrows = $query->num_rows;
-        return $numrows;
+        $mysqli = Database::getInstance();
+        $query = $mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
+        return $query;
     }
 
     public function get_user_by_mail($email)
     {
-        $mysqli = $GLOBALS['mysqli'];
-        $query = $mysqli->query("SELECT email,password,active,role,full_name,id FROM hyip_users WHERE email='$email'");
+        $mysqli = Database::getInstance();
+        $query = $mysqli->query("SELECT email,password,active,role,full_name,id FROM hyip_users WHERE email='$email'")->fetchAll();
         $res = array();
-        $nr = $query->num_rows;
+        $nr = $mysqli->query("SELECT email,password,active,role,full_name,id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         if ($nr != 0)
         {
-            while ($row = $query->fetch_assoc())
+            foreach ($query as $row)
             {
                 $res[] = array(
                     'email' => $row['email'],

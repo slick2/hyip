@@ -5,21 +5,26 @@ class Model_Referral extends Model
 
     public function get_data()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
+        //$mysqli = $GLOBALS['mysqli'];
         $uid = Session::get('id');
 
         $money = 0;
-        $qrefs = $mysqli->query("SELECT id FROM hyip_users WHERE parent_id=$uid");
-        $qmoney = $mysqli->query("SELECT cash FROM hyip_cash WHERE user_id IN (SELECT id FROM hyip_users WHERE parent_id=$uid) ");
-        $qactive = $mysqli->query("SELECT id FROM hyip_cash WHERE user_id IN (SELECT id FROM hyip_users WHERE parent_id=$uid) GROUP BY user_id");
+        $numrows = $mysqli->query("SELECT id FROM hyip_users WHERE parent_id=$uid")->fetchNumRows();
+        $qmoney = $mysqli->query("SELECT cash FROM hyip_cash WHERE user_id IN (SELECT id FROM hyip_users WHERE parent_id=$uid) ")->fetchAll();
+        $active = $mysqli->query("SELECT id FROM hyip_cash WHERE user_id IN (SELECT id FROM hyip_users WHERE parent_id=$uid) GROUP BY user_id")->fetchNumRows();
+        /*
         while ($row = $qmoney->fetch_assoc())
         {
             $money += $row['cash'];
         }
-        $numrows = $qrefs->num_rows;
-        $active = $qactive->num_rows;
+         */
+        foreach ($qmoney as $row)
+        {
+            $money += $row['cash'];
+        }
         $qpers = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid");
-        $pers = $qpers->fetch_assoc()['percents'];
+        $pers = $qpers->fetchSingleRow()['percents'];
 
         $data = array(
             'numrows' => $numrows,

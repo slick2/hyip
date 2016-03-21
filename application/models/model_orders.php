@@ -5,11 +5,11 @@ class Model_Orders extends Model
 
     public function get_data()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $numposts = 10;
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $uid = Session::get('id');
-        $posts = intval($mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetch_row()[0]);
+        $posts = intval($mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)']);
         $total = ($posts - 1) / $numposts + 1;
         if (empty($page) or $page < 0)
             $page = 1;
@@ -17,20 +17,17 @@ class Model_Orders extends Model
             $page = $total;
         $start = $page * $numposts - $numposts;
 
-        $query = $mysqli->query("SELECT operation,sum,code,cash_id,date FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) ORDER BY date DESC LIMIT $start,$numposts");
-        $qcash = $mysqli->query("SELECT id,cash FROM hyip_cash WHERE user_id=$uid");
-        $qouts = $mysqli->query("SELECT id,sum FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) AND operation=1 AND code=0");
-        $qrefs = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid");
+        $qcash = $mysqli->query("SELECT id,cash FROM hyip_cash WHERE user_id=$uid")->fetchAll();
+        $qouts = $mysqli->query("SELECT id,sum FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) AND operation=1 AND code=0")->fetchAll();
         $cash = 0;
         $outs = 0;
-        $refs = $qrefs->fetch_assoc()['percents'];
+        $refs = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid")->fetchSingleRow()['percents'];
         //sum of cash
-        while ($crow = $qcash->fetch_assoc())
+        foreach ($qcash as $crow)
         {
             $mult = 1;
 
-            $qcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$crow['id']} )");
-            $cur = $qcur->fetch_assoc()['currency'];
+            $cur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$crow['id']} )")->fetchSingleRow()['currency'];
             if (strcasecmp($cur, 'USD') != 0)
             {
                 $mult = GetExchangeRate();
@@ -38,11 +35,9 @@ class Model_Orders extends Model
             $cash += ($crow['cash'] / $mult);
         }
         //sum of outs
-        while ($orow = $qouts->fetch_assoc())
+        foreach ($qouts as $orow)
         {
-            $qtcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id IN ( SELECT cash_id FROM hyip_orders WHERE id= {$orow['id']} ))");
-            echo $mysqli->error;
-            $tcur = $qtcur->fetch_assoc()['currency'];
+            $tcur = $mysqli->query("SELECT currency FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id IN ( SELECT cash_id FROM hyip_orders WHERE id= {$orow['id']} ))")->fetchSingleRow()['currency'];
             $mult = 1;
             if (strcasecmp($tcur, 'USD') != 0)
             {
@@ -73,7 +68,9 @@ class Model_Orders extends Model
 
         $operations = array('Пополнение', 'Вывод');
         $status = array('Выполнено', 'Ожидается');
-        while ($row = $query->fetch_assoc())
+        $query = $mysqli->query("SELECT operation,sum,code,cash_id,date FROM hyip_orders WHERE cash_id IN (SELECT id FROM hyip_cash WHERE user_id=$uid) ORDER BY date DESC LIMIT $start,$numposts")->fetchAll();
+        
+        foreach ($query as $row)
         {
             $qpsname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id IN (SELECT paysystem_id FROM hyip_payaccounts WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE id={$row['cash_id']}))");
             $psname = $qpsname->fetch_assoc()['name'];

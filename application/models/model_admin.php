@@ -6,11 +6,12 @@ class Model_Admin extends Model
     public function get_systems()
     {
         $data = array();
-        $mysqli = $GLOBALS['mysqli'];
+        //$mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $uid = Session::get('id');
-        $qsyst = $mysqli->query("SELECT name FROM hyip_paysystems");
+        $qsyst = $mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
 
-        while ($srow = $qsyst->fetch_assoc())
+        foreach ($qsyst as $srow)
         {
             $data[] = $srow['name'];
         }
@@ -19,21 +20,23 @@ class Model_Admin extends Model
 
     public function add_account()
     {
-        $mysqli = $GLOBALS['mysqli'];
-        $system = $mysqli->real_escape_string($_POST['paysystem']);
-        $number = $mysqli->real_escape_string($_POST['paynumber']);
-        $account = $mysqli->real_escape_string($_POST['account']);
-        $pass = $mysqli->real_escape_string($_POST['password']);
-        $cur = $mysqli->real_escape_string($_POST['currency']);
-        $inout = $mysqli->real_escape_string($_POST['inout']);
+        //$mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
+        $system = $mysqli->quote($_POST['paysystem']);
+        $number = $mysqli->quote($_POST['paynumber']);
+        $account = $mysqli->quote($_POST['account']);
+        $pass = $mysqli->quote($_POST['password']);
+        $cur = $mysqli->quote($_POST['currency']);
+        $inout = $mysqli->quote($_POST['inout']);
 
-        $qsid = $mysqli->query("SELECT id FROM hyip_paysystems WHERE name='$system'")->fetch_assoc()['id'];
+        $qsid = $mysqli->query("SELECT id FROM hyip_paysystems WHERE name='$system'")->fetchSingleRow()['id'];
         $qadd = $mysqli->query("INSERT INTO hyip_admaccounts (paysystem_id,paynumber,account,password,currency,`inout`) VALUES($qsid,'$number','$account','$pass','$cur','$inout')");
     }
 
     public function change_account()
     {
-        $mysqli = $GLOBALS['mysqli'];
+        //$mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
         $qaccs = $mysqli->query("SELECT id FROM hyip_admaccounts");
         while ($row = $qaccs->fetch_assoc())
         {
@@ -56,13 +59,14 @@ class Model_Admin extends Model
     public function get_accounts()
     {
         $data = array();
-        $mysqli = $GLOBALS['mysqli'];
+        $mysqli = Database::getInstance();
+        //$mysqli = $GLOBALS['mysqli'];
         $uid = Session::get('id');
-        $qaccs = $mysqli->query("SELECT id,paysystem_id,currency,paynumber,`inout` FROM hyip_admaccounts");
+        $qaccs = $mysqli->query("SELECT id,paysystem_id,currency,paynumber,`inout` FROM hyip_admaccounts")->fetchAll();
 
-        while ($row = $qaccs->fetch_assoc())
+        foreach ($qaccs as $row)
         {
-            $syst = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id={$row['paysystem_id']}")->fetch_assoc()['name'];
+            $syst = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id={$row['paysystem_id']}")->fetchSingleRow()['name'];
             $options = array("Ввод+вывод", "Ввод", "Вывод");
             $index = intval($row['inout']);
             switch ($index)

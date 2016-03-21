@@ -53,7 +53,7 @@ class Database
     }
     public function fetchNumRows()
     {
-        return $this->conn->num_rows;
+        return count($this->result);
     }
 
     public function fetchSingleRow()
