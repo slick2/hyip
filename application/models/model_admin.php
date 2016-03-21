@@ -47,7 +47,7 @@ class Model_Admin extends Model
             {
                 if (isset($_POST[$iid]))
                 {
-                    $qchange = $mysqli->query("UPDATE hyip_admaccounts SET `inout`='{ $_POST[$iid]} ' WHERE id={$row['id']}");
+                    $qchange = $mysqli->query("UPDATE hyip_admaccounts SET `inout`='{$_POST[$iid]}' WHERE id={$row['id']}");
                 }
             }
         }

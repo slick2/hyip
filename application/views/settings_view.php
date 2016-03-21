@@ -1,7 +1,10 @@
 <div class="right-wrap">
     <div class="balance-wrap">
         <form action="" id="changeform" method="post">
-
+            <?php
+            if(isset($data['message']))
+                echo $data['message'];
+            ?>
             <h2>Изменение данных:</h2>
             <p><label for="full_name">Изменение имени:<br>
                     <input class="input" id="full_name" name="full_name"size="32"  type="text" value=""></label></p>
