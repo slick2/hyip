@@ -20,7 +20,10 @@ class Controller_Pay extends Controller
     function action_fail()
     {
         $data = "Ошибка пополнения.<a href='/private'>Вернуться в личный кабинет</a>";
-        $this->view->generate('pay_view.php','template_view.php',$data);
-        
+        $this->view->generate('pay_view.php','template_view.php',$data);  
+    }
+    function action_out()
+    {
+        require_once 'include/out.php';
     }
 }
