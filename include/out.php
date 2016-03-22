@@ -17,7 +17,7 @@ foreach ($qcash as $row)
     if ($row['account'] != NULL) 
     {
         $mysqli->query('START TRANSACTION;');
-        $mysqli->query("UPDATE hyip_cash SET outs=outs+1, last_out='$now' WHERE id={$row['id']}");
+        $mysqli->query("UPDATE hyip_cash SET outs=outs+1, WHERE id={$row['id']}");
         $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,0)");
         $mysqli->query('COMMIT');
         $message .= "Вывод суммы: " . $sum . " " . strtoupper($row['currency']) . "\n";
