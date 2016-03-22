@@ -2,7 +2,6 @@
     <div class="balance-wrap">
 
         <h2>Кабинет</h2>
-
         <div class="bb-box">
             <div class="title-bb">Здесь отображена сумма средств, которые вы положили на депозит:</div>
             <div class="ri-bb"><a class="btn-priv" href="addmoney">Создать депозит</a></div>

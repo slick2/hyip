@@ -26,4 +26,8 @@ class Controller_Pay extends Controller
     {
         require_once 'include/out.php';
     }
+    function action_rates()
+    {
+        require_once 'include/exdaily.php';
+    }
 }
