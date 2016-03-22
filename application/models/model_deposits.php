@@ -11,10 +11,6 @@ class Model_Deposits extends Model
         $sum = (float) $mysqli->quote($_POST['sum']);
         $args = explode("_", $mysqli->quote($_POST['moneyadd']));
         $cur = isset($args[1]) ? strtoupper($args[1]) : "RUB";
-        $syst = $mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
-INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
-INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
-WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$args[0]}'")->fetchAll();
 
 
         $query = $mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems

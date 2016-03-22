@@ -8,7 +8,6 @@ class Model_Admin extends Model
         $data = array();
         //$mysqli = $GLOBALS['mysqli'];
         $mysqli = Database::getInstance();
-        $uid = Session::get('id');
         $qsyst = $mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
 
         foreach ($qsyst as $srow)
@@ -61,7 +60,6 @@ class Model_Admin extends Model
         $data = array();
         $mysqli = Database::getInstance();
         //$mysqli = $GLOBALS['mysqli'];
-        $uid = Session::get('id');
         $qaccs = $mysqli->query("SELECT id,paysystem_id,currency,paynumber,`inout` FROM hyip_admaccounts")->fetchAll();
 
         foreach ($qaccs as $row)
