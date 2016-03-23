@@ -32,5 +32,3 @@ class Controller_Settings extends Controller
     }
 
 }
-
-?>

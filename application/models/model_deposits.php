@@ -29,6 +29,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
                     . "INNER JOIN hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) "
                     . "WHERE hsys.name = '{$args[0]}' AND hp.currency='$cur' AND hc.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
         }
+        $qr = $mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
 
         $addorder = $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,sum,code) VALUES ({$mysqli->insert_id},0,$sum,0)");
 
@@ -36,7 +37,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         if ($qparent != 0)
         {
             $parent = $mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchAll()['parent_id'];
-            $percent = (float)$_POST['sum'] * REFERRAL_PERCENT;
+            $percent = $sum * REFERRAL_PERCENT;
             if (strcasecmp($args[1], 'rub') == 0)
             {
                 $percent = $percent / GetExchangeRate();
@@ -47,7 +48,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         $ref = strtolower($args[0]);
         return array(
             'syst' => $args[0],
-            'sum' => $_POST['sum'],
+            'sum' => $sum,
             'currency' => $args[1],
             'ref' => $ref
         );

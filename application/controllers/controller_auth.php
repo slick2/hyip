@@ -17,15 +17,16 @@ class Controller_Auth extends Controller
         {
             if ($_POST['repeat_password'] == $_POST['password'])
             {
-                $full_name = htmlspecialchars($_POST['full_name']);
-                $email = htmlspecialchars($_POST['email']);
-                $password = htmlspecialchars($_POST['password']);
+                $mysqli = Database::getInstance();
+                $full_name = $mysqli->quote($_POST['full_name']);
+                $email = $mysqli->quote($_POST['email']);
+                $password = $mysqli->quote($_POST['password']);
                 $numrows = $this->model->get_num_users($email);
                 if ($numrows == 0)
                 {
                     if (isset($_GET['ref']))
                     {
-                        $refid = $_GET['ref'];
+                        $refid = $mysqli->quote($_GET['ref']);
                     }
                     $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
                     if ($result)
@@ -67,7 +68,7 @@ class Controller_Auth extends Controller
 
     function action_activate()
     {
-        $email = $_GET['email'];
+        $email = $mysqli->quote($_GET['email']);
         $res = $this->model->activate_user($email);
         header("Location: private");
     }
@@ -76,9 +77,10 @@ class Controller_Auth extends Controller
     {
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
+            $mysqli = Database::getInstance();
             $message = "OK";
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
+            $email = $mysqli->quote($_POST['email']);
+            $password = $mysqli->quote($_POST['password']);
             $rs = $this->model->get_user_by_mail($email);
             if ($rs[0] != 0)
             {
