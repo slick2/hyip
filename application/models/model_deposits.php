@@ -2,7 +2,7 @@
 
 class Model_Deposits extends Model
 {
-
+    
     public function add_deposit()
     {
         $mysqli = Database::getInstance();
@@ -31,7 +31,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         }
         $qr = $mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
 
-        $addorder = $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,sum,code) VALUES ({$mysqli->insert_id},0,$sum,0)");
+        $addorder = $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,sum,code) VALUES ({$mysqli->getInsertId()},0,$sum,1)");
 
         $qparent = $mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchNumRows();
         if ($qparent != 0)
@@ -50,7 +50,8 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
             'syst' => $args[0],
             'sum' => $sum,
             'currency' => $args[1],
-            'ref' => $ref
+            'ref' => $ref,
+            'orderid'=> $mysqli->getInsertId()
         );
     }
 

@@ -36,6 +36,11 @@ class Database
         }
         return self::$_instance;
     }
+    
+    public function getInsertId()
+    {
+        return $this->conn->insert_id;
+    }
 
     public function query($query)
     {

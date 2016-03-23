@@ -1,8 +1,8 @@
 <?php
 $m_shop = '144310282';
-$m_orderid = '1';
-$m_amount = number_format($_POST['sum'], 2, '.', '');
-$m_curr = $args[1];
+$m_orderid = $data['orderid'];
+$m_amount = number_format($data['sum'], 2, '.', '');
+$m_curr = $data['currency'];
 $m_desc = base64_encode('Test');
 $m_key = 'URIqne6w0NXbg9GI';
 

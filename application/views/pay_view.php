@@ -1,3 +1,3 @@
 <?php
 
-echo "<span>$data</span>";
+echo "<span>{$data['message']}</span>";

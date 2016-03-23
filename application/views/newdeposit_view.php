@@ -10,7 +10,7 @@
             </div>
             <p><label for="sum">Введите сумму:<br>
                     <input class="input" id="sum" name="sum" type="text" value="10"></label></p>
-            <p class="submit"><input class="btn_save" id="addcash" name= "adddcash" type="submit" value="Пополнить"></p>
+            <p class="submit"><input class="btn_save" id="addcash" name= "addcash" type="submit" value="Пополнить"></p>
             <div class="new_depos">
                 <div class="logo-py">Выберите эту платежную систему если Вы имеете средства на ней или создайте новый кошелек.</div>
                 <div class="val_usd">
