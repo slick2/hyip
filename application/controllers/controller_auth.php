@@ -82,8 +82,6 @@ class Controller_Auth extends Controller
             $email = $mysqli->quote($_POST['email']);
             $password = $mysqli->quote($_POST['password']);
             $rs = $this->model->get_user_by_mail($email);
-            echo 'Test';
-            var_dump($rs);
             if ($rs[0] != 0)
             {
                 foreach ($rs[1] as $row)
@@ -103,20 +101,35 @@ class Controller_Auth extends Controller
                     }
                     else
                     {
-                        Session::set('email', $email);
-                        Session::set('name', $fullname);
-                        Session::set('role', $role);
-                        Session::set('id', $id);
-                        switch ($role)
+                        $safety = $this->model->set_last_login($id);
+                        if ($safety == 'ok')
                         {
-                            case 'user':
-                                header("Location: private");
-                                break;
-                            case 'admin':
-                                header("Location: admin");
-                                break;
-                            default:
-                                echo 'Произошла ошибка входа';
+                            Session::set('email', $email);
+                            Session::set('name', $fullname);
+                            Session::set('role', $role);
+                            Session::set('id', $id);
+                            switch ($role)
+                            {
+                                case 'user':
+                                    header("Location: private");
+                                    break;
+                                case 'admin':
+                                    header("Location: admin");
+                                    break;
+                                default:
+                                    echo 'Произошла ошибка входа';
+                            }
+                        }
+                        else
+                        {
+                            switch ($safety)
+                            {
+                                case 'ip':
+                                    $message = "Ваш ip-адрес изменился с последнего входа";
+                                    break;
+                                case 'browser':
+                                    $message = "Ваш браузер изменился с последнего входа";
+                            }
                         }
                     }
                 }
@@ -132,7 +145,7 @@ class Controller_Auth extends Controller
         }
         else
         {
-            $message = "All fields are required!";
+            $message = "Заполните все поля.";
         }
         $data = array();
         $data['message'] = $message;

@@ -16,10 +16,6 @@
                 </div>
             </div>
 
-
-
-
-
             <p class="submit"><input class="button" name="login" type= "submit" value="Войти"></p>
             <div class="log_invalid">
                 <span>
