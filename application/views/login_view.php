@@ -1,49 +1,32 @@
-<div class="container mlogin">
-    <div id="login">
-        <form action="" id="loginform" method="post" name="loginform">
-            <div class="logo_log"></div>
-            <div style="margin: auto;">
-                <label class="lbl_log" for="user_login">E-mail:<br></label>
-                <div class="input-prepend">
-                    <span class="add-on"><i class="fa fa-user"></i></span>
-                    <input class="span2" id="inputIcon" type="text" name="email">
-                </div>
+<div class="container">
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-2 form-lock">
 
-                <label class="lbl_log" for="user_pass">Пароль:<br></label>
-                <div class="input-prepend">
-                    <span class="add-on"><i class="fa fa-key"></i></span>
-                    <input class="span2" id="inputIcon" type="password" name="password">
-                </div>
-            </div>
+    <div class="form-log">
+    <div class="company-logo-lock"></div>
+    <form class="form-horizontal" role="form" method="post" name="loginform" action="">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" name="email" class="form-control input-log" id="inputIcon" autocomplete="off" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
+    <div class="col-sm-10">
+      <input type="password" name="password" class="form-control input-log" id="inputIcon" autocomplete="off" placeholder="Пароль">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input class="btn btn-default log-btn" name="login" type= "submit" value="Войти">
+    </div>
+  </div>
+</form>
+</div>
+    </div>
+    <div class="col-xs-4 img-lock">
 
-
-
-
-
-            <p class="submit"><input class="button" name="login" type= "submit" value="Войти"></p>
-            <div class="log_invalid">
-                <span>
-                    <?php
-                    if (isset($_POST["login"]))
-                    {
-                        extract($data);
-                        if ($message == "OK")
-                        {
-                            echo "<p style='color:green'>Авторизация прошла успешно.</p>";
-                        }
-                        else
-                        {
-                            echo "<p style='color:red'><i class='fa fa-exclamation-circle'></i>$message</p>";
-                        }
-                    }
-                    ?>
-                </span>
-            </div>
-        </form>
-        <div class="new_user">
-            <p>Еще нет аккаунта?</p>
-            <a href= "auth/register">Создать аккаунт</a>
-            <p>Copyright 2015 RocketStation. Все права защищены.</p>
-        </div>
+    </div>
     </div>
 </div>

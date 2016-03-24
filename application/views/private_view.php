@@ -1,5 +1,5 @@
 
-        <div class="row">
+        <div class="">
             <table class="private-table">
                 <tr>
                     <th colspan="2">Обзор баланса</th>
@@ -10,10 +10,12 @@
                 </tr>
             </table>
         </div>
-        <div class="row balance">
-
+        <div class=" balance">
+            <div class="col-md-2 balance-lbl">Баланс</div>
+            <div class="col-md-4" style="font-size: 30px;"><?php echo $data['cash'][0] . "."; ?><small><?php echo $data['cash'][1]; ?> $ </small></div>
+            <a href="/deposits/add" class="add-depos">Создать депозит</a>
         </div>
-        <div class="row" style="margin-bottom: 35px;">
+        <div class="" style="margin-bottom: 35px;">
                 <table class="table-history">
     <tr><th>Операция</th><th>Сумма</th><th>Система</th><th>Статус</th><th>Дата</th></tr>
     <?php

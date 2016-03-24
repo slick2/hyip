@@ -2,10 +2,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Вход</title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/custom.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/lk-style.css">
 
 	<style>
 		body {
