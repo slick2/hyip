@@ -23,7 +23,7 @@
                 </ul>
             </div>
             <span><a href="private"><i class="fa fa-user"></i> <?php echo Session::get('name'); ?></a>
-                <a class="btn-lk" href="/logout">Выйти <i class="fa fa-sign-out"></i></a>
+                <a class="btn-lk" href="/auth/logout">Выйти <i class="fa fa-sign-out"></i></a>
                 <i class="fa fa-clock-o" style="margin-left: 20px; padding-right: 5px;"></i><span id="time"></span>
             </span>
         </div>

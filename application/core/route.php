@@ -37,7 +37,6 @@ class Route
         {
             $controller_name = $controllers[$controller_name];
         }
-
         if (isset($models[$controller_name]))
         {
             $model_name = $models[$controller_name];
@@ -46,12 +45,10 @@ class Route
         {
             $model_name = "";
         }
-
         $controller_name = 'Controller_' . $controller_name;
         $action_name = 'action_' . $action_name;
-
         // подцепляем файл с классом модели (файла модели может и не быть)
-        //echo "Model: $model_name Controller: $controller_name";
+
         $model_file = strtolower($model_name) . '.php';
         $model_path = "application/models/" . $model_file;
         if (file_exists($model_path))

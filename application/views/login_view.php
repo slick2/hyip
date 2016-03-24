@@ -42,7 +42,7 @@
         </form>
         <div class="new_user">
             <p>Еще нет аккаунта?</p>
-            <a href= "auth/register">Создать аккаунт</a>
+            <a href= "/auth/register">Создать аккаунт</a>
             <p>Copyright 2015 RocketStation. Все права защищены.</p>
         </div>
     </div>

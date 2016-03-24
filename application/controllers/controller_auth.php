@@ -63,7 +63,7 @@ class Controller_Auth extends Controller
     function action_logout()
     {
         Session::destroy();
-        header("Location: auth");
+        header("Location: /auth");
     }
 
     function action_activate()
@@ -107,7 +107,17 @@ class Controller_Auth extends Controller
                         Session::set('name', $fullname);
                         Session::set('role', $role);
                         Session::set('id', $id);
-                        header("Location: private");
+                        switch ($role)
+                        {
+                            case 'user':
+                                header("Location: private");
+                                break;
+                            case 'admin':
+                                header("Location: admin");
+                                break;
+                            default:
+                                echo 'Произошла ошибка входа';
+                        }
                     }
                 }
                 else

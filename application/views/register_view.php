@@ -34,7 +34,7 @@
 
         <div class="new_user">
             <p>Уже зарегистрированы?</p>
-            <a href= "login">Войти</a>
+            <a href= "/auth">Войти</a>
             <p>Copyright 2015 RocketStation. Все права защищены.</p>
         </div>
 
