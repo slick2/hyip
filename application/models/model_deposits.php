@@ -134,7 +134,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         $data = array();
         $numposts = 10;
 
-        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)'];
+        $posts = $mysqli->query("SELECT COUNT(id) FROM hyip_cash")->fetchSingleRow()['COUNT(id)'];
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $total = intval(($posts - 1) / $numposts) + 1;
         if (empty($page) or $page < 0)
@@ -144,13 +144,13 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         $start = $page * $numposts - $numposts;
 
         $uid = Session::get('id');
-        $query = $mysqli->query("SELECT payaccount_id,created,cash,outs,id FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC LIMIT $start,$numposts")->fetchAll();
+        $query = $mysqli->query("SELECT sys.name AS name,cash.created AS created,cash.cash AS cash,cash.outs AS outs,cash.id AS id FROM hyip_cash AS cash "
+                . "INNER JOIN hyip_payaccounts AS acc ON (cash.payaccount_id = acc.id)"
+                . "INNER JOIN hyip_paysystems AS sys ON(acc.paysystem_id = sys.id)"
+                . "WHERE cash.user_id=$uid ORDER BY created DESC LIMIT $start,$numposts")->fetchAll();
 
         foreach ($query as $row)
         {
-            $paid = $row['payaccount_id'];
-            $psid = $mysqli->query("SELECT paysystem_id FROM hyip_payaccounts WHERE id=$paid")->fetchSingleRow()["paysystem_id"];
-            $pname = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id=$psid")->fetchSingleRow()["name"];
 
             $lastpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') - 1, date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y')));
             $nextpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') + 1, date('y')));
@@ -163,7 +163,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
             $date = $date->format("d.m.y");
             $data[] = array(
                 'date' => $date,
-                'pname' => $pname,
+                'pname' => $row['name'],
                 'cash' => $row['cash'],
                 'outs' => $row['outs'],
                 'lastpaid' => $lastpaid,

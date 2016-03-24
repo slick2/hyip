@@ -6,8 +6,9 @@ class Model_Auth extends Model
     public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
     {
         $mysqli = Database::getInstance();
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents) VALUES('$full_name','$email', '$password', '$active','$role',$parent_id,'$percents')";
-        $result = $mysqli->query($sql)->fetchAll();
+        $result = $mysqli->query($sql)->result;
         return $result;
     }
 

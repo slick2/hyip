@@ -11,7 +11,7 @@ class Controller_Auth extends Controller
 
     function action_register()
     {
-        $refid = NULL;
+        $refid = 'NULL';
         $data = array();
         if (!empty($_POST['full_name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['repeat_password']))
         {
@@ -82,6 +82,8 @@ class Controller_Auth extends Controller
             $email = $mysqli->quote($_POST['email']);
             $password = $mysqli->quote($_POST['password']);
             $rs = $this->model->get_user_by_mail($email);
+            echo 'Test';
+            var_dump($rs);
             if ($rs[0] != 0)
             {
                 foreach ($rs[1] as $row)
@@ -107,6 +109,10 @@ class Controller_Auth extends Controller
                         Session::set('id', $id);
                         header("Location: private");
                     }
+                }
+                else
+                {
+                    $message = 'Неправильный email или пароль. Повторите попытку.';
                 }
             }
             else
