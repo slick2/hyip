@@ -4,7 +4,7 @@ $mysqli = Database::getInstance();
 $holidays = array(0, 6);
 $message = "";
 $percent = in_array(date("w", strtotime("today")), $holidays) ? HOLIDAY_PERCENT : BUSINESS_PERCENT;
-$qcash = $mysqli->query("select hc.date as date, hc.id as id, hc.cash*$percent as cash, hp.currency as currency, hu.email as email, acc.account as account, hsys.name as name 
+$qcash = $mysqli->query("select hc.date as date, hc.id as id, hc.cash*$percent as cash, hu.email as email, acc.account as account, hsys.name as name 
 from  hyip_payaccounts hp 
 inner join hyip_cash hc ON (hc.payaccount_id=hp.id)
 inner join hyip_users hu ON (hc.user_id=hu.id)
@@ -20,7 +20,7 @@ foreach ($qcash as $row)
         $mysqli->query("UPDATE hyip_cash SET outs=outs+1, WHERE id={$row['id']}");
         $mysqli->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,0)");
         $mysqli->query('COMMIT');
-        $message .= "Вывод суммы: " . $sum . " " . strtoupper($row['currency']) . "\n";
+        $message .= "Вывод суммы: $sum \n";
         $message .= "Пользователю: " . $row['email'] . "\n";
         $message .= "На кошелек: " . $row['name'] . " " . $row['account'] . "\n";
     }

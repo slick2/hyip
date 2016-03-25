@@ -1,5 +1,5 @@
 <div class='right-wrap'>
-    Платежная система: <?php echo $data['syst'] ?><br> Сумма: <?php echo $data['sum'] . " " . $data['currency'] ?>
+    Платежная система: <?php echo $data['syst']; ?><br> Сумма: <?php echo $data['sum'];  ?>
     <?php
     $ref = strtolower($data['syst']);
     if (file_exists("include/$ref.php"))

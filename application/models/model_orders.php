@@ -17,13 +17,15 @@ class Model_Orders extends Model
             $page = $total;
         $start = $page * $numposts - $numposts;
 
-        $qcash = $mysqli->query("SELECT cash.id as id,cash.cash as cash,acc.currency as currency FROM hyip_cash as cash "
+        $qcash = $mysqli->query("SELECT cash.id as id,cash.cash as cash, sys.name AS name FROM hyip_cash as cash "
                 . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
+                . "INNER JOIN hyip_paysystems as sys ON (sys.id = acc.paysystem_id) "
                 . "WHERE user_id=$uid")->fetchAll();
-        $qouts = $mysqli->query("SELECT ord.id as id,ord.sum as sum,acc.currency as currency FROM hyip_orders as ord "
+        $qouts = $mysqli->query("SELECT ord.id as id,ord.sum as sum,sys.name AS name FROM hyip_orders as ord "
                 . "INNER JOIN hyip_cash as cash ON (cash.id = ord.cash_id) "
                 . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
-                . "WHERE cash.user_id=$uid AND ord.operation = 1 AND code=0")->fetchAll();
+                . "INNER JOIN hyip_paysystems as sys ON (sys.id = acc.paysystem_id) "
+                . "WHERE cash.user_id=$uid AND ord.operation = 1 AND ord.code=0")->fetchAll();
         $cash = 0;
         $outs = 0;
         $refs = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid")->fetchSingleRow()['percents'];
@@ -32,7 +34,7 @@ class Model_Orders extends Model
         {
             $mult = 1;
 
-            if (strcasecmp($crow['currency'], 'USD') != 0)
+            if (stripos($crow['name'], 'RUB') !== FALSE)
             {
                 $mult = GetExchangeRate();
             }
@@ -42,7 +44,7 @@ class Model_Orders extends Model
         foreach ($qouts as $orow)
         {
             $mult = 1;
-            if (strcasecmp($orow['currency'], 'USD') != 0)
+            if (stripos($orow['name'], 'RUB') !== FALSE)
             {
                 $mult = GetExchangeRate();
             }

@@ -16,17 +16,16 @@ class Model_Deposits extends Model
         $uid = Session::get('id');
         
         $sum = (float) $mysqli->quote($_POST['sum']);
-        $args = explode("_", $mysqli->quote($_POST['moneyadd']));
-        $cur = isset($args[1]) ? strtoupper($args[1]) : "RUB";
+        $system = str_replace('_',' ',$mysqli->quote($_POST['moneyadd']));
 
-
+        
         $query = $mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
 INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
 INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
-WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$args[0]}'")->fetchNumRows();
+WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
         if ($query == 0)
         {
-            $cid = $mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id,currency) SELECT id,'$cur' FROM hyip_paysystems WHERE name='{$args[0]}'")->result->insert_id;
+            $cid = $mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='{$system}'")->result->insert_id;
         }
         else
         {
@@ -34,7 +33,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
                     . "FROM hyip_payaccounts as hp "
                     . "INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id) "
                     . "INNER JOIN hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) "
-                    . "WHERE hsys.name = '{$args[0]}' AND hp.currency='$cur' AND hc.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
+                    . "WHERE hsys.name = '{$system}' AND hc.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
         }
         $qr = $mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
 
@@ -45,7 +44,7 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         {
             $parent = $mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchAll()['parent_id'];
             $percent = $sum * REFERRAL_PERCENT;
-            if (strcasecmp($args[1], 'rub') == 0)
+            if (stripos($system, 'RUB') === false)
             {
                 $percent = $percent / GetExchangeRate();
             }
@@ -56,7 +55,6 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         return array(
             'syst' => $args[0],
             'sum' => $sum,
-            'currency' => $args[1],
             'ref' => $ref,
             'orderid'=> $mysqli->getInsertId()
         );
@@ -76,10 +74,9 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         }
 
         $paid = $first['payaccount_id'];
-        $acc = $mysqli->query("SELECT paysystem_id,currency FROM hyip_payaccounts WHERE id=$paid")->fetchSingleRow();
+        $acc = $mysqli->query("SELECT paysystem_id FROM hyip_payaccounts WHERE id=$paid")->fetchSingleRow();
         $psid = $acc["paysystem_id"];
-        $syst = $mysqli->query("SELECT name,image FROM hyip_paysystems WHERE id=$psid")->fetchSingleRow();
-        $pimage = $syst["image"];
+        $syst = $mysqli->query("SELECT name FROM hyip_paysystems WHERE id=$psid")->fetchSingleRow();
         $lastpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') - 1, date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y')));
         $nextpaid = (strtotime("now") < strtotime("today 12:00")) ? date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d'), date('y'))) : date("h:i,d.m.y", mktime(12, 0, 0, date('m'), date('d') + 1, date('y')));
         if ($first['outs'] === '0')
@@ -97,7 +94,6 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
         {
             $prib += $row['sum'];
         }
-        $img = 'hyip/img/' . $pimage;
 
         return array(
             'depname' => $depname,
@@ -107,10 +103,8 @@ WHERE cash.user_id = $uid AND accounts.currency='$cur' AND systems.name = '{$arg
             'lastpaid' => $lastpaid,
             'biz' => $biz,
             'nobiz' => $nobiz,
-            'currency' => $acc['currency'],
             'prib' => $prib,
             'cash' => $first['cash'],
-            'img' => $img
         );
     }
 

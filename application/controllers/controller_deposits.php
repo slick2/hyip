@@ -49,7 +49,7 @@ class Controller_Deposits extends Controller
             }
             else
             {
-                $data = $this->model->get_paysystems();
+                $data['systems'] = $this->model->get_paysystems();
                 $this->view->generate('newdeposit_view.php', 'template_view.php',$data);
             }
         }

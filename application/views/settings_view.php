@@ -21,7 +21,7 @@
                 <?php
                 foreach ($data['systems'] as $value)
                 {
-                    echo "<tr><td><label>{$value['name']} {$value['currency']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='" . $value['account'] . "'></td></tr>";
+                    echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='" . $value['account'] . "'></td></tr>";
                 }
                 ?>
                 <tr><td>E-mail адрес</td><td>
