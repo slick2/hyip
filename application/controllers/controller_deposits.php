@@ -19,7 +19,7 @@ class Controller_Deposits extends Controller
                 'deposits' => $this->model->get_all_deposits(),
                 'page' => $td['page'],
                 'start' => $td['start'],
-                'total' => $td['total']
+                'total' => $td['total'],
             );
             $this->view->generate('deposits_view.php', 'template_view.php', $data);
         }
@@ -49,7 +49,8 @@ class Controller_Deposits extends Controller
             }
             else
             {
-                $this->view->generate('newdeposit_view.php', 'template_view.php');
+                $data = $this->model->get_paysystems();
+                $this->view->generate('newdeposit_view.php', 'template_view.php',$data);
             }
         }
         else

@@ -67,6 +67,7 @@
                     <li><a href="/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;">Выход</a></li>
                     <?php else: ?>
                     <li><a href="/admin"><i class="fa fa-cogs"></i>Администрирование</a></li>
+                    <li><a href="/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;">Выход</a></li>
                     <?php endif; ?>
                 </ul> 
             </div>
@@ -76,7 +77,7 @@
                 <div class="col-xs-12">
                 <div class="usr-logo"></div> <h2><?php echo Session::get('name'); ?></h2>
                     <div class="col-xs-12" style="border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8">
-                        <div class=" ref-link"><p>Реферальная ссылка<p></div><div class="col-md-5"><h5><?php echo "http://". $_SERVER['SERVER_NAME']."/register?ref=".Session::get('id');?></h5></div>
+                        <div class=" ref-link"><p>Реферальная ссылка<p></div><div class="col-md-5"><h5><?php echo "http://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?></h5></div>
                     </div>
                     
                 </div>

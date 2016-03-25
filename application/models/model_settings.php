@@ -3,9 +3,30 @@
 class Model_Settings extends Model
 {
 
+    public function update_safety()
+    {
+        $mysqli = Database::getInstance();
+        $uid = Session::get('id');
+        $track_ip = $mysqli->quote($_POST['ip']);
+        $track_browser = $mysqli->quote($_POST['browser']);
+        $istrack_db = $mysqli->query("SELECT ip_track,browser_track FROM hyip_users WHERE id=$uid")->fetchSingleRow();
+        $track_ip_db = intval($istrack_db["ip_track"]);
+        $track_browser_db = intval($istrack_db["browser_track"]);
+        $track_ip = $track_ip == "on" ? 1 : 0;
+        $track_browser = $track_browser == "on" ? 1 : 0;
+        if($track_ip != $track_ip_db)
+        {
+            $mysqli->query("UPDATE hyip_users SET ip_track=$track_ip");
+        }
+        if($track_browser != $track_browser_db)
+        {
+            $mysqli->query("UPDATE hyip_users SET browser_track=$track_browser");
+        }
+    }
+
+
     public function update_user()
     {
-        //$mysqli = $GLOBALS['mysqli'];
         $mysqli = Database::getInstance();
         $uid = Session::get('id');
         $smail = Session::get('email');

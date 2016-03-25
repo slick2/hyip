@@ -14,10 +14,9 @@
         </div>
         <div class="col-xs-4 col-xs-offset-4">
             <select class="select">
-                <option>Payer</option>
-                <option>PerfectMoney</option>
-                <option>advCach</option>
-                <option>Bitcoin</option>
+                <?php foreach($data as $value): ?>
+                <option><?php echo $value['name']; ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
     </div>

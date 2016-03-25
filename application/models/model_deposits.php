@@ -2,7 +2,14 @@
 
 class Model_Deposits extends Model
 {
-    
+    public function get_paysystems()
+    {
+        $mysqli = Database::getInstance();
+        $names = $mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
+        return $names;
+    }
+
+
     public function add_deposit()
     {
         $mysqli = Database::getInstance();
