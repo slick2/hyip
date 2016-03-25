@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/lk-style.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	
 
 	<style>
 		body {
@@ -13,7 +15,7 @@
     font-size: 14px;
         margin: 0;
     height: 100%;
-    background: url(img/bg.png) repeat;
+    background: url(/img/bg.png) repeat;
 	}
 
 	.add-on{
@@ -28,4 +30,6 @@
 <?php include 'application/views/'.$content_view; ?>
 
 </body>
+<script type="text/javascript" src="/js/jquery.placeholder.min"></script>
+<script type="text/javascript" src="/js/modernizr.custom.63321"></script>
 </html>

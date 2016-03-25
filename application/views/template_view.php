@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-            <title>Пирамида</title>
+            <title>ITInvestproject</title>
             <link rel="icon" type="/image/png" href="ic1.png" sizes="16x16"/>
             <!--link rel="stylesheet" href="/css/style.css" type='text/css' media='all'/-->
             <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css"/>

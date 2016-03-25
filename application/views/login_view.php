@@ -1,33 +1,47 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-4 col-xs-offset-2 form-lock">
+        
+            <!-- Codrops top bar -->
+            <div class="company-logo-lock">
+            
+            </div><!--/ Codrops top bar -->
 
-
-            <div class="form-log">
-                <div class="company-logo-lock"></div>
-                <form class="form-horizontal" role="form" method="post" name="loginform" action="">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" name="email" class="form-control input-log" id="inputIcon" autocomplete="off" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control input-log" id="inputIcon" autocomplete="off" placeholder="Пароль">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input class="btn btn-default log-btn" name="login" type= "submit" value="Войти">
-                        </div>
-                    </div>
-                </form>
+            
+            <section class="main">
+                <form class="form-3" action="" id="loginform" method="post" name="loginform">
+                    <p class="clearfix">
+                        <label for="login">Email</label>
+                        <input type="text" name="email" id="login" placeholder="Email">
+                    </p>
+                    <p class="clearfix">
+                        <label for="password">Пароль</label>
+                        <input type="password" name="password" id="password" placeholder="Пароль"> 
+                    </p>
+                    <p class="clearfix">
+                        <input type="submit" name="submit" value="Войти" name="login">
+                    </p>       
+                </form>​
+            <div class="log-invalid">
+                <span>
+                    <?php
+                    if (isset($data) && isset($_POST["email"]))
+                    {
+                        if ($data['message'] == "OK")
+                        {
+                            echo "<p style='color:green'>Авторизация прошла успешно.</p>";
+                        }
+                        else
+                        {
+                            echo "<p style='color:red'><i class='fa fa-exclamation-circle'></i>{$data['message']}</p>";
+                        }
+                    }
+                    ?>
+                </span>
             </div>
+                        <div class="log-reg">
+                            <p>Еще нет аккаунта?</p>
+                            <a href= "/auth/register">Регистрация</a>
+                            <p>Copyright 2015 ITInvestProject. Все права защищены.</p>
+                        </div>
+            </section>
+            
         </div>
-        <div class="col-xs-4 img-lock">
-
-        </div>
-    </div>
-</div>
