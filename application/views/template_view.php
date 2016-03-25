@@ -51,6 +51,7 @@
 
         </div>
     </div>
+<div class="container">
         
 
         <div class="row">
@@ -85,6 +86,7 @@
             </div>
         </div>
         </div>
+    </div>
         <script src="/js/jquery-2.2.1.min.js"></script>
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>
