@@ -3,15 +3,16 @@
 	width: 200px;
     background: url(../img/logo.png) no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
 }
 
 .company-logo-lock{
-        width: 100%;
+margin: 0 auto;
+    width: 400px;
+    height: 200px;
     background: url(../img/logo.png) no-repeat;
     background-position: center center;
-    background-size: cover;
-    height: 90px;
+    background-size: contain;
 }
 
 .main-nav{
@@ -22,19 +23,21 @@
     /* height: 80px; */
     padding-top: 40px;
     padding-bottom: 40px;
+    box-shadow: inset 0 0 2px 0px rgba(255,255,255,0.08), 0px 30px 58px -59px rgba(0, 0, 0, 0.6);
 
 }
 .header_main{
-        background: url(../img/bg_header.jpg) no-repeat;
+        /*background: url(../img/bg_header.jpg) no-repeat;*/
 }
 
 .main-nav .navbar-nav a{
 	color: #000 !important;
+    border: 1px solid #fff;
 }
 
 .main-nav .navbar-nav a:hover
 {
-	    border: 1px solid #fff;
+	    border: 1px solid #000;
 	    border-radius: 4px;
 }
 
@@ -85,7 +88,7 @@
 {
 
 	transition: 300ms;
-	background: #f5dd17 !important;
+	background: #38a6f0 !important;
 }
 
 .right-block{
@@ -107,7 +110,7 @@ color: #fff;
     float: left;
     /* border: 1px solid rgba(98, 139, 231, 1); */
     border-radius: 4px;
-    background: #86B024 url(../img/bg_content_link.png) no-repeat right center;
+    background: #38a6f0;
     height: 29px;
     line-height: 30px;
     width: 190px;
@@ -150,13 +153,17 @@ color: #fff;
         margin-top: 20px;
         width: 100%;
     text-align: center;
-    border:1px solid #d8d8d8;
+    /*border:1px solid #d8d8d8;*/
+        background: #111;
+    border-radius: 0.4em;
+    border: 1px solid #191919;
+    box-shadow: inset 0 0 2px 1px rgba(255,255,255,0.08), 0 16px 10px -8px rgba(0, 0, 0, 0.6);
     border-top-left-radius: 4px;
 }
 
 .table-history th{
         color:#fff;
-    background: #3c3f13;
+    background: #111;
     font-size: 17px;
     padding:10px;
     text-align: center;
@@ -185,7 +192,7 @@ color: #fff;
     line-height: 44px;
     font-weight: 300;
     color: #272727;
-    background: #F5DD17;
+    background: #38a6f0;;
     text-align: center;
     margin: 0px 15px 0px 0px;
     padding: 0px;
@@ -193,26 +200,28 @@ color: #fff;
     height: 44px;
     width: 160px;
     border-radius: 4px;
+    color:#fff;
 }
 
 .add-depos{
     text-decoration: none;
     padding: 7px;
     text-align: center;
-    border: 2px solid #000;
+    border:2px solid #38a6f0;
     border-radius: 4px;
     font-size: 18px;
     text-transform: uppercase;
     float: right;
-    color: #000;
+    color: #fff;
     transition: all 0.4s;
+    background: #38a6f0;
 }
 
 .add-depos:hover{
     color: #000;
     text-decoration: none;
-    background: #f5dd17;
-    border:2px solid #000;
+    border: 2px solid #000;
+    background: none;
     transition: all 0.4s;
 }
 
@@ -279,9 +288,9 @@ color: #fff;
 }
 
 .table-ref{
-    font-size: 30px;
+    font-size: 20px;
     width: 100%;
-    color: #88B224;
+    color: #38a6f0;
     font-weight: 300;
 }
 
@@ -323,11 +332,12 @@ color: #fff;
 }
 
 .form-log{
-        padding-top: 30px;
-    padding-bottom: 30px;
-        background: rgba(0,0,0,0.7);
-        padding-right: 20px;
-        padding-left: 20px;
+    padding-top: 30px;
+    height: 280px;
+    background: url(/img/base.png) no-repeat;
+    background-size: contain;
+    padding-right: 30px;
+    padding-left: 70px;
 }
 
 .form-log label{
@@ -355,6 +365,7 @@ color: #fff;
 
 .form-lock{
         padding-top: 200px;
+        width: 669px;
 }
 
 .ip-adres{
@@ -372,4 +383,50 @@ input[type="radio"]{
     width: 63px;
     background: url(/img/user-logo.png);
     height: 59px;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
+}
+
+.log-reg{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.log-reg a:hover{
+    text-decoration: none;
+}
+
+.log-invalid{
+    margin: 0 auto;
+    width: 30%;
+    text-align: center;
+}
+
+.current_page{
+    border: 1px solid #000;
+    width: 20px;
+    text-align: center;
+    border-radius: 2px;
+    color: #000;
+    display: inline-block;
+}
+
+.pages_list{
+    margin-top: 20px;
+}
+
+.pages_list a:focus{
+    text-decoration: none;
+}
+
+.pages_list a:hover{
+    text-decoration: none;
+    color:#000;
 }
