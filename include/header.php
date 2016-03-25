@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/style.css" type='text/css' media='all'>
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/lk-style.css">
 
 	<script src="./js/calc.js"></script>
 
