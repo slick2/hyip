@@ -279,8 +279,9 @@ color: #fff;
 }
 
 .pay:hover{
-    background: #f5dd17;
-    border: 2px solid #f5dd17;
+    background: #38a6f0;
+    border: 2px solid #38a6f0;
+    color: #fff;
 }
 
 .pay:focus{

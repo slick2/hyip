@@ -3,11 +3,11 @@
     
         <table class="table-history">
         
-            <tr><th>Дата начала</th><th>Платежная система</th><th>Сумма</th><th>Выплачено</th><th>Последняя выплата</th><th>Следущая выплата</th></tr>
+            <tr><th>Платежная система</th><th>Сумма</th><th>Выплачено</th><th>Последняя выплата</th><th>Следущая выплата</th></tr>
             <?php
             foreach ($data['deposits'] as $value)
             {
-                echo "<tr><td>" . $value['date'] . "</td><td>" . $value['pname'] . "</td><td>" . $value['cash'] . "</td><td>" . $value['outs'] . "</td><td>" . $value['lastpaid'] . "</td><td>" . $value['nextpaid'] . "</td></tr>";
+                echo "<tr><td>" . $value['pname'] . "</td><td>" . $value['cash'] . "</td><td>" . $value['outs'] . "</td><td>" . $value['lastpaid'] . "</td><td>" . $value['nextpaid'] . "</td></tr>";
             }
             ?>
         </table>
