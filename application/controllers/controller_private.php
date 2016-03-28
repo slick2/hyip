@@ -11,7 +11,7 @@ class Controller_Private extends Controller
 
     function action_index()
     {
-        if (Session::get('email') !== false)
+        if (Session::get('email'))
         {
             $data = $this->model->get_data();
             $this->view->generate('private_view.php', 'template_view.php', $data);

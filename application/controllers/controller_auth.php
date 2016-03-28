@@ -31,10 +31,14 @@ class Controller_Auth extends Controller
                     $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
                     if ($result)
                     {
-                        $message = "Регистрация прошла успешно. Письмо для активации отправлено на ваш e-mail.";
+                        $message = "Регистрация прошла успешно.";
                         if (mail($email, "Вы зарегистрировались на сайте", "Для активации перейдите по ссылке http://money.rscx.ru/hyip/activate?email=" . $email))
                         {
-                            echo "e-mail отправлен успешно";
+                            $message = "Письмо для активации отправлено на ваш e-mail.";
+                        }
+                        else
+                        {
+                            $message = "Ошибка отправления письма, обратитесь в поддержку сайта.";
                         }
                     }
                     else
@@ -97,7 +101,7 @@ class Controller_Auth extends Controller
                 {
                     if ($active == 0)
                     {
-                        $message = "Your account is not activated";
+                        $message = "Ваш аккаунт еще не активирован.";
                     }
                     else
                     {
@@ -117,7 +121,7 @@ class Controller_Auth extends Controller
                                     header("Location: admin");
                                     break;
                                 default:
-                                    echo 'Произошла ошибка входа';
+                                    $message = 'Произошла ошибка входа';
                             }
                         }
                         else
@@ -140,7 +144,7 @@ class Controller_Auth extends Controller
             }
             else
             {
-                $message = 'Неправильное имя или пароль. Повторите попытку.';
+                $message = 'Неправильный e-mail или пароль. Повторите попытку.';
             }
         }
         else
