@@ -31,10 +31,14 @@ class Controller_Auth extends Controller
                     $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
                     if ($result)
                     {
-                        $message = "Регистрация прошла успешно. Письмо для активации отправлено на ваш e-mail.";
+                        $message = "Регистрация прошла успешно.";
                         if (mail($email, "Вы зарегистрировались на сайте", "Для активации перейдите по ссылке http://money.rscx.ru/hyip/activate?email=" . $email))
                         {
-                            echo "e-mail отправлен успешно";
+                            $message = "Письмо для активации отправлено на ваш e-mail.";
+                        }
+                        else
+                        {
+                            $message = "Ошибка отправления письма, обратитесь в поддержку сайта.";
                         }
                     }
                     else
