@@ -2,7 +2,7 @@
     <form action="" method="post" name="addcash">
         <div class="col-xs-12 devider">
             <div class="col-xs-4">
-                <h4>Сумма депозита</h4>
+                <h4><?php echo $data['text']['newdeposit_sum'] ?></h4>
             </div>
             <div class="col-xs-4 col-xs-offset-4">
                 <input class="input-depos" id="sum" name="sum" type="text" value="10">
@@ -11,7 +11,7 @@
 
         <div class="col-xs-12 devider">
             <div class="col-xs-4">
-                <h4>Выберите систему</h4>
+                <h4><?php echo $data['text']['newdeposit_addsystem'] ?></h4>
             </div>
             <div class="col-xs-4 col-xs-offset-4">
                 <select name="moneyadd" class="select">
@@ -21,7 +21,7 @@
                 </select>
             </div>
         </div>
-        <input class="btn_save pay" id="addcash" name= "addcash" type="submit" value="Создать депозит">
+        <input class="btn_save pay" id="addcash" name= "addcash" type="submit" value="<?php echo $data['newdeposit']?>">
 
     </form>
 </div>

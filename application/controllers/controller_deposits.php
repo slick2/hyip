@@ -13,13 +13,16 @@ class Controller_Deposits extends Controller
     {
         if (Session::get('email') !== false)
         {
+            $text = $this->model->get_messages('deposits');
+            $text['system'] = $this->model->get_one_message('private_system');
+            $text['sum'] = $this->model->get_one_message('private_sum');
             $td = $this->model->get_pager(10);
             $data = array(
-                'first' => $this->model->get_deposit(),
-                'deposits' => $this->model->get_all_deposits(),
+                'deposits' => $this->model->get_all_deposits($text['deposits_pay_notyet']),
                 'page' => $td['page'],
                 'start' => $td['start'],
                 'total' => $td['total'],
+                'text' => $text
             );
             $this->view->generate('deposits_view.php', 'template_view.php', $data);
         }
@@ -34,21 +37,26 @@ class Controller_Deposits extends Controller
     {
         if (Session::get('email') !== false)
         {
+            $data = array();
+            $data['text'] = $this->model->get_messages('newdeposit');
             if (isset($_POST['addcash']))
             {
-                if (isset($_POST['sum']) && isset($_POST['moneyadd']))
+                if (!empty($_POST['sum']) && !empty($_POST['moneyadd']))
                 {
-                    $data = $this->model->add_deposit();
+                    $data['all'] = $this->model->add_deposit();
                     $this->view->generate('payhub_view.php', 'template_view.php', $data);
                 }
                 else
                 {
-                    $data = array('message' => 'Укажите сумму и платежную систему!');
+                    $data['newdeposit'] = $this->model->get_one_message('private_create_deposit');
+                    $data['all']  = array('message' => $data['text']['newdeposit_empty_field']);
+                    $data['systems'] = $this->model->get_paysystems();
                     $this->view->generate('newdeposit_view.php', 'template_view.php', $data);
                 }
             }
             else
             {
+                $data['newdeposit'] = $this->model->get_one_message('private_create_deposit');
                 $data['systems'] = $this->model->get_paysystems();
                 $this->view->generate('newdeposit_view.php', 'template_view.php',$data);
             }

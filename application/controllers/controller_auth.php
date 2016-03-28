@@ -6,61 +6,66 @@ class Controller_Auth extends Controller
     function __construct()
     {
         parent::__construct();
-        $this->model = new Model_Auth();        
+        $this->model = new Model_Auth();
     }
 
     function action_register()
     {
+        $text = $this->model->get_messages('register',true);
         $refid = 'NULL';
         $data = array();
-        if (!empty($_POST['full_name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['repeat_password']))
+        $message="";
+        if (isset($_POST['register']))
         {
-            if ($_POST['repeat_password'] == $_POST['password'])
+            if (!empty($_POST['full_name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['repeat_password']))
             {
-                $mysqli = Database::getInstance();
-                $full_name = $mysqli->quote($_POST['full_name']);
-                $email = $mysqli->quote($_POST['email']);
-                $password = $mysqli->quote($_POST['password']);
-                $numrows = $this->model->get_num_users($email);
-                if ($numrows == 0)
+                if ($_POST['repeat_password'] == $_POST['password'])
                 {
-                    if (isset($_GET['ref']))
+                    $full_name = $this->model->mysqli->quote($_POST['full_name']);
+                    $email = $this->model->mysqli->quote($_POST['email']);
+                    $password = $this->model->mysqli->quote($_POST['password']);
+                    $numrows = $this->model->get_num_users($email);
+                    if ($numrows == 0)
                     {
-                        $refid = $mysqli->quote($_GET['ref']);
-                    }
-                    $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
-                    if ($result)
-                    {
-                        $message = "Регистрация прошла успешно.";
-                        if (mail($email, "Вы зарегистрировались на сайте", "Для активации перейдите по ссылке http://money.rscx.ru/hyip/activate?email=" . $email))
+                        if (isset($_GET['ref']))
                         {
-                            $message = "Письмо для активации отправлено на ваш e-mail.";
+                            $refid = $this->model->mysqli->quote($_GET['ref']);
+                        }
+                        $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
+                        if ($result)
+                        {
+                            $message = 'register_message_ok';
+                            if (mail($email, "Вы зарегистрировались на сайте", "Для активации перейдите по ссылке http://money.rscx.ru/hyip/activate?email=" . $email))
+                            {
+                                $message = 'register_message_mailsend_ok';
+                            }
+                            else
+                            {
+                                $message = 'register_message_mailsend_error';
+                            }
                         }
                         else
                         {
-                            $message = "Ошибка отправления письма, обратитесь в поддержку сайта.";
+                            $message = 'register_message_dberror';
                         }
                     }
                     else
                     {
-                        $message = "Ошибка записи в базу данных!";
+                        $message = 'register_message_email';
                     }
                 }
                 else
                 {
-                    $message = "Этот e-mail уже занят!";
+                    $message = 'register_message_passwords_notmatch';
                 }
             }
             else
             {
-                $message = "Пароли не совпадают!";
+                $message = 'auth_message_emptyfields';
             }
         }
-        else
-        {
-            $message = "Заполните необходимые поля!";
-        }
         $data['message'] = $message;
+        $data['text'] = $text;
         $this->view->generate('register_view.php', 'empty_view.php', $data);
     }
 
@@ -72,19 +77,21 @@ class Controller_Auth extends Controller
 
     function action_activate()
     {
-        $email = $mysqli->quote($_GET['email']);
+        $email = $this->model->mysqli->quote($_GET['email']);
         $res = $this->model->activate_user($email);
         header("Location: private");
     }
 
     function action_index()
     {
+        $text = $this->model->get_messages('login',true);
+        $leftmenu = $this->model->get_messages('leftmenu');
+        $ref = $this->model->get_one_message('reflink');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
-            $mysqli = Database::getInstance();
             $message = "OK";
-            $email = $mysqli->quote($_POST['email']);
-            $password = $mysqli->quote($_POST['password']);
+            $email = $this->model->mysqli->quote($_POST['email']);
+            $password = $this->model->mysqli->quote($_POST['password']);
             $rs = $this->model->get_user_by_mail($email);
             if ($rs[0] != 0)
             {
@@ -101,7 +108,7 @@ class Controller_Auth extends Controller
                 {
                     if ($active == 0)
                     {
-                        $message = "Ваш аккаунт еще не активирован.";
+                        $message = 'login_message_activate';
                     }
                     else
                     {
@@ -112,6 +119,8 @@ class Controller_Auth extends Controller
                             Session::set('name', $fullname);
                             Session::set('role', $role);
                             Session::set('id', $id);
+                            Session::set('leftmenu', $leftmenu);
+                            Session::set('reflink',$ref);
                             switch ($role)
                             {
                                 case 'user':
@@ -121,7 +130,7 @@ class Controller_Auth extends Controller
                                     header("Location: admin");
                                     break;
                                 default:
-                                    $message = 'Произошла ошибка входа';
+                                    $message = 'login_message_error';
                             }
                         }
                         else
@@ -129,30 +138,32 @@ class Controller_Auth extends Controller
                             switch ($safety)
                             {
                                 case 'ip':
-                                    $message = "Ваш ip-адрес изменился с последнего входа";
+                                    $message = 'login_message_ipchange';
                                     break;
                                 case 'browser':
-                                    $message = "Ваш браузер изменился с последнего входа";
+                                    $message = 'login_message_browserchange';
+                                    break;
                             }
                         }
                     }
                 }
                 else
                 {
-                    $message = 'Неправильный email или пароль. Повторите попытку.';
+                    $message = 'login_message_incorrect';
                 }
             }
             else
             {
-                $message = 'Неправильный e-mail или пароль. Повторите попытку.';
+                $message = 'login_message_incorrect';
             }
         }
         else
         {
-            $message = "Заполните все поля.";
+            $message = 'auth_message_emptyfields';
         }
         $data = array();
         $data['message'] = $message;
+        $data['text'] = $text;
         $this->view->generate('login_view.php', 'empty_view.php', $data);
     }
 

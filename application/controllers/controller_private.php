@@ -13,7 +13,8 @@ class Controller_Private extends Controller
     {
         if (Session::get('email'))
         {
-            $data = $this->model->get_data();
+            $data['text'] = $this->model->get_messages('private');
+            $data['alldata'] = $this->model->get_data($data['text']);
             $this->view->generate('private_view.php', 'template_view.php', $data);
         }
         else

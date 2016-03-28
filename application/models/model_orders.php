@@ -3,13 +3,13 @@
 class Model_Orders extends Model
 {
 
-    public function get_data()
+    public function get_data($text)
     {
         $mysqli = Database::getInstance();
         $numposts = 10;
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $uid = Session::get('id');
-        $posts = intval($mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)']);
+        $posts = intval($this->mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)']);
         $total = ($posts - 1) / $numposts + 1;
         if (empty($page) or $page < 0)
             $page = 1;
@@ -17,18 +17,18 @@ class Model_Orders extends Model
             $page = $total;
         $start = $page * $numposts - $numposts;
 
-        $qcash = $mysqli->query("SELECT cash.id as id,cash.cash as cash, sys.name AS name FROM hyip_cash as cash "
+        $qcash = $this->mysqli->query("SELECT cash.id as id,cash.cash as cash, sys.name AS name FROM hyip_cash as cash "
                 . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
                 . "INNER JOIN hyip_paysystems as sys ON (sys.id = acc.paysystem_id) "
                 . "WHERE user_id=$uid")->fetchAll();
-        $qouts = $mysqli->query("SELECT ord.id as id,ord.sum as sum,sys.name AS name FROM hyip_orders as ord "
+        $qouts = $this->mysqli->query("SELECT ord.id as id,ord.sum as sum,sys.name AS name FROM hyip_orders as ord "
                 . "INNER JOIN hyip_cash as cash ON (cash.id = ord.cash_id) "
                 . "INNER JOIN hyip_payaccounts as acc ON (acc.id = cash.payaccount_id) "
                 . "INNER JOIN hyip_paysystems as sys ON (sys.id = acc.paysystem_id) "
                 . "WHERE cash.user_id=$uid AND ord.operation = 1 AND ord.code=0")->fetchAll();
         $cash = 0;
         $outs = 0;
-        $refs = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid")->fetchSingleRow()['percents'];
+        $refs = $this->mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid")->fetchSingleRow()['percents'];
         //sum of cash
         foreach ($qcash as $crow)
         {
@@ -71,9 +71,9 @@ class Model_Orders extends Model
         $data['orders'] = array();
         $data['total'] = $total;
 
-        $operations = array('Пополнение', 'Вывод');
-        $status = array('Выполнено', 'Ожидается');
-        $query = $mysqli->query("SELECT cash.id, ord.operation AS operation,ord.sum AS sum,ord.code "
+        $operations = array($text['private_operation_in'], $text['private_operation_out']);
+        $status = array($text['private_status_ok'], $text['private_status_wait']);
+        $query = $this->mysqli->query("SELECT cash.id, ord.operation AS operation,ord.sum AS sum,ord.code "
                 . "AS code,ord.date AS date,syst.name AS name FROM hyip_orders AS ord "
                 . "INNER JOIN hyip_cash AS cash ON (ord.cash_id = cash.id) "
                 . "INNER JOIN hyip_payaccounts AS acc ON (cash.payaccount_id=acc.id) "
