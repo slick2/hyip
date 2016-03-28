@@ -10,11 +10,11 @@
                 <form class="form-3" action="" id="loginform" method="post" name="loginform">
                     <p class="clearfix">
                         <label for="login">Email</label>
-                        <input type="text" name="email" id="login" placeholder="Email">
+                        <input type="text" name="email" id="login" placeholder="">
                     </p>
                     <p class="clearfix">
                         <label for="password">Пароль</label>
-                        <input type="password" name="password" id="password" placeholder="Пароль"> 
+                        <input type="password" name="password" id="password" placeholder=""> 
                     </p>
                     <p class="clearfix">
                         <input type="submit" name="submit" value="Войти" name="login">

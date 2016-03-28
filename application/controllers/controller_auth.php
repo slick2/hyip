@@ -97,7 +97,7 @@ class Controller_Auth extends Controller
                 {
                     if ($active == 0)
                     {
-                        $message = "Your account is not activated";
+                        $message = "Ваш аккаунт еще не активирован.";
                     }
                     else
                     {
@@ -117,7 +117,7 @@ class Controller_Auth extends Controller
                                     header("Location: admin");
                                     break;
                                 default:
-                                    echo 'Произошла ошибка входа';
+                                    $message = 'Произошла ошибка входа';
                             }
                         }
                         else
@@ -140,7 +140,7 @@ class Controller_Auth extends Controller
             }
             else
             {
-                $message = 'Неправильное имя или пароль. Повторите попытку.';
+                $message = 'Неправильный e-mail или пароль. Повторите попытку.';
             }
         }
         else
