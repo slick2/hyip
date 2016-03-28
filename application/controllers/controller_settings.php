@@ -15,12 +15,12 @@ class Controller_Settings extends Controller
         if (isset($_POST["change"]))
         {
             $this->model->update_user();
-            $message = "<span>Данные успешно изменены!</span>";
+            $message = "Данные успешно изменены!";
         }
         elseif(isset ($_POST["safety"]))
         {
             $this->model->update_safety();
-            $message = "<span>Данные успешно изменены!</span>";
+            $message = "Данные успешно изменены!";
         }
 
         if (Session::get('email') !== false)
