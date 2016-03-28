@@ -10,7 +10,8 @@ class Controller_Referral extends Controller
     {
         if (Session::get('email') !== false)
         {
-            $data = $this->model->get_data();
+            $data['all'] = $this->model->get_data();
+            $data['text'] = $this->model->get_messages('ref');
             $this->view->generate('referral_view.php', 'template_view.php', $data);
         }
         else
