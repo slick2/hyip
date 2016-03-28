@@ -4,8 +4,8 @@ class Controller_Pay extends Controller
 {
     function __construct()
     {
-        $this->model = new Model_Pay();
-        $this->view = new View();
+        parent::__construct();
+        $this->model = new Model_Pay();        
     }
     
     function action_index()
