@@ -4,8 +4,9 @@ class Controller_Admin extends Controller
 
     function __construct()
     {
+        parent::__construct();
         $this->model = new Model_Admin();
-        $this->view = new View();
+        
     }
 
     function action_index()

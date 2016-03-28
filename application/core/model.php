@@ -1,7 +1,13 @@
 <?php
-class Model
-{
-	public function get_data()
-	{
-	}
+
+class Model {
+    public $mysqli;
+    public function __construct(){
+        $this->mysqli = Database::getInstance();
+    }
+    
+    public function get_data() {
+        
+    }
+
 }
