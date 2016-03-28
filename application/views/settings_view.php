@@ -51,7 +51,7 @@
     </div>
     <div class="col-xs-6">
         <div class="col-xs-12 new-depos">
-            <div class="col-xs-12 ip-adres">Обнаружение IP-адреса</div>
+            <div class="col-xs-12 ip-adres">Обнаружение браузера</div>
             <div class="col-xs-12 devider">
                 <input type="radio" name="browser" value="off" checked>Выключить
             </div>

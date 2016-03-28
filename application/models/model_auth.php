@@ -5,36 +5,36 @@ class Model_Auth extends Model
 
     public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
     {
-        $mysqli = Database::getInstance();
         $password = password_hash($password, PASSWORD_DEFAULT);
         $ip = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents,last_ip,last_browser) VALUES('$full_name','$email', '$password', '$active','$role',$parent_id,'$percents','$ip','$browser')";
-        $result = $mysqli->query($sql)->result;
+        $result = $this->mysqli->query($sql)->result;
         return $result;
+    }
+    public function get_messages($action)
+    {
+        $mes = $this->mysqli->query("SELECT tag,russian FROM hyip_translations WHERE tag LIKE '$action%'");
     }
 
     public function activate_user($email)
     {
-        $mysqli = Database::getInstance();
-        $res = $mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'")->fetchAll();
+        $res = $this->mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'")->fetchAll();
         return $res;
     }
 
     public function get_num_users($email)
     {
-        $mysqli = Database::getInstance();
-        $query = $mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
+        $query = $this->mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         return $query;
     }
     
     public function set_last_login($id)
     {
-        $mysqli = Database::getInstance();
         $ip = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
         
-        $get = $mysqli->query("SELECT last_ip,ip_track,last_browser,browser_track FROM hyip_users WHERE id=$id")->fetchSingleRow();
+        $get = $this->mysqli->query("SELECT last_ip,ip_track,last_browser,browser_track FROM hyip_users WHERE id=$id")->fetchSingleRow();
         if($get['ip_track'] === '1' && $get['last_ip'] != $ip)
         {
             return 'ip';
@@ -43,16 +43,15 @@ class Model_Auth extends Model
         {
             return 'browser';
         }
-        $change = $mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
+        $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
         return 'ok';
     }
 
     public function get_user_by_mail($email)
     {
-        $mysqli = Database::getInstance();
-        $query = $mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser FROM hyip_users WHERE email='$email'")->fetchAll();
+        $query = $this->mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser FROM hyip_users WHERE email='$email'")->fetchAll();
         $res = array();
-        $nr = $mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
+        $nr = $this->mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         if ($nr != 0)
         {
             foreach ($query as $row)
