@@ -5,8 +5,8 @@ class Controller_Deposits extends Controller
 
     function __construct()
     {
-        $this->model = new Model_Deposits();
-        $this->view = new View();
+        parent::__construct();
+        $this->model = new Model_Deposits();        
     }
 
     function action_index()

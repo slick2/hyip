@@ -3,7 +3,7 @@ class Controller_404 extends Controller
 {
     function __construct()
     {
-        $this->view = new View();
+        parent::__construct();
     }
     function action_index()
     {

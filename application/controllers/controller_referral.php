@@ -3,8 +3,8 @@ class Controller_Referral extends Controller
 {
     function __construct()
     {
-        $this->model = new Model_Referral();
-        $this->view = new View();
+        parent::__construct();
+        $this->model = new Model_Referral();        
     }
     function action_index()
     {

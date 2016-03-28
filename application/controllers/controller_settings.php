@@ -5,8 +5,9 @@ class Controller_Settings extends Controller
 
     function __construct()
     {
+        parent::__construct();
         $this->model = new Model_Settings();
-        $this->view = new View();
+        
     }
 
     function action_index()

@@ -5,8 +5,8 @@ class Controller_Auth extends Controller
 
     function __construct()
     {
-        $this->model = new Model_Auth();
-        $this->view = new View();
+        parent::__construct();
+        $this->model = new Model_Auth();        
     }
 
     function action_register()
