@@ -6,14 +6,14 @@ require_once("MerchantWebService.php");
 $merchantWebService = new MerchantWebService();
 
 $arg0 = new authDTO();
-$arg0->apiName = "api_name";
-$arg0->accountEmail = "account_email";
+$arg0->apiName = "abc";
+$arg0->accountEmail = "nosra787@gmail.com";
 $arg0->authenticationToken = $merchantWebService->getAuthenticationToken("api_password");
 
 $arg1 = new sendMoneyRequest();
 $arg1->amount = 1.00;
 $arg1->currency = "USD";
-$arg1->email = "receiver_email";
+$arg1->email = "nosra787@gmail.com";
 //$arg1->walletId = "U000000000000";
 $arg1->note = "note";
 $arg1->savePaymentTemplate = false;

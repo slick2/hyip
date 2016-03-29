@@ -1,13 +1,4 @@
 <?php
-
-/*
-
-This script demonstrates transfer proccess between two
-PerfectMoney accounts using PerfectMoney API interface.
-
-*/
-
-// trying to open URL to process PerfectMoney Spend request
 $f=fopen('https://perfectmoney.is/acct/confirm.asp?AccountID=myaccount&PassPhrase=mypassword&Payer_Account=U987654&Payee_Account=U1234567&Amount=1&PAY_IN=1&PAYMENT_ID=1223', 'rb');
 
 if($f===false){
