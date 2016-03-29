@@ -5,7 +5,6 @@ class Model_Orders extends Model
 
     public function get_data($text)
     {
-        $mysqli = Database::getInstance();
         $numposts = 10;
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $uid = Session::get('id');

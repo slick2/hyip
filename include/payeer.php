@@ -1,7 +1,7 @@
 <?php
 $m_shop = '144310282';
-$m_orderid = $data['orderid'];
-$m_amount = number_format($data['sum'], 2, '.', '');
+$m_orderid = $data['all']['orderid'];
+$m_amount = number_format($data['all']['sum'], 2, '.', '');
 $m_curr = 'USD';
 $m_desc = base64_encode('Test');
 $m_key = 'URIqne6w0NXbg9GI';

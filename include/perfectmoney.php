@@ -2,8 +2,8 @@
 <p>
     <input type="hidden" name="PAYEE_ACCOUNT" value="U11720744">
     <input type="hidden" name="PAYEE_NAME" value="IT Invest Project">
-    <input type="hidden" name="PAYMENT_AMOUNT" value=<?php echo $_POST['sum']; ?>
-    <input type="hidden" name="PAYMENT_UNITS" value=<?php echo $args[1]; ?>>
+    <input type="hidden" name="PAYMENT_AMOUNT" value=<?php echo $data['all']['sum']; ?>
+    <input type="hidden" name="PAYMENT_UNITS" value="USD">
     <input type="hidden" name="PAYMENT_URL"
         value="http://pa.itinvestproject.com/success.php">
     <input type="hidden" name="NOPAYMENT_URL"

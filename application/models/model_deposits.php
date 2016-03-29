@@ -62,9 +62,9 @@ WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
     {
         $data = array();
 
-        $posts = $this->mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)'];
+        $posts = $this->mysqli->query("SELECT COUNT(id) FROM hyip_cash")->fetchSingleRow()['COUNT(id)'];
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $total = intval(($posts - 1) / $numposts) + 1;
+        $total = ($posts - 1) / $numposts + 1;
         if (empty($page) or $page < 0)
             $page = 1;
         if ($page > $total)
