@@ -69,14 +69,16 @@ $reflink = Session::get('reflink');
                     <li><a href="/settings" style="background: url(../img/icons_menu/icon_menu_7.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_settings']; ?></a></li>
                     <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_logout']; ?></a></li>
                     <?php else: ?>
-                    <li><a href="/admin"><i class="fa fa-cogs"></i>Администрирование</a></li>
-                    <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;">Выход</a></li>
+                    <li><a href="/admin" style="background: url(../img/icons_menu/icon_menu_8.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_admin_accounts']; ?></a></li>
+                    <li><a href="/admin/translation" style="background: url(../img/icons_menu/icon_menu_7.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_translation']; ?></a></li>
+                    <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_logout']; ?></a></li>
                     <?php endif; ?>
                 </ul> 
             </div>
             
             <div class="col-xs-9">
             <div class="row right-block">
+                <?php if(Session::get('role') != 'admin'): ?>
                 <div class="col-xs-12">
                 <div class="usr-logo"></div> <h2><?php echo Session::get('name'); ?></h2>
                     <div class="col-xs-12" style="border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8">
@@ -84,6 +86,7 @@ $reflink = Session::get('reflink');
                     </div>
                     
                 </div>
+                <?php endif; ?>
                 <div class="col-xs-12">
             <?php include 'application/views/' . $content_view; ?>
                 </div>

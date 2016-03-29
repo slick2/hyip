@@ -8,10 +8,25 @@ class Controller_Admin extends Controller
         $this->model = new Model_Admin();
         
     }
+    
+    function action_translation()
+    {
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $data = $this->model->get_strings();
+            $this->view->generate('translation_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }
+            
 
     function action_index()
     {
-        if (Session::get('email') !== false)
+        if (Session::get('email') && Session::get('role') == 'admin')
         {
             if(isset($_POST['admadd']))
             {

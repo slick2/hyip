@@ -38,7 +38,7 @@
     <div class="oper-wrap">
         <h2>Настройка существующих аккаунтов:</h2>
         <form action="admin" method="post">
-            <table class='table-depos'>
+            <table class='table-history'>
                 <tr><th>Платежная система</th><th>Валюта</th><th>Кошелек</th><th>Назначение</th><th>Удалить</th></tr>
                 <?php
                 foreach ($data['accounts'] as $value)
