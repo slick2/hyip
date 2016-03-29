@@ -431,3 +431,22 @@ input:-webkit-autofill:active {
     text-decoration: none;
     color:#000;
 }
+.pages li a{
+    color: #333;
+}
+.table-out{
+    text-align: left;   
+}
+.ok-btn{
+    padding: 10px 30px;
+    background: #286090;
+    color: #fff !important;
+}
+.table-out{
+;
+    
+}
+.table-out input, .table-out label {
+    font-weight: normal; 
+    color: #32373d;
+}
