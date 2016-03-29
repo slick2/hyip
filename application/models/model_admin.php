@@ -2,10 +2,13 @@
 
 class Model_Admin extends Model
 {
-    
+    public function set_string($id,$key,$value)
+    {
+        $res = $this->mysqli->query("UPDATE hyip_translations SET $key='$value' WHERE id=$id");
+    }
     public function get_strings()
     {
-        $st = $this->mysqli->query("SELECT tag,russian,english,chinese,vietnamese FROM hyip_translations")->fetchAll();
+        $st = $this->mysqli->query("SELECT id,tag,russian,english,chinese,vietnamese FROM hyip_translations")->fetchAll();
         return $st;
     }
 
