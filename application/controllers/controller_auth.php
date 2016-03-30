@@ -86,7 +86,7 @@ class Controller_Auth extends Controller
     {
         $text = $this->model->get_messages('login',true);
         $leftmenu = $this->model->get_messages('leftmenu');
-        $topmenu = $this->model->get_messages('topmenu');
+        $topmenu = $this->model->get_upper_messages('topmenu');
         $ref = $this->model->get_one_message('reflink');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
