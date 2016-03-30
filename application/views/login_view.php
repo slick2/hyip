@@ -9,7 +9,7 @@ if (isset($data))
 
     <!-- Codrops top bar -->
     <div class="company-logo-lock">
-
+        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85"  /></a>
     </div><!--/ Codrops top bar -->
 
 

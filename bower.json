@@ -1,7 +1,8 @@
 {
   "name": "hyip",
   "authors": [
-    "Сергей Цибульченко <sc@rocketstation.ru>"
+    "Сергей Цибульченко <sc@rocketstation.ru>",
+    "Александр Корж <ak@rocketstation.ru>"
   ],
   "description": "",
   "main": "",
@@ -16,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "jquery": "~2.2.1"
   }
 }
