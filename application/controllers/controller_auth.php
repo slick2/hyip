@@ -86,6 +86,7 @@ class Controller_Auth extends Controller
     {
         $text = $this->model->get_messages('login',true);
         $leftmenu = $this->model->get_messages('leftmenu');
+        $topmenu = $this->model->get_messages('topmenu');
         $ref = $this->model->get_one_message('reflink');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
@@ -121,6 +122,7 @@ class Controller_Auth extends Controller
                             Session::set('id', $id);
                             Session::set('leftmenu', $leftmenu);
                             Session::set('reflink',$ref);
+                            Session::set('topmenu', $topmenu);
                             switch ($role)
                             {
                                 case 'user':

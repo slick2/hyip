@@ -26,8 +26,9 @@ class Controller_Pay extends Controller
     }
     function action_out()
     {
-        require_once 'include/out.php';
-        //require_once 'include/out/advcash_out.php';
+        //require_once 'include/out.php';
+        require_once 'include/out/advcash_out.php';
+        //require_once 'include/out/perfectmoney_out.php';
     }
     function action_rates()
     {

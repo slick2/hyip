@@ -1,5 +1,6 @@
 <?php
 $leftmenu = Session::get('leftmenu');
+$topmenu = Session::get('topmenu');
 $reflink = Session::get('reflink');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,12 +41,12 @@ $reflink = Session::get('reflink');
                         <div class="col-md-9">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav">
-                            <li><a href="#"><span class="glyphicon glyphicon-home"></span>ГЛАВНАЯ</a></li>
-                            <li><a href="#">О НАС</a></li>
-                            <li><a href="#">ИНВЕСТОРАМ</a></li>
-                            <li><a href="#">ПРАВИЛА</a></li>
-                            <li><a href="#">ВОПРОС-ОТВЕТ</a></li>
-                            <li><a href="#">КОНТАКТЫ</a></li>
+                              <li><a href="#"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
+                            <li><a href="#"><?php echo strtoupper($topmenu['topmenu_aboutus']); ?></a></li>
+                            <li><a href="#"><?php echo strtoupper($topmenu['topmenu_investors']); ?></a></li>
+                            <li><a href="#"><?php echo strtoupper($topmenu['topmenu_rules']); ?></a></li>
+                            <li><a href="#"><?php echo strtoupper($topmenu['topmenu_faq']); ?></a></li>
+                            <li><a href="#"><?php echo strtoupper($topmenu['topmenu_contacts']); ?></a></li>
                           </ul>
                         </div><!-- /.navbar-collapse -->
                         </div>
