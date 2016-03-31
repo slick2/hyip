@@ -44,6 +44,8 @@ class Controller_Deposits extends Controller
                 if (!empty($_POST['sum']) && !empty($_POST['moneyadd']))
                 {
                     $data['all'] = $this->model->add_deposit();
+                    $name = 'get_in_'.strtolower($data['all']['syst']);
+                    $data['account'] = $this->model->$name();
                     $this->view->generate('payhub_view.php', 'template_view.php', $data);
                 }
                 else

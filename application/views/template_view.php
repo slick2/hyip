@@ -46,7 +46,6 @@ $reflink = Session::get('reflink');
                             <li><a href="http://itinvestproject.com/pravila-kompanii/"><?php echo strtoupper($topmenu['topmenu_rules']); ?></a></li>
                             <li><a href="http://itinvestproject.com/vopros-otvet/"><?php echo strtoupper($topmenu['topmenu_faq']); ?></a></li>
                             <li><a href="http://itinvestproject.com/contact/"><?php echo strtoupper($topmenu['topmenu_contacts']); ?></a></li>
->>>>>>> antons/hyip-mvc
                           </ul>
                         </div><!-- /.navbar-collapse -->
                         </div>

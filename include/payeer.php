@@ -1,10 +1,11 @@
 <?php
-$m_shop = '144310282';
+var_dump($data['account']);
+$m_shop = $data['account']['in_shop'];
 $m_orderid = $data['all']['orderid'];
 $m_amount = number_format($data['all']['sum'], 2, '.', '');
 $m_curr = 'USD';
 $m_desc = base64_encode('Pay for itinvestproject.com');
-$m_key = 'URIqne6w0NXbg9GI';
+$m_key = $data['account']['in_key'];
 
 $arHash = array(
 	$m_shop,
@@ -17,12 +18,12 @@ $arHash = array(
 $sign = strtoupper(hash('sha256', implode(':', $arHash)));
 ?>
 <form method="GET" action="https://payeer.com/merchant/">
-<input type="hidden" name="m_shop" value="<?php echo $m_shop?>">
-<input type="hidden" name="m_orderid" value="<?php echo $m_orderid?>">
-<input type="hidden" name="m_amount" value="<?php echo $m_amount?>">
-<input type="hidden" name="m_curr" value="<?php echo $m_curr?>">
-<input type="hidden" name="m_desc" value="<?php echo $m_desc?>">
-<input type="hidden" name="m_sign" value="<?php echo $sign?>">
+<input type="hidden" name="m_shop" value="<?php echo $m_shop; ?>">
+<input type="hidden" name="m_orderid" value="<?php echo $m_orderid; ?>">
+<input type="hidden" name="m_amount" value="<?php echo $m_amount; ?>">
+<input type="hidden" name="m_curr" value="<?php echo $m_curr; ?>">
+<input type="hidden" name="m_desc" value="<?php echo $m_desc; ?>">
+<input type="hidden" name="m_sign" value="<?php echo $sign; ?>">
 <!--
 <input type="hidden" name="form[ps]" value="2609">
 <input type="hidden" name="form[curr[2609]]" value="USD">

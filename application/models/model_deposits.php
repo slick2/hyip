@@ -57,14 +57,32 @@ WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
             'orderid'=> $this->mysqli->getInsertId()
         );
     }
+    public function get_in_payeer()
+    {
+        $q = $this->mysqli->query("SELECT in_shop,in_key,out_acc,out_api_id,out_api_key FROM hyip_payeer WHERE active=1 AND in_shop <> '' AND in_key <> ''")->fetchSingleRow();
+        return $q;
+    }
+    public function get_in_perfectmoney()
+    {
+        $q = $this->mysqli->query("SELECT in_acc,in_name,out_id,out_pass FROM hyip_perfectmoney WHERE active=1 AND in_acc <> '' AND in_name <> ''")->fetchSingleRow();
+        return $q;
+    }
+    public function get_in_advcash()
+    {
+        $q = $this->mysqli->query("SELECT in_acc,in_name,in_sign,out_api_name,out_key FROM hyip_advcash WHERE active=1 AND in_acc <> '' AND in_name <> '' AND in_sign <> ''")->fetchSingleRow();
+        return $q;
+    }
 
     public function get_pager($numposts)
     {
         $data = array();
+        $uid = Session::get('id');
 
-        $posts = $this->mysqli->query("SELECT COUNT(id) FROM hyip_cash")->fetchSingleRow()['COUNT(id)'];
+        $posts = $this->mysqli->query("SELECT COUNT(cash.id) FROM hyip_cash AS cash " 
+                . "INNER JOIN hyip_orders AS ord ON(ord.cash_id = cash.id)"
+                . "WHERE cash.user_id=$uid AND ord.operation=0 AND ord.code=0")->fetchSingleRow()['COUNT(cash.id)'];
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $total = ($posts - 1) / $numposts + 1;
+        $total = intval(($posts - 1) / $numposts + 1);
         if (empty($page) or $page < 0)
             $page = 1;
         if ($page > $total)
@@ -82,8 +100,11 @@ WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
     {
         $data = array();
         $numposts = 10;
-
-        $posts = $this->mysqli->query("SELECT COUNT(id) FROM hyip_cash")->fetchSingleRow()['COUNT(id)'];
+        $uid = Session::get('id');
+        
+        $posts = $this->mysqli->query("SELECT COUNT(cash.id) FROM hyip_cash AS cash " 
+                . "INNER JOIN hyip_orders AS ord ON(ord.cash_id = cash.id)"
+                . "WHERE cash.user_id=$uid AND ord.operation=0 AND ord.code=0")->fetchSingleRow()['COUNT(cash.id)'];
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $total = intval(($posts - 1) / $numposts) + 1;
         if (empty($page) or $page < 0)
@@ -92,11 +113,12 @@ WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
             $page = $total;
         $start = $page * $numposts - $numposts;
 
-        $uid = Session::get('id');
+        
         $query = $this->mysqli->query("SELECT sys.name AS name,cash.created AS created,cash.cash AS cash,cash.outs AS outs,cash.id AS id FROM hyip_cash AS cash "
                 . "INNER JOIN hyip_payaccounts AS acc ON (cash.payaccount_id = acc.id)"
                 . "INNER JOIN hyip_paysystems AS sys ON(acc.paysystem_id = sys.id)"
-                . "WHERE cash.user_id=$uid ORDER BY created DESC LIMIT $start,$numposts")->fetchAll();
+                . "INNER JOIN hyip_orders AS ord ON(ord.cash_id = cash.id)"
+                . "WHERE cash.user_id=$uid AND ord.operation=0 AND ord.code=0 ORDER BY created DESC LIMIT $start,$numposts")->fetchAll();
 
         foreach ($query as $row)
         {
