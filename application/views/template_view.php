@@ -6,13 +6,12 @@ $reflink = Session::get('reflink');
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
             <title>ITInvestproject</title>
             <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
             <link rel="icon" type="/image/png" href="ic1.png" sizes="16x16"/>
             <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css"/>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-            <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
             <link rel="stylesheet" type="text/css" href="/css/lk-style.css"/>
     </head>
     <body>
@@ -41,12 +40,13 @@ $reflink = Session::get('reflink');
                         <div class="col-md-9">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav">
-                              <li><a href="#"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
-                            <li><a href="#"><?php echo $topmenu['topmenu_aboutus']; ?></a></li>
-                            <li><a href="#"><?php echo $topmenu['topmenu_investors']; ?></a></li>
-                            <li><a href="#"><?php echo $topmenu['topmenu_rules']; ?></a></li>
-                            <li><a href="#"><?php echo $topmenu['topmenu_faq']; ?></a></li>
-                            <li><a href="#"><?php echo $topmenu['topmenu_contacts']; ?></a></li>
+                            <li><a href="http://itinvestproject.com/"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
+                            <li><a href="http://itinvestproject.com/o-nas/"><?php echo strtoupper($topmenu['topmenu_aboutus']); ?></a></li>
+                            <li><a href="http://itinvestproject.com/investoram/"><?php echo strtoupper($topmenu['topmenu_investors']); ?></a></li>
+                            <li><a href="http://itinvestproject.com/pravila-kompanii/"><?php echo strtoupper($topmenu['topmenu_rules']); ?></a></li>
+                            <li><a href="http://itinvestproject.com/vopros-otvet/"><?php echo strtoupper($topmenu['topmenu_faq']); ?></a></li>
+                            <li><a href="http://itinvestproject.com/contact/"><?php echo strtoupper($topmenu['topmenu_contacts']); ?></a></li>
+>>>>>>> antons/hyip-mvc
                           </ul>
                         </div><!-- /.navbar-collapse -->
                         </div>
@@ -95,7 +95,7 @@ $reflink = Session::get('reflink');
         </div>
         </div>
     </div>
-        <script src="/bower_components/jquery-2.2.1.min/index.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>
 	<script src="/js/time.js"></script>

@@ -8,6 +8,6 @@
         value="http://pa.itinvestproject.com/success.php">
     <input type="hidden" name="NOPAYMENT_URL"
         value="http://pa.itinvestproject.com/fail.php">
-    <input type="submit" name="PAYMENT_METHOD" value="PerfectMoney account">
+    <input type="submit" class="pay" name="PAYMENT_METHOD" value="PerfectMoney account">
 </p>
 </form>

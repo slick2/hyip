@@ -27,5 +27,5 @@ $sign = strtoupper(hash('sha256', implode(':', $arHash)));
 <input type="hidden" name="form[ps]" value="2609">
 <input type="hidden" name="form[curr[2609]]" value="USD">
 -->
-<input type="submit" name="m_process" value="send" />
+<input type="submit" name="m_process" value="send" class="pay"/>
 </form>

@@ -31,6 +31,7 @@ if (isset($data))
                 <label for="repeat_password"><?php echo $text['register_repeat_password']; ?></label>
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
+            <p style="color:#fff;">Регистрируясь, Вы соглашаетесь с <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank">правилами</a> ITInvestProject</p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       

@@ -10,10 +10,19 @@
 margin: 0 auto;
     width: 400px;
     height: 200px;
-    background: url(../img/logo.png) no-repeat;
-    background-position: center center;
-    background-size: contain;
+        margin: 0 auto;
+    width: 400px;
+    height: 200px;
+    padding-top: 100px;
 }
+
+.logo-link img{
+    transition: 500ms;
+}
+.logo-link img:hover{
+    transform: scale(1.2);
+     -webkit-transform:scale(1.2);;
+}  
 
 .main-nav{
     background: none;
