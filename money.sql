@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Мар 30 2016 г., 13:49
+-- Время создания: Мар 31 2016 г., 10:49
 -- Версия сервера: 5.6.28-0ubuntu0.15.10.1
 -- Версия PHP: 5.6.11-1ubuntu3.1
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `hyip_admaccounts` (
   `password` varchar(32) NOT NULL,
   `currency` varchar(4) NOT NULL DEFAULT 'RUB',
   `inout` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `hyip_admaccounts`
@@ -45,7 +45,31 @@ INSERT INTO `hyip_admaccounts` (`id`, `paysystem_id`, `paynumber`, `account`, `p
 (2, 0, '', 'P30818941', '3Zk84pwS97', 'USD', 0),
 (6, 4, '', '4092807', 'Pw3h735vKT', 'USD', 0),
 (7, 5, '', 'nosra787@gmail.com', 'P521ws37FK', 'USD', 0),
-(8, 0, '', 'test@test.ru', '123456', 'RUB', 0);
+(8, 0, '', 'test@test.ru', '123456', 'RUB', 0),
+(9, 0, '', '', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `hyip_advcash`
+--
+
+CREATE TABLE IF NOT EXISTS `hyip_advcash` (
+  `id` int(11) NOT NULL,
+  `in_acc` varchar(64) NOT NULL,
+  `in_name` varchar(64) NOT NULL,
+  `in_sign` varchar(64) NOT NULL,
+  `out_api_name` varchar(64) NOT NULL,
+  `out_key` varchar(64) NOT NULL,
+  `active` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `hyip_advcash`
+--
+
+INSERT INTO `hyip_advcash` (`id`, `in_acc`, `in_name`, `in_sign`, `out_api_name`, `out_key`, `active`) VALUES
+(1, 'nosra787@gmail.com', 'IT Invest Project', 'e9dd6f1d4927fbbad1c3590df8fd1b5459d98567e2edb75a5e3b048e893982c4', 'IT Invest Project', 'P521ws37FK', 1);
 
 -- --------------------------------------------------------
 
@@ -215,6 +239,29 @@ INSERT INTO `hyip_payaccounts` (`id`, `paysystem_id`, `account`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `hyip_payeer`
+--
+
+CREATE TABLE IF NOT EXISTS `hyip_payeer` (
+  `id` int(11) NOT NULL,
+  `in_shop` varchar(64) NOT NULL,
+  `in_key` varchar(64) NOT NULL,
+  `out_acc` varchar(64) NOT NULL,
+  `out_api_id` varchar(64) NOT NULL,
+  `out_api_key` varchar(64) NOT NULL,
+  `active` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `hyip_payeer`
+--
+
+INSERT INTO `hyip_payeer` (`id`, `in_shop`, `in_key`, `out_acc`, `out_api_id`, `out_api_key`, `active`) VALUES
+(1, '144310282', 'URIqne6w0NXbg9GI', 'P30818941', '147701619', 'URIqne6w0NXbg9GI', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `hyip_paysystems`
 --
 
@@ -234,6 +281,28 @@ INSERT INTO `hyip_paysystems` (`id`, `name`, `code`) VALUES
 (5, 'Advcash', 0),
 (9, 'Bitcoin', 0),
 (10, 'Payeer RUB', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `hyip_perfectmoney`
+--
+
+CREATE TABLE IF NOT EXISTS `hyip_perfectmoney` (
+  `id` int(11) NOT NULL,
+  `in_acc` varchar(64) NOT NULL,
+  `in_name` varchar(64) NOT NULL,
+  `out_id` varchar(64) NOT NULL,
+  `out_pass` varchar(64) NOT NULL,
+  `active` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `hyip_perfectmoney`
+--
+
+INSERT INTO `hyip_perfectmoney` (`id`, `in_acc`, `in_name`, `out_id`, `out_pass`, `active`) VALUES
+(1, 'U11720744', 'IT Invest Project', '4092807', 'Pw3h735vKT', 1);
 
 -- --------------------------------------------------------
 
@@ -386,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `hyip_users` (
 --
 
 INSERT INTO `hyip_users` (`id`, `full_name`, `email`, `password`, `active`, `role`, `parent_id`, `percents`, `last_ip`, `ip_track`, `last_browser`, `browser_track`) VALUES
-(7, 'Ivan Petrov', 'dezalator@gmail.com', '$2y$10$mxm5jyCihq/Lvx0WpTn3Gu5JH.6F.yHIaziAT1NrqIVWLJEz6BJyS', 1, 'admin', NULL, 0, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
+(7, 'Ivan Petrov', 'dezalator@gmail.com', '$2y$10$mxm5jyCihq/Lvx0WpTn3Gu5JH.6F.yHIaziAT1NrqIVWLJEz6BJyS', 1, 'admin', NULL, 0, '192.168.5.103', 0, 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36', 0),
 (3, 'TEST NAME', 'test@test.com', '123456', 1, 'user', 2, 0, '', 0, '', 0),
 (5, 'Gans', 'test@test.eu', '123456', 1, 'user', 2, 0, '', 0, '', 0),
 (2, 'parampampam', 'test@test.ru', '$2y$10$LXneZrY9khNruirwMQLLY.hEBZwI2vbOUu45TJYIzMfOvDAHTA/P.', 1, 'user', NULL, 39.72, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
@@ -402,6 +471,12 @@ INSERT INTO `hyip_users` (`id`, `full_name`, `email`, `password`, `active`, `rol
 ALTER TABLE `hyip_admaccounts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `paysystem_id` (`paysystem_id`);
+
+--
+-- Индексы таблицы `hyip_advcash`
+--
+ALTER TABLE `hyip_advcash`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `hyip_cash`
@@ -427,9 +502,21 @@ ALTER TABLE `hyip_payaccounts`
   ADD KEY `paysystem_id` (`paysystem_id`);
 
 --
+-- Индексы таблицы `hyip_payeer`
+--
+ALTER TABLE `hyip_payeer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `hyip_paysystems`
 --
 ALTER TABLE `hyip_paysystems`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `hyip_perfectmoney`
+--
+ALTER TABLE `hyip_perfectmoney`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -460,7 +547,12 @@ ALTER TABLE `hyip_users`
 -- AUTO_INCREMENT для таблицы `hyip_admaccounts`
 --
 ALTER TABLE `hyip_admaccounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT для таблицы `hyip_advcash`
+--
+ALTER TABLE `hyip_advcash`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `hyip_cash`
 --
@@ -477,10 +569,20 @@ ALTER TABLE `hyip_orders`
 ALTER TABLE `hyip_payaccounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
+-- AUTO_INCREMENT для таблицы `hyip_payeer`
+--
+ALTER TABLE `hyip_payeer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT для таблицы `hyip_paysystems`
 --
 ALTER TABLE `hyip_paysystems`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT для таблицы `hyip_perfectmoney`
+--
+ALTER TABLE `hyip_perfectmoney`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `hyip_rate`
 --
