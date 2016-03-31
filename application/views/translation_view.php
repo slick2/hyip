@@ -9,7 +9,7 @@
         <td><textarea name="<?php echo $value['id']."_english"; ?>"><?php echo $value['english']; ?></textarea></td>
         <td><textarea name="<?php echo $value['id']."_vietnamese"; ?>"><?php echo $value['vietnamese']; ?></textarea></td>
         <td><textarea name="<?php echo $value['id']."_chinese"; ?>"><?php echo $value['chinese']; ?></textarea></td>
-        <td><div class="btn-save pay ajax" id="<?php echo $value['id']."_submit"; ?>">Сохранить</div></td>
+        <td><a class="btn-save pay ajax" id="<?php echo $value['id']."_submit"; ?>">Сохранить</a></td>
     </tr>
     <?php endforeach; ?>
 </table>

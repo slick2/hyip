@@ -10,6 +10,5 @@
          <input type="hidden" name="ac_success_url_method" value="GET" />
          <input type="hidden" name="ac_fail_url" value="http://pa.itinvestproject.com/out/fail.php" />
          <input type="hidden" name="ac_fail_url_method" value="GET" />
-         <input type="text" name="ac_comments" value="Comment" />
          <input type="submit" />
 </form>

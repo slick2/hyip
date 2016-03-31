@@ -23,80 +23,68 @@ class Model_Admin extends Model
         }
         return $data;
     }
+    
+    public function toggle($system,$activity,$id)
+    {
+        switch (strtolower($system))
+        {
+            case 'payeer':
+                $qadd = $this->mysqli->query("UPDATE hyip_payeer SET active=$activity WHERE out_acc='$id'");
+                break;
+            case 'perfectmoney':
+                $qadd = $this->mysqli->query("UPDATE hyip_perfectmoney SET active=$activity WHERE in_acc='$id'");
+                break;
+            case 'advcash':
+                $qadd = $this->mysqli->query("UPDATE hyip_advcash SET active=$activity WHERE in_acc='$id'");
+                break;
+        }
+    }
 
     public function add_account()
     {
         $system = $this->mysqli->quote($_POST['paysystem']);
-        $number = $this->mysqli->quote($_POST['paynumber']);
-        $account = $this->mysqli->quote($_POST['account']);
-        $pass = $this->mysqli->quote($_POST['password']);
-        $cur = $this->mysqli->quote($_POST['currency']);
-        $inout = $this->mysqli->quote($_POST['inout']);
-
-        $qsid = $this->mysqli->query("SELECT id FROM hyip_paysystems WHERE name='$system'")->fetchSingleRow()['id'];
-        $qadd = $this->mysqli->query("INSERT INTO hyip_admaccounts (paysystem_id,paynumber,account,password,currency,`inout`) VALUES($qsid,'$number','$account','$pass','$cur','$inout')");
-    }
-
-    public function change_account()
-    {
-        $qaccs = $this->mysqli->query("SELECT id FROM hyip_admaccounts");
-        while ($row = $qaccs->fetch_assoc())
+        
+        switch ($system)
         {
-            $iid = 'inout_' . $row['id'];
-            $did = 'delete_' . $row['id'];
-            if (isset($_POST[$did]))
-            {
-                $qdel = $this->mysqli->query("DELETE FROM hyip_admaccounts WHERE id= {$row['id']}" );
-            }
-            else
-            {
-                if (isset($_POST[$iid]))
-                {
-                    $qchange = $this->mysqli->query("UPDATE hyip_admaccounts SET `inout`='{$_POST[$iid]}' WHERE id={$row['id']}");
-                }
-            }
+            case 'Payeer':
+                $first = $this->mysqli->quote($_POST['payeer_shop']);
+                $second = $this->mysqli->quote($_POST['payeer_key']);
+                $third = $this->mysqli->quote($_POST['payeer_acc']);
+                $fourth = $this->mysqli->quote($_POST['payeer_api_id']);
+                $fifth = $this->mysqli->quote($_POST['payeer_api_key']);
+                $qadd = $this->mysqli->query("INSERT INTO hyip_payeer (in_shop,in_key,out_acc,out_api_id,out_api_key,active) VALUES('$first','$second','$third','$fourth','$fifth',1)");
+                break;
+            case 'PerfectMoney':
+                $first = $this->mysqli->quote($_POST['perfectmoney_acc']);
+                $second = $this->mysqli->quote($_POST['perfectmoney_name']);
+                $third = $this->mysqli->quote($_POST['perfectmoney_id']);
+                $fourth = $this->mysqli->quote($_POST['perfectmoney_pass']);
+                $qadd = $this->mysqli->query("INSERT INTO hyip_perfectmoney (in_acc,in_name,out_id,out_pass,active) VALUES('$first','$second','$third','$fourth',1)");
+                break;
+            case 'Advcash':
+                $first = $this->mysqli->quote($_POST['advcash_email']);
+                $second = $this->mysqli->quote($_POST['advcash_sci']);
+                $third = $this->mysqli->quote($_POST['advcash_sign']);
+                $fourth = $this->mysqli->quote($_POST['advcash_api']);
+                $fifth = $this->mysqli->quote($_POST['advcash_key']);
+                $qadd = $this->mysqli->query("INSERT INTO hyip_advcash (in_acc,in_name,in_sign,out_api_name,out_key,active) VALUES('$first','$second','$third','$fourth','$fifth',1)");
+                break;
         }
     }
+
 
     public function get_accounts()
     {
-        $data = array();
-        $qaccs = $this->mysqli->query("SELECT id,paysystem_id,currency,paynumber,`inout` FROM hyip_admaccounts")->fetchAll();
+        
+        $qpayeer = $this->mysqli->query("SELECT in_shop,in_key,out_acc,out_api_id,out_api_key,active FROM hyip_payeer")->fetchAll();
+        $qperfectmoney = $this->mysqli->query("SELECT in_acc,in_name,out_id,out_pass,active FROM hyip_perfectmoney")->fetchAll();
+        $qadvcash = $this->mysqli->query("SELECT in_acc,in_name,in_sign,out_api_name,out_key,active FROM hyip_advcash")->fetchAll();
 
-        foreach ($qaccs as $row)
-        {
-            $syst = $this->mysqli->query("SELECT name FROM hyip_paysystems WHERE id={$row['paysystem_id']}")->fetchSingleRow()['name'];
-            $options = array("Ввод+вывод", "Ввод", "Вывод");
-            $index = intval($row['inout']);
-            switch ($index)
-            {
-                case 0:
-                    $fid = 1;
-                    $sid = 2;
-                    break;
-                case 1:
-                    $fid = 0;
-                    $sid = 2;
-                    break;
-                case 2:
-                    $fid = 0;
-                    $sid = 1;
-                    break;
-                default:
-                    echo "Error";
-                    break;
-            }
-            $data[] = array(
-                'syst' => $syst,
-                'currency' => $row['currency'],
-                'paynumber' => $row['paynumber'],
-                'id' => $row['id'],
-                'options' => $options,
-                'fid' => $fid,
-                'sid' => $sid,
-                'index' => $index
-            );
-        }
+        $data = [
+            'payeer' => $qpayeer,
+            'perfectmoney' => $qperfectmoney,
+            'advcash' => $qadvcash
+            ];
         return $data;
     }
 

@@ -62,6 +62,13 @@ class Controller_Admin extends Controller
     {
         if (Session::get('email') && Session::get('role') == 'admin')
         {
+            if(isset($_POST['toggle']))
+            {
+                $toggle = $this->model->mysqli->quote($_POST['toggle']);
+                $system = $this->model->mysqli->quote($_POST['system']);
+                $id = $this->model->mysqli->quote($_POST['id']);
+                $this->model->toggle($system,$toggle,$id);
+            }
             if(isset($_POST['admadd']))
             {
                 $this->model->add_account();
