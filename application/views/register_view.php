@@ -31,7 +31,7 @@ if (isset($data))
                 <label for="repeat_password"><?php echo $text['register_repeat_password']; ?></label>
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
-            <p style="color:#fff;">Регистрируясь, Вы соглашаетесь с <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank">правилами</a> ITInvestProject</p>
+            <p style="color:#fff;"><?php echo $text['register_rulesfollow']; ?> <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       
@@ -49,7 +49,7 @@ if (isset($data))
 
         <div class="log-reg">
             <p><?php echo $text['register_haveacc']; ?></p>
-            <a href= "/auth">Войти</a>
+            <a href= "/auth"><?php echo $text['register_login']; ?></a>
             <p><?php echo $text['auth_copyright']; ?></p>
         </div>
     </section>

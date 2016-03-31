@@ -6,9 +6,9 @@ require_once("MerchantWebService.php");
 $merchantWebService = new MerchantWebService();
 
 $arg0 = new authDTO();
-$arg0->apiName = "IT Invest Project";
-$arg0->accountEmail = "nosra787@gmail.com";
-$arg0->authenticationToken = $merchantWebService->getAuthenticationToken("P521ws37FK");
+$arg0->apiName = $advcash['out_api_name'];
+$arg0->accountEmail = $advcash['in_acc'];
+$arg0->authenticationToken = $merchantWebService->getAuthenticationToken("{$advcash['out_api_name']}");
 
 $arg1 = new sendMoneyRequest();
 $arg1->amount = 1.00;

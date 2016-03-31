@@ -1,9 +1,9 @@
 <?php
 
 require_once('cpayeer.php');
-$accountNumber = 'P30818941';
-$apiId = '147701619';
-$apiKey = 'URIqne6w0NXbg9GI';
+$accountNumber = $payeer['out_acc'];
+$apiId = $payeer['out_api_id'];
+$apiKey = $payeer['out_api_key'];
 $payeer = new CPayeer($accountNumber, $apiId, $apiKey);
 if ($payeer->isAuth())
 {

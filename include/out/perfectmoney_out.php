@@ -1,5 +1,5 @@
 <?php
-$f=fopen('https://perfectmoney.is/acct/confirm.asp?AccountID=4092807&PassPhrase=Pw3h735vKT&Payer_Account=U11720744&Payee_Account=U11720744&Amount=1&PAY_IN=1&PAYMENT_ID=1223', 'rb');
+$f=fopen("https://perfectmoney.is/acct/confirm.asp?AccountID={$perfectmoney['out_id']}&PassPhrase={$perfectmoney['out_pass']}&Payer_Account={$perfectmoney['in_acc']}&Payee_Account=U11720744&Amount=1&PAY_IN=1&PAYMENT_ID=1223", 'rb');
 
 if($f===false){
    echo 'error openning url';
