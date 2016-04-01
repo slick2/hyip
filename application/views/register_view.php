@@ -9,7 +9,7 @@ if (isset($data))
 
     <!-- Codrops top bar -->
     <div class="company-logo-lock">
-
+        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85"  /></a>
     </div><!--/ Codrops top bar -->
 
 
@@ -45,7 +45,7 @@ if (isset($data))
                 <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                 </div>
             </div>
-            <p style="color:#fff;"><?php echo $text['register_rulesfollow']; ?> <a href="https://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
+            <p style="color:#fff; text-align: center;"><?php echo $text['register_rulesfollow']; ?> <a href="https://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       
