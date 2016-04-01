@@ -9,7 +9,7 @@ if (isset($data))
 
     <!-- Codrops top bar -->
     <div class="company-logo-lock">
-
+        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85"  /></a>
     </div><!--/ Codrops top bar -->
 
 
@@ -31,7 +31,7 @@ if (isset($data))
                 <label for="repeat_password"><?php echo $text['register_repeat_password']; ?></label>
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
-            <p style="color:#fff;">Регистрируясь, Вы соглашаетесь с <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank">правилами</a> ITInvestProject</p>
+            <p style="color:#fff; text-align: center;">Регистрируясь, Вы соглашаетесь с <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank">правилами</a> ITInvestProject</p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       

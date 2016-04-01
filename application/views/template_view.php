@@ -96,6 +96,7 @@ $reflink = Session::get('reflink');
         </div>
     </div>
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>
 	<script src="/js/time.js"></script>
