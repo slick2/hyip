@@ -95,7 +95,7 @@ class Controller_Auth extends Controller
         $text = $this->model->get_messages('login',true);
         $leftmenu = $this->model->get_messages('leftmenu');
         $topmenu = $this->model->get_upper_messages('topmenu');
-        $inv = $this->model->get_one_message('ref_inviteyou');
+        $ref = $this->model->get_one_message('reflink');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
             $message = "OK";
@@ -129,6 +129,7 @@ class Controller_Auth extends Controller
                             Session::set('role', $role);
                             Session::set('id', $id);
                             Session::set('leftmenu', $leftmenu);
+                            Session::set('reflink',$ref);
                             Session::set('topmenu', $topmenu);
                             switch ($role)
                             {
