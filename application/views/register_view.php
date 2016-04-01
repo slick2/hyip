@@ -13,8 +13,17 @@ if (isset($data))
     </div><!--/ Codrops top bar -->
 
 
+
     <section class="main">
+
+        <?php if (isset($data['referrer'])): ?>
+            <p class="clearfix">
+                <span><?php echo $text['refyou'] . " : " . $data['referrer']; ?></span>
+            </p>
+        <?php endif; ?>
+
         <form class="form-3" action="" id="loginform" method="post" name="loginform" style="width: 350px;">
+
             <p class="clearfix">
                 <label for="full_name"><?php echo $text['register_fullname']; ?></label>
                 <input type="text" name="full_name" id="login" placeholder="">
@@ -32,11 +41,11 @@ if (isset($data))
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
             <div class="clearfix">
-                    <label>Проверочный код:</label>
-                    <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
-                    </div>
+                <label>Проверочный код:</label>
+                <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                 </div>
-            <p style="color:#fff;"><?php echo $text['register_rulesfollow']; ?> <a href="http://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
+            </div>
+            <p style="color:#fff;"><?php echo $text['register_rulesfollow']; ?> <a href="https://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       

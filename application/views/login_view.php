@@ -3,14 +3,13 @@ if (isset($data))
 {
     $text = $data['text'];
     $message = $data['message'];
-    //var_dump($message);
 }
 ?>
 <div class="container">
 
 
     <div class="company-logo-lock">
-        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85" ></a>
+        <a href="https://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85" ></a>
     </div>
 
 
@@ -30,8 +29,6 @@ if (isset($data))
                     <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                     </div>
                 </div>
-
-
             <?php endif; ?>
             <p class="clearfix">
                 <input type="submit" name="submit" value="<?php echo $text['login_button']; ?>" name="login">

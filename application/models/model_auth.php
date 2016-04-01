@@ -12,6 +12,7 @@ class Model_Auth extends Model
         $result = $this->mysqli->query($sql)->result;
         return $result;
     }
+
     public function activate_user($email)
     {
         $res = $this->mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'")->fetchAll();
@@ -23,23 +24,29 @@ class Model_Auth extends Model
         $query = $this->mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         return $query;
     }
-    
+
     public function set_last_login($id)
     {
         $ip = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
-        
+
         $get = $this->mysqli->query("SELECT last_ip,ip_track,last_browser,browser_track FROM hyip_users WHERE id=$id")->fetchSingleRow();
-        if($get['ip_track'] === '1' && $get['last_ip'] != $ip)
+        if ($get['ip_track'] === '1' && $get['last_ip'] != $ip)
         {
             return 'ip';
         }
-        if($get['browser_track'] === '1' && $get['last_browser'] != $browser )
+        if ($get['browser_track'] === '1' && $get['last_browser'] != $browser)
         {
             return 'browser';
         }
         $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
         return 'ok';
+    }
+
+    public function get_username_by_id($id)
+    {
+        $name = $this->mysqli->query("SELECT full_name FROM hyip_users WHERE id=$id")->fetchSingleRow();
+        return $name['full_name'];
     }
 
     public function get_user_by_mail($email)

@@ -15,15 +15,15 @@ class Model_Deposits extends Model
         
         $sum = (float) $this->mysqli->quote($_POST['sum']);
         $system = str_replace('_',' ',$this->mysqli->quote($_POST['moneyadd']));
-
+        echo $system;
         
         $query = $this->mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
 INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
 INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
-WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
+WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
         if ($query == 0)
         {
-            $cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='{$system}'")->result->insert_id;
+            $cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='$system'")->getInsertId();
         }
         else
         {

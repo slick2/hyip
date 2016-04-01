@@ -12,6 +12,7 @@ class Controller_Auth extends Controller
     function action_register()
     {
         $text = $this->model->get_messages('register',true);
+        $ref = $this->model->get_one_message('ref_inviteyou');
         $refid = 'NULL';
         $data = array();
         $message="";
@@ -64,8 +65,15 @@ class Controller_Auth extends Controller
                 $message = 'auth_message_emptyfields';
             }
         }
+        if(isset($_GET['ref']))
+        {
+            $rid = $this->model->mysqli->quote($_GET['ref']);
+            $name = $this->model->get_username_by_id($rid);
+            $data['referrer'] = $name;
+        }
         $data['message'] = $message;
         $data['text'] = $text;
+        $data['text']['refyou']=$ref;
         $this->view->generate('register_view.php', 'empty_view.php', $data);
     }
 
@@ -87,7 +95,7 @@ class Controller_Auth extends Controller
         $text = $this->model->get_messages('login',true);
         $leftmenu = $this->model->get_messages('leftmenu');
         $topmenu = $this->model->get_upper_messages('topmenu');
-        $ref = $this->model->get_one_message('reflink');
+        $inv = $this->model->get_one_message('ref_inviteyou');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
             $message = "OK";
