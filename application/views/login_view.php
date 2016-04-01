@@ -3,14 +3,15 @@ if (isset($data))
 {
     $text = $data['text'];
     $message = $data['message'];
+    //var_dump($message);
 }
 ?>
 <div class="container">
 
-    <!-- Codrops top bar -->
+
     <div class="company-logo-lock">
-        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85"  /></a>
-    </div><!--/ Codrops top bar -->
+        <a href="http://itinvestproject.com" class="logo-link" target="_blank"><img src="../img/logo.png" alt="" width="400" height="85" ></a>
+    </div>
 
 
     <section class="main">
@@ -23,6 +24,15 @@ if (isset($data))
                 <label for="password"><?php echo $text['auth_password']; ?></label>
                 <input type="password" name="password" id="password" placeholder=""> 
             </p>
+            <?php if ($message == "login_message_incorrect"): ?>
+                <div class="clearfix">
+                    <label>Проверочный код:</label>
+                    <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
+                    </div>
+                </div>
+
+
+            <?php endif; ?>
             <p class="clearfix">
                 <input type="submit" name="submit" value="<?php echo $text['login_button']; ?>" name="login">
             </p>       

@@ -35,7 +35,7 @@ class Controller_Auth extends Controller
                         if ($result)
                         {
                             $message = 'register_message_ok';
-                            if (mail($email, "Вы зарегистрировались на сайте", "Для активации перейдите по ссылке http://money.rscx.ru/hyip/activate?email=" . $email))
+                            if (mail($email, $text['register_activate_email_title'], "{$text['register_activate_email_text']} https://pa.itinvestproject.com/hyip/activate?email=" . $email))
                             {
                                 $message = 'register_message_mailsend_ok';
                             }

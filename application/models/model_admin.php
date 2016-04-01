@@ -79,11 +79,12 @@ class Model_Admin extends Model
         $qpayeer = $this->mysqli->query("SELECT in_shop,in_key,out_acc,out_api_id,out_api_key,active FROM hyip_payeer")->fetchAll();
         $qperfectmoney = $this->mysqli->query("SELECT in_acc,in_name,out_id,out_pass,active FROM hyip_perfectmoney")->fetchAll();
         $qadvcash = $this->mysqli->query("SELECT in_acc,in_name,in_sign,out_api_name,out_key,active FROM hyip_advcash")->fetchAll();
-
+        $qbitcoin = $this->mysqli->query("SELECT token,secret_key FROM hyip_bitcoin")->fetchAll();
         $data = [
             'payeer' => $qpayeer,
             'perfectmoney' => $qperfectmoney,
-            'advcash' => $qadvcash
+            'advcash' => $qadvcash,
+            'bitcoin' => $qbitcoin
             ];
         return $data;
     }

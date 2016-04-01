@@ -40,12 +40,12 @@ $reflink = Session::get('reflink');
                         <div class="col-md-9">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav">
-                            <li><a href="http://itinvestproject.com/"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
-                            <li><a href="http://itinvestproject.com/o-nas/"><?php echo strtoupper($topmenu['topmenu_aboutus']); ?></a></li>
-                            <li><a href="http://itinvestproject.com/investoram/"><?php echo strtoupper($topmenu['topmenu_investors']); ?></a></li>
-                            <li><a href="http://itinvestproject.com/pravila-kompanii/"><?php echo strtoupper($topmenu['topmenu_rules']); ?></a></li>
-                            <li><a href="http://itinvestproject.com/vopros-otvet/"><?php echo strtoupper($topmenu['topmenu_faq']); ?></a></li>
-                            <li><a href="http://itinvestproject.com/contact/"><?php echo strtoupper($topmenu['topmenu_contacts']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/o-nas/"><?php echo strtoupper($topmenu['topmenu_aboutus']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/investoram/"><?php echo strtoupper($topmenu['topmenu_investors']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/pravila-kompanii/"><?php echo strtoupper($topmenu['topmenu_rules']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/vopros-otvet/"><?php echo strtoupper($topmenu['topmenu_faq']); ?></a></li>
+                            <li><a href="https://itinvestproject.com/contact/"><?php echo strtoupper($topmenu['topmenu_contacts']); ?></a></li>
                           </ul>
                         </div><!-- /.navbar-collapse -->
                         </div>
@@ -94,6 +94,7 @@ $reflink = Session::get('reflink');
         </div>
         </div>
     </div>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>

@@ -72,6 +72,11 @@ WHERE cash.user_id = $uid AND systems.name = '{$system}'")->fetchNumRows();
         $q = $this->mysqli->query("SELECT in_acc,in_name,in_sign,out_api_name,out_key FROM hyip_advcash WHERE active=1 AND in_acc <> '' AND in_name <> '' AND in_sign <> ''")->fetchSingleRow();
         return $q;
     }
+    public function get_in_bitcoin()
+    {
+        $q = $this->mysqli->query("SELECT token,secret_key FROM hyip_bitcoin WHERE active=1")->fetchSingleRow();
+        return $q;
+    }
 
     public function get_pager($numposts)
     {
