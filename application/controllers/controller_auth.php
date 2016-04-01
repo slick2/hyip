@@ -129,7 +129,6 @@ class Controller_Auth extends Controller
                             Session::set('role', $role);
                             Session::set('id', $id);
                             Session::set('leftmenu', $leftmenu);
-                            Session::set('reflink',$ref);
                             Session::set('topmenu', $topmenu);
                             switch ($role)
                             {
