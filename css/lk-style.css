@@ -459,3 +459,50 @@ input:-webkit-autofill:active {
     font-weight: normal; 
     color: #32373d;
 }
+
+#notice{
+   padding-top: 30px;
+   padding-bottom: 30px;
+}
+
+#notice p{
+    text-align: center;
+    color:#5495c6;
+    font-size: 18px;
+}
+
+.calc_table{
+    width: 100%;
+    font-size:18px;
+}
+
+.calc_table td{
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #d8d8d8;
+}
+
+.calc_table td:nth-of-type(2){
+    text-align: right;
+}
+
+#sum_calc{
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #d8d8d8;
+}
+#sum_calc:focus{
+    outline: none;
+}
+
+.calc-depos{
+    padding-top: 30px;
+}
+
+#range{
+    width: 100%;
+    margin-top: 20px;
+}

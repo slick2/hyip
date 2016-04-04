@@ -1,6 +1,6 @@
+    $('#notice').hide();
 $(document).ready(function () {
 
-    calc();
 
     $('.btn-full').click(function () {
         var cur = $(this).data('cur');
