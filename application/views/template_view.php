@@ -30,7 +30,7 @@ $reflink = Session::get('reflink');
                                 <span class="icon-bar"></span>
                               </button>
                               
-                          <a class="navbar-brand company-logo"  href="#"></a>
+                          <a class="navbar-brand company-logo"  href="https://itinvestproject.com"></a>
                              
                         </div>
                         </div>
@@ -80,9 +80,9 @@ $reflink = Session::get('reflink');
             <div class="row right-block">
                 <?php if(Session::get('role') != 'admin'): ?>
                 <div class="col-xs-12">
-                <div class="usr-logo"></div> <h2><?php echo Session::get('name'); ?></h2>
+                    <div class="usr-logo col-xs-3"></div> <div class="col-xs-5"><h2><?php echo Session::get('name'); ?></h2></div>
                     <div class="col-xs-12" style="border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8">
-                        <div class=" ref-link"><p><?php echo $reflink; ?></p></div><div class="col-md-5"><h5><?php echo "http://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?></h5></div>
+                        <div class="row"><div class=" ref-link"><p><?php echo $reflink; ?></p></div><div class="col-md-5"><h5><?php echo "https://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?></h5></div></div>
                     </div>
                     
                 </div>
