@@ -5,12 +5,12 @@ function calc() {
     var month3 = Math.round(month * 3 * 100) / 100;
     var month6 = Math.round(month * 6 * 100) / 100;
     var year = Math.round(month * 12 * 100) / 100;
-    $('.sump').text($('#sum_calc').val());
-    $('.day').text(bday);
-    $('.month').text(month);
-    $('.3months').text(month3);
-    $('.6months').text(month6);
-    $('.year').text(year);
+    $('.sump').text("$"+$('#sum_calc').val());
+    $('.day').text("$"+bday);
+    $('.month').text("$"+month);
+    $('.3months').text("$"+month3);
+    $('.6months').text("$"+month6);
+    $('.year').text("$"+year);
 }
 
 
