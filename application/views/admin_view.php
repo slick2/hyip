@@ -187,7 +187,7 @@ ENDHTML;
     <tr>
     <td class='advcashsend'>{$value['in_acc']}</td>
     <td>{$value['in_name']}</td>
-    <td>{$value['in_sign']}</td>
+    <td class='break-long-str'>{$value['in_sign']}</td>
     <td>{$value['out_api_name']}</td>
     <td>{$value['out_key']}</td>
     <td>

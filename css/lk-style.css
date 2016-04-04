@@ -64,6 +64,10 @@ margin: 0 auto;
 	background-color: #6966db;
 }
 
+.nav.navbar-nav li{
+	text-transform: uppercase;
+}
+
 .glyphicon
 {
 	margin-right: 10px;
@@ -283,8 +287,14 @@ color: #fff;
     color: #000;
     transition: all 0.4s;
     background: none;
-    margin-left: 35%;
+	display: block;
+	margin: 0 auto;
+    /*margin-left: 35%;*/
     margin-top: 10px;
+}
+
+td .pay{
+	margin-top: 0px;
 }
 
 .pay:hover{
@@ -458,4 +468,8 @@ input:-webkit-autofill:active {
 .table-out input, .table-out label {
     font-weight: normal; 
     color: #32373d;
+}
+
+.break-long-str{
+	word-break: break-all;
 }
