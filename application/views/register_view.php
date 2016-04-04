@@ -17,8 +17,8 @@ if (isset($data))
     <section class="main">
 
         <?php if (isset($data['referrer'])): ?>
-            <p class="clearfix">
-                <span><?php echo $text['refyou'] . " : " . $data['referrer']; ?></span>
+        <p class="clearfix" style="text-align: center" >
+                <?php echo $text['refyou'] . " : " . $data['referrer']; ?>
             </p>
         <?php endif; ?>
 

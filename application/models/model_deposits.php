@@ -15,7 +15,6 @@ class Model_Deposits extends Model
         
         $sum = (float) $this->mysqli->quote($_POST['sum']);
         $system = str_replace('_',' ',$this->mysqli->quote($_POST['moneyadd']));
-        echo $system;
         
         $query = $this->mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
 INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
@@ -40,9 +39,9 @@ WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
         $qparent = $this->mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchNumRows();
         if ($qparent != 0)
         {
-            $parent = $this->mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchAll()['parent_id'];
+            $parent = $this->mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchSingleRow()['parent_id'];
             $percent = $sum * REFERRAL_PERCENT;
-            if (stripos($system, 'RUB') === false)
+            if (!stripos($system, 'RUB'))
             {
                 $percent = $percent / GetExchangeRate();
             }
