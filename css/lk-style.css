@@ -64,6 +64,10 @@ margin: 0 auto;
 	background-color: #6966db;
 }
 
+.nav.navbar-nav li{
+	text-transform: uppercase;
+}
+
 .glyphicon
 {
 	margin-right: 10px;
