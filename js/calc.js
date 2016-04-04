@@ -4,7 +4,7 @@ function calc() {
   var month = Math.round((bday*22+rday*8)*100)/100;
   var month3 = Math.round(month*3*100)/100;
   var month6 = Math.round(month*6*100)/100;
-  var year = Math.round(month*12*100)/100;;
+  var year = Math.round(month*12*100)/100;
   $('.sump').text($('#sum').val());
   $('.day').text(bday);
   $('.month').text(month);

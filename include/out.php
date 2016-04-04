@@ -24,17 +24,9 @@ foreach ($qcash as $row)
     
     if ($row['account'] != NULL) 
     {
-        switch ($row['name'])
-        {
-            case 'Payeer':
-                break;
-            case 'PerfectMoney':
-                break;
-            case 'Advash':
-                break;
-            case 'Bitcoin':
-                break;
-        }
+        $func = "out_".strtolower($row['name']);
+        $func();
+        
         $mysqli_local->query('START TRANSACTION;');
         $mysqli_local->query("UPDATE hyip_cash SET outs=outs+1 WHERE id={$row['id']}");
         $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,0)");

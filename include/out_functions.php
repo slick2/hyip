@@ -13,9 +13,9 @@ function out_payeer()
             'ps' => '1136053',
             //'sumIn' => 1,
             'curIn' => 'USD',
-            'sumOut' => 1,
+            'sumOut' => $sum,
             'curOut' => 'USD',
-            'param_ACCOUNT_NUMBER' => 'P30818941'
+            'param_ACCOUNT_NUMBER' => "{$row['account']}"
         ));
 
         if ($initOutput)
@@ -52,11 +52,11 @@ function out_advcash()
     $arg0->authenticationToken = $merchantWebService->getAuthenticationToken("{$advcash['out_api_name']}");
 
     $arg1 = new sendMoneyRequest();
-    $arg1->amount = 1.00;
+    $arg1->amount = $sum;
     $arg1->currency = "USD";
-    $arg1->email = "nosra787@gmail.com";
+    $arg1->email = "{$row['account']}";
 //$arg1->walletId = "U000000000000";
-    $arg1->note = "note";
+    $arg1->note = "Payment for deposit in ITInvestProject";
     $arg1->savePaymentTemplate = false;
 
     $validationSendMoney = new validationSendMoney();
@@ -84,7 +84,7 @@ function out_advcash()
 
 function out_perfectmoney()
 {
-    $f = fopen("https://perfectmoney.is/acct/confirm.asp?AccountID={$perfectmoney['out_id']}&PassPhrase={$perfectmoney['out_pass']}&Payer_Account={$perfectmoney['in_acc']}&Payee_Account=U11720744&Amount=1&PAY_IN=1&PAYMENT_ID=1223", 'rb');
+    $f = fopen("https://perfectmoney.is/acct/confirm.asp?AccountID={$perfectmoney['out_id']}&PassPhrase={$perfectmoney['out_pass']}&Payer_Account={$perfectmoney['in_acc']}&Payee_Account={$row['account']}&Amount=$sum&PAY_IN=1&PAYMENT_ID={$row['id']}", 'rb');
 
     if ($f === false)
     {
@@ -120,7 +120,7 @@ function out_perfectmoney()
 
 function out_bitcoin()
 {
-    $f = fopen("https://apibtc.com/api/sendmoney/?token={$bitcoin['token']}&wallet=14cvwhw3CqDMEXivim8EvB146cdvhKBPat&amount=1", 'rb');
+    $f = fopen("https://apibtc.com/api/sendmoney/?token={$bitcoin['token']}&wallet={$row['account']}&amount=$sum", 'rb');
     $out = array();
     $out = "";
     while (!feof($f))
