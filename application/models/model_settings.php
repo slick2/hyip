@@ -15,11 +15,11 @@ class Model_Settings extends Model
         $track_browser = $track_browser == "on" ? 1 : 0;
         if($track_ip != $track_ip_db)
         {
-            $this->mysqli->query("UPDATE hyip_users SET ip_track=$track_ip");
+            $this->mysqli->query("UPDATE hyip_users SET ip_track=$track_ip WHERE id=$uid");
         }
         if($track_browser != $track_browser_db)
         {
-            $this->mysqli->query("UPDATE hyip_users SET browser_track=$track_browser");
+            $this->mysqli->query("UPDATE hyip_users SET browser_track=$track_browser WHERE id=$uid");
         }
     }
 

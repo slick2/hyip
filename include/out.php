@@ -1,5 +1,6 @@
 <?php
 require_once './application/helpers/Database.php';
+require_once 'out_functions.php';
 $mysqli_local = Database::getInstance();
 
 $payeer = $mysqli_local->query("SELECT out_acc,out_api_id,out_api_key FROM hyip_payeer WHERE active=1")->fetchSingleRow();
@@ -23,6 +24,17 @@ foreach ($qcash as $row)
     
     if ($row['account'] != NULL) 
     {
+        switch ($row['name'])
+        {
+            case 'Payeer':
+                break;
+            case 'PerfectMoney':
+                break;
+            case 'Advash':
+                break;
+            case 'Bitcoin':
+                break;
+        }
         $mysqli_local->query('START TRANSACTION;');
         $mysqli_local->query("UPDATE hyip_cash SET outs=outs+1 WHERE id={$row['id']}");
         $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,0)");

@@ -42,6 +42,12 @@ class Model_Auth extends Model
         $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
         return 'ok';
     }
+    public function set_last_login_forced($id)
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $browser = $_SERVER['HTTP_USER_AGENT'];
+        $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
+    }
 
     public function get_username_by_id($id)
     {
