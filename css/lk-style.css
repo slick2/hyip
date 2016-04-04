@@ -472,6 +472,7 @@ input:-webkit-autofill:active {
 
 .break-long-str{
 	word-break: break-all;
+}
 #notice{
    padding-top: 30px;
    padding-bottom: 30px;
