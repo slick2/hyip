@@ -9,6 +9,12 @@ class Model
     {
         $this->mysqli = Database::getInstance();
     }
+    
+    public function get_percents()
+    {
+        $res = $this->mysqli->query("SELECT business_day,holiday,referral_first_referral_second FROM hyip_percents")->fetchAll();
+        return $res;
+    }
 
     public function get_one_message($action,$language='russian')
     {

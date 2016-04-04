@@ -79,9 +79,11 @@ class Controller_Admin extends Controller
             }
             $data_acc = $this->model->get_accounts();
             $data_syst = $this->model->get_systems();
+            $data_perc = $this->model->get_percents();
             $data = array(
                 'systems' => $data_syst,
-                'accounts' => $data_acc
+                'accounts' => $data_acc,
+                'percents' => $data_perc
             );
             $this->view->generate('admin_view.php', 'template_view.php', $data);
         }
