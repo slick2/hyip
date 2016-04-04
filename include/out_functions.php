@@ -55,7 +55,6 @@ function out_advcash()
     $arg1->amount = $sum;
     $arg1->currency = "USD";
     $arg1->email = "{$row['account']}";
-//$arg1->walletId = "U000000000000";
     $arg1->note = "Payment for deposit in ITInvestProject";
     $arg1->savePaymentTemplate = false;
 

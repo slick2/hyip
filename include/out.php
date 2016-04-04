@@ -18,10 +18,10 @@ inner join hyip_users hu ON (hc.user_id=hu.id)
 inner join hyip_payaccounts acc ON (acc.id=hc.payaccount_id)
 inner join hyip_paysystems hsys ON (hsys.id=acc.paysystem_id)
 where acc.account is not null and DATE(hc.created) != CURDATE()  LIMIT 1000")->fetchAll();
+var_dump($qcash);
 foreach ($qcash as $row) 
 {
     $sum = $row['cash'] * $percent;
-    
     if ($row['account'] != NULL) 
     {
         $func = "out_".strtolower($row['name']);
