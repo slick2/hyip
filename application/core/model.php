@@ -12,7 +12,7 @@ class Model
     
     public function get_percents()
     {
-        $res = $this->mysqli->query("SELECT business_day,holiday,referral_first_referral_second FROM hyip_percents")->fetchAll();
+        $res = $this->mysqli->query("SELECT name,amount FROM hyip_percents")->fetchAll();
         return $res;
     }
 
