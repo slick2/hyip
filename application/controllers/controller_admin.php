@@ -62,6 +62,11 @@ class Controller_Admin extends Controller
     {
         if (Session::get('email') && Session::get('role') == 'admin')
         {
+            
+            if(isset($_POST['proc']))
+            {
+                
+            }
             if(isset($_POST['toggle']))
             {
                 $toggle = $this->model->mysqli->quote($_POST['toggle']);

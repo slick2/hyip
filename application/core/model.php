@@ -13,7 +13,12 @@ class Model
     public function get_percents()
     {
         $res = $this->mysqli->query("SELECT name,amount FROM hyip_percents")->fetchAll();
-        return $res;
+        $data = [];
+        foreach ($res as $val)
+        {
+            $data[$val['name']] = $val['amount'];
+        }
+        return $data;
     }
 
     public function get_one_message($action,$language='russian')

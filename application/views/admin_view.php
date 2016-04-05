@@ -1,5 +1,28 @@
 <div class="right-wrap">
-    <div class="balance-wrap">        
+    <div class="balance-wrap">
+        <h2>Изменение процентов:</h2> 
+        <form action="" method="post" name="proc">
+            <table class="table table-out">
+                <tr>
+                    <td>Бизнес процент:</td>
+                    <td><input class="input input-depos" type="text" name="business_day" value="<?php echo $data['percents']['business_day']; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Процент выходного дня:</td>
+                    <td><input class="input input-depos" type="text" name="holiday" value="<?php echo $data['percents']['holiday']; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Реферальный процент до $500:</td>
+                    <td><input class="input input-depos" type="text" name="referral_first" value="<?php echo $data['percents']['referral_first']; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Реферальный процент свыше $500:</td>
+                    <td><input class="input input-depos" type="text" name="referral_second" value="<?php echo $data['percents']['referral_second']; ?>"></td>
+                </tr>
+
+            </table>
+            <input class="btn ok-btn" type="submit" name="proc" value="Изменить">
+        </form>
         <h2>Добавление платежных аккаунтов:</h2>
         <form action="admin" method="post">
             <table class="table table-out">

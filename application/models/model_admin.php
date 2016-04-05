@@ -2,6 +2,19 @@
 
 class Model_Admin extends Model
 {
+    public function set_percents()
+    {
+        $business = (double)$this->mysqli->quote($_POST['business_day']);
+        $holiday = (double)$this->mysqli->quote($_POST['holiday']);
+        $ref1 = (double)$this->mysqli->quote($_POST['referral_first']);
+        $ref2 = (double)$this->mysqli->quote($_POST['referral_second']);
+        $data = ['business_day' => $business,'holiday'=>$holiday, 'referral_first'=> $ref1,'referral_second'=>$ref2];
+        foreach ($data as $key=>$val)
+        {
+            $r = $this->mysqli->query("UPDATE hyip_percents SET amount=$val WHERE name='$key'");
+        }
+    }
+
     public function set_string($id,$key,$value)
     {
         $res = $this->mysqli->query("UPDATE hyip_translations SET $key='$value' WHERE id=$id");

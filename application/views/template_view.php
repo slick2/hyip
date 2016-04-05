@@ -65,6 +65,7 @@ $reflink = Session::get('reflink');
                     <li><a href="/deposits" style="background: url(../img/icons_menu/icon_menu_2.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_deposits']; ?></a></li>
                     <li><a href="/deposits/add" style="background: url(../img/icons_menu/icon_menu_3.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_newdeposit']; ?></a></li>
                     <li><a href="/referral" style="background: url(../img/icons_menu/icon_menu_5.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_referral']; ?></a></li>
+                    <li><a href="/referral/links" style="background: url(../img/icons_menu/icon_menu_5.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_reflink']; ?></a></li>
                     <!--<li><a href="#" style="background: url(../img/icons_menu/icon_menu_6.png) no-repeat 10px 6px;"><?php //echo 'Рекламные материалы'; ?></a></li>-->
                     <li><a href="/settings" style="background: url(../img/icons_menu/icon_menu_7.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_settings']; ?></a></li>
                     <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_logout']; ?></a></li>
@@ -94,7 +95,6 @@ $reflink = Session::get('reflink');
         </div>
         </div>
     </div>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
         <script src="/js/readonly.js"></script>
