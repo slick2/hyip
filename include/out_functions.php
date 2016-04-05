@@ -1,7 +1,7 @@
 <?php
 
 require_once('out/cpayeer.php');
-//require_once("out/MerchantWebService.php");
+require_once("out/MerchantWebService.php");
 
 function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$sum)
 {
@@ -80,7 +80,6 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
             echo '</pre>';
             break;
         case 'advcash':
-            /*
             $merchantWebService = new MerchantWebService();
 
             $arg0 = new authDTO();
@@ -116,8 +115,6 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
                 echo "ERROR MESSAGE => " . $e->getMessage() . "<br/>";
                 echo $e->getTraceAsString();
             }
-             * 
-             */
             echo 'temporary unavailable';
             break;
         case 'bitcoin':
