@@ -2,6 +2,16 @@
 
 class Model_Referral extends Model
 {
+    public function user_accounts()
+    {
+        $uid = Session::get('id');
+        $qq = $this->mysqli->query("SELECT DISTINCT hsys.name AS name, hp.account AS account
+FROM hyip_payaccounts AS hp
+INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id)
+INNER JOIN hyip_paysystems AS hsys ON (hsys.id=hp.paysystem_id)
+WHERE hc.user_id=$uid")->fetchNumRows();
+        return $qq;
+    }
 
     public function get_data()
     {
@@ -22,15 +32,12 @@ class Model_Referral extends Model
         {
             $money += $row['cash'];
         }
-        $qpers = $mysqli->query("SELECT percents FROM hyip_users WHERE id=$uid");
-        $pers = $qpers->fetchSingleRow()['percents'];
 
         $data = array(
             'parent' => $parent,
             'numrows' => $numrows,
             'active' => $active,
             'money' => $money,
-            'pers' => $pers,
             'uid' => $uid
         );
         

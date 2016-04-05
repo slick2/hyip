@@ -1,5 +1,4 @@
 <?php
-var_dump($data['account']);
 $m_shop = $data['account']['in_shop'];
 $m_orderid = $data['all']['orderid'];
 $m_amount = number_format($data['all']['sum'], 2, '.', '');

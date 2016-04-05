@@ -25,7 +25,6 @@ if (isset($data))
             </p>
             <?php if ($message == "login_message_incorrect"): ?>
                 <div class="clearfix">
-                    <label>Проверочный код:</label>
                     <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                     </div>
                 </div>

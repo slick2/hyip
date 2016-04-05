@@ -45,8 +45,6 @@ WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
             {
                 $percent = $percent / GetExchangeRate();
             }
-            $percent = round($percent, 2);
-            $q = $this->mysqli->query("UPDATE hyip_users SET percents=percents+$percent WHERE id=$parent");
         }
         $ref = strtolower($system);
         return array(

@@ -47,5 +47,3 @@
         <textarea disabled="disabled" width="100%" class="col-xs-12 well well_well-banner"><a href="<?php echo "https://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?>"><img src="https://pa.itinvestproject.com/img/banners/vertical.gif" /></a></textarea>
 
 </div>
-<?php
-

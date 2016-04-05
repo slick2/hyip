@@ -19,9 +19,17 @@
                         <input class="input input-depos" id="password_confirm" name="password_confirm" size="32"   type="password" value="">
                     </td></tr>
                 <?php
-                foreach ($data['systems'] as $value)
+                foreach ($data['systems']['systems'] as $value)
                 {
-                    echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='" . $value['account'] . "'></td></tr>";
+                    if(isset($data['systems'][$value['name']]))
+                    {
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='{$data['systems'][$value['name']]}'></td></tr>";
+                        
+                    }
+                    else
+                    {
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value=''></td></tr>";
+                    }
                 }
                 ?>
                 <tr><td><?php echo $data['text']['settings_email']; ?></td><td>

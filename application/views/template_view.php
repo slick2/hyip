@@ -102,5 +102,6 @@ $reflink = Session::get('reflink');
 	<script src="/js/calc.js"></script>
         <script src="/js/addmoney.js"></script>
         <script src="/js/admin.js"></script>
+        <script src="/js/out.js"></script>
     </body>
 </html>

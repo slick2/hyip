@@ -41,7 +41,6 @@ if (isset($data))
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
             <p class="clearfix">
-                <label>Проверочный код:</label>
                 <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                 </div>
             </p>

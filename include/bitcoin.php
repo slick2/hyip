@@ -9,7 +9,6 @@ while(!feof($f)) $out.=fgets($f);
 fclose($f);
 $res = json_decode($out, true);
 $send = false;
-var_dump($res);
 if ($res["success"])
 {
     $sign = md5($res["Res"]["Adress"] . $data['account']['secret_key']);

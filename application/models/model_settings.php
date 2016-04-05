@@ -28,6 +28,14 @@ class Model_Settings extends Model
     {
         $uid = Session::get('id');
         $smail = Session::get('email');
+        $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
+        foreach ($systems as $val)
+        {
+            if(!empty($_POST[$val['name']]))
+            {
+                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$val['name']]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}' ");
+            }
+        }
         if (!empty($_POST['full_name']))
         {
             $full_name = $this->mysqli->quote($_POST['full_name']);
@@ -62,14 +70,12 @@ FROM hyip_payaccounts AS hp
 INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id)
 INNER JOIN hyip_paysystems AS hsys ON (hsys.id=hp.paysystem_id)
 WHERE hc.user_id=$uid")->fetchAll();
-        
+        $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
         foreach ($qq as $row)
-        {
-            $data[] = array(
-                'name' => $row['name'],
-                'account' => $row['account']
-            );
+        {   
+            $data[$row['name']] = $row['account'];
         }
+        $data['systems'] = $systems;
         return $data;
     }
 
