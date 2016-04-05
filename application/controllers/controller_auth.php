@@ -11,7 +11,15 @@ class Controller_Auth extends Controller
     
     function action_restore()
     {
-        $this->view->generate('restore_view.php', 'empty_view.php');
+		$text = $this->model->get_messages('login', true);
+        $leftmenu = $this->model->get_messages('leftmenu');
+        $topmenu = $this->model->get_messages('topmenu');
+        $ref = $this->model->get_one_message('reflink');
+		$message = "";
+		$data = array();
+        $data['message'] = $message;
+        $data['text'] = $text;
+        $this->view->generate('restore_view.php', 'empty_view.php',$data);
     }
     function action_register()
     {
