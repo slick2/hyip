@@ -22,9 +22,10 @@ class Controller_Auth extends Controller
             {
                 $mail = $this->model->mysqli->quote($_POST['email']);
                 $newpass = $this->model->generate_password();
+                $this->model->set_password($mail,$newpass);
                 if(mail($mail, 'Восстановление пароля', "Вы запросили восстановление пароля. Ваш новый пароль: $newpass"))
                 {
-                    $message = 'register_message_mailsend_ok';
+                    header("Location: auth");
                 }
                 else
                 {
@@ -71,7 +72,7 @@ class Controller_Auth extends Controller
                             $message = 'register_message_ok';
                             if (mail($email, $text['register_activate_email_title'], "{$text['register_activate_email_text']} https://pa.itinvestproject.com/activate?email=" . $email))
                             {
-                                header("Location: auth");
+                                $message = 'register_message_mailsend_ok';
                             }
                             else
                             {

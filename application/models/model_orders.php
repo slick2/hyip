@@ -9,8 +9,8 @@ class Model_Orders extends Model
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $uid = Session::get('id');
         $posts = intval($this->mysqli->query("SELECT COUNT(id) FROM hyip_orders")->fetchSingleRow()['COUNT(id)']);
-        $total = ($posts - 1) / $numposts + 1;
-        if (empty($page) or $page < 0)
+        $total = intval(($posts - 1) / $numposts + 1);
+        if (empty($page) or $page <= 0)
             $page = 1;
         if ($page > $total)
             $page = $total;
@@ -64,13 +64,14 @@ class Model_Orders extends Model
             $refmas[1] = 0;
 
         $data = array();
+
         $data['cash'] = $cashmas;
         $data['outs'] = $outmas;
         $data['refs'] = $refmas;
         $data['page'] = $page;
         $data['orders'] = array();
         $data['total'] = $total;
-
+        if($start <0) $start=0;
         $operations = array($text['private_operation_in'], $text['private_operation_out']);
         $status = array($text['private_status_ok'], $text['private_status_wait']);
         $query = $this->mysqli->query("SELECT cash.id, ord.operation AS operation,ord.sum AS sum,ord.code "
@@ -79,8 +80,10 @@ class Model_Orders extends Model
                 . "INNER JOIN hyip_payaccounts AS acc ON (cash.payaccount_id=acc.id) "
                 . "INNER JOIN hyip_paysystems AS syst ON (acc.paysystem_id=syst.id) "
                 . "WHERE cash.user_id=$uid ORDER BY date DESC LIMIT $start,$numposts")->fetchAll();
-        
+        if($posts >=0)
+        {
         foreach ($query as $row)
+        {   if(isset($row['operation']) && isset($row['name']) && isset($row['code']))
         {
             $date = new DateTime($row['date']);
             $date = $date->format("d.m.y");
@@ -91,6 +94,8 @@ class Model_Orders extends Model
                 'status' => $status[$row['code']],
                 'date' => $date
             );
+        }
+        }
         }
 
 
