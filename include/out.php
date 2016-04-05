@@ -23,6 +23,7 @@ where acc.account is not null  LIMIT 1000")->fetchAll();
 foreach ($qcash as $row) 
 {
     $sum = $row['cash'];
+    $sum = round($sum,2);
     if ($row['account'] != NULL) 
     {
         out_money(strtolower($row['name']), $bitcoin, $advcash, $payeer, $perfectmoney, $row,$sum);
