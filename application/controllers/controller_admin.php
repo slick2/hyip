@@ -65,7 +65,7 @@ class Controller_Admin extends Controller
             
             if(isset($_POST['proc']))
             {
-                
+                $this->model->set_percents();
             }
             if(isset($_POST['toggle']))
             {

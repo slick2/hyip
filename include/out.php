@@ -2,7 +2,9 @@
 require_once './application/helpers/Database.php';
 require_once 'out_functions.php';
 $mysqli_local = Database::getInstance();
-
+$percents = $mysqli_local->query("SELECT amount FROM hyip_percents WHERE name='business_day' OR name 'holiday'");
+$perc_bus = (double)$percents[0]['amount'];
+$perc_hol = (double)$percents[1]['amount'];
 $payeer = $mysqli_local->query("SELECT out_acc,out_api_id,out_api_key FROM hyip_payeer WHERE active=1")->fetchSingleRow();
 $perfectmoney = $mysqli_local->query("SELECT out_id,out_pass FROM hyip_perfectmoney WHERE active=1")->fetchSingleRow();
 $advcash = $mysqli_local->query("SELECT in_acc,out_api_name,out_key FROM hyip_advcash WHERE active=1")->fetchSingleRow();
