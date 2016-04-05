@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 05 2016 г., 10:08
+-- Время создания: Апр 05 2016 г., 11:53
 -- Версия сервера: 5.6.28-0ubuntu0.15.10.1
 -- Версия PHP: 5.6.11-1ubuntu3.1
 
@@ -110,30 +110,30 @@ CREATE TABLE IF NOT EXISTS `hyip_cash` (
 --
 
 INSERT INTO `hyip_cash` (`id`, `user_id`, `payaccount_id`, `cash`, `created`, `outs`) VALUES
-(37, 2, 15, 100, '2016-04-04 05:59:24', 15),
-(44, 2, 22, 10, '2016-04-04 05:59:23', 10),
-(47, 2, 15, 10, '2016-04-04 05:59:24', 11),
-(51, 2, 22, 10, '2016-04-04 05:59:23', 10),
-(53, 2, 22, 10, '2016-04-04 05:59:23', 10),
-(54, 2, 22, 10, '2016-04-04 05:59:23', 10),
-(59, 2, 22, 1001, '2016-04-04 05:59:23', 10),
-(61, 2, 22, 10.03, '2016-04-04 05:59:23', 10),
-(63, 2, 22, 10, '2016-04-04 05:59:23', 8),
-(64, 2, 22, 10, '2016-04-04 05:59:23', 8),
-(70, 2, 22, 1000, '2016-04-04 05:59:23', 4),
-(71, 2, 22, 10000000, '2016-04-04 05:59:23', 3),
-(72, 2, 22, 10000000, '2016-04-04 05:59:23', 3),
-(73, 2, 22, 10000000, '2016-04-04 05:59:23', 3),
-(74, 2, 22, 10, '2016-04-04 05:59:23', 2),
-(75, 2, 22, 10, '2016-04-04 05:59:23', 2),
-(76, 2, 22, 10, '2016-04-04 05:59:23', 2),
-(77, 2, 22, 10, '2016-04-04 05:59:23', 2),
-(78, 2, 22, 10, '2016-04-04 05:59:24', 2),
-(79, 2, 22, 10, '2016-04-04 05:59:24', 2),
-(80, 2, 22, 10, '2016-04-04 05:59:24', 2),
-(81, 2, 22, 10, '2016-04-04 05:59:24', 2),
-(82, 2, 22, 10, '2016-04-04 05:59:24', 2),
-(83, 2, 22, 10, '2016-04-04 05:59:24', 1),
+(37, 2, 15, 100, '2016-04-05 07:18:47', 16),
+(44, 2, 22, 10, '2016-04-05 07:18:36', 11),
+(47, 2, 15, 10, '2016-04-05 07:18:48', 12),
+(51, 2, 22, 10, '2016-04-05 07:18:38', 11),
+(53, 2, 22, 10, '2016-04-05 07:18:39', 11),
+(54, 2, 22, 10, '2016-04-05 07:18:40', 11),
+(59, 2, 22, 1001, '2016-04-05 07:18:40', 11),
+(61, 2, 22, 10.03, '2016-04-05 07:18:40', 11),
+(63, 2, 22, 10, '2016-04-05 07:18:41', 9),
+(64, 2, 22, 10, '2016-04-05 07:18:41', 9),
+(70, 2, 22, 1000, '2016-04-05 07:18:41', 5),
+(71, 2, 22, 10000000, '2016-04-05 07:18:42', 4),
+(72, 2, 22, 10000000, '2016-04-05 07:18:42', 4),
+(73, 2, 22, 10000000, '2016-04-05 07:18:42', 4),
+(74, 2, 22, 10, '2016-04-05 07:18:43', 3),
+(75, 2, 22, 10, '2016-04-05 07:18:43', 3),
+(76, 2, 22, 10, '2016-04-05 07:18:43', 3),
+(77, 2, 22, 10, '2016-04-05 07:18:44', 3),
+(78, 2, 22, 10, '2016-04-05 07:18:44', 3),
+(79, 2, 22, 10, '2016-04-05 07:18:44', 3),
+(80, 2, 22, 10, '2016-04-05 07:18:44', 3),
+(81, 2, 22, 10, '2016-04-05 07:18:45', 3),
+(82, 2, 22, 10, '2016-04-05 07:18:45', 3),
+(83, 2, 22, 10, '2016-04-05 07:18:45', 2),
 (84, 2, 31, 10, '2016-04-01 09:17:44', 0),
 (85, 2, 31, 10, '2016-04-01 09:22:32', 0),
 (86, 2, 31, 10, '2016-04-01 09:23:24', 0),
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `hyip_orders` (
   `sum` double NOT NULL,
   `code` tinyint(1) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `hyip_orders`
@@ -317,7 +317,31 @@ INSERT INTO `hyip_orders` (`id`, `cash_id`, `operation`, `sum`, `code`, `date`) 
 (264, 83, 1, 0.0055696, 0, '2016-04-04 05:59:24'),
 (265, 37, 1, 0.055696, 0, '2016-04-04 05:59:24'),
 (266, 47, 1, 0.0055696, 0, '2016-04-04 05:59:24'),
-(271, 92, 0, 1000, 0, '2016-04-04 12:43:01');
+(271, 92, 0, 1000, 0, '2016-04-04 12:43:01'),
+(272, 44, 1, 0.0055696, 0, '2016-04-05 07:18:36'),
+(273, 51, 1, 0.0055696, 0, '2016-04-05 07:18:38'),
+(274, 53, 1, 0.0055696, 0, '2016-04-05 07:18:39'),
+(275, 54, 1, 0.0055696, 0, '2016-04-05 07:18:40'),
+(276, 59, 1, 0.55751696, 0, '2016-04-05 07:18:40'),
+(277, 61, 1, 0.0055863088, 0, '2016-04-05 07:18:40'),
+(278, 63, 1, 0.0055696, 0, '2016-04-05 07:18:41'),
+(279, 64, 1, 0.0055696, 0, '2016-04-05 07:18:41'),
+(280, 70, 1, 0.55696, 0, '2016-04-05 07:18:41'),
+(281, 71, 1, 5569.6, 0, '2016-04-05 07:18:42'),
+(282, 72, 1, 5569.6, 0, '2016-04-05 07:18:42'),
+(283, 73, 1, 5569.6, 0, '2016-04-05 07:18:42'),
+(284, 74, 1, 0.0055696, 0, '2016-04-05 07:18:43'),
+(285, 75, 1, 0.0055696, 0, '2016-04-05 07:18:43'),
+(286, 76, 1, 0.0055696, 0, '2016-04-05 07:18:43'),
+(287, 77, 1, 0.0055696, 0, '2016-04-05 07:18:44'),
+(288, 78, 1, 0.0055696, 0, '2016-04-05 07:18:44'),
+(289, 79, 1, 0.0055696, 0, '2016-04-05 07:18:44'),
+(290, 80, 1, 0.0055696, 0, '2016-04-05 07:18:44'),
+(291, 81, 1, 0.0055696, 0, '2016-04-05 07:18:45'),
+(292, 82, 1, 0.0055696, 0, '2016-04-05 07:18:45'),
+(293, 83, 1, 0.0055696, 0, '2016-04-05 07:18:45'),
+(294, 37, 1, 0.055696, 0, '2016-04-05 07:18:47'),
+(295, 47, 1, 0.0055696, 0, '2016-04-05 07:18:48');
 
 -- --------------------------------------------------------
 
@@ -453,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `hyip_rate` (
   `id` int(11) NOT NULL,
   `dollar_rate` double NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `hyip_rate`
@@ -473,7 +497,8 @@ INSERT INTO `hyip_rate` (`id`, `dollar_rate`, `date`) VALUES
 (11, 68, '2016-03-28 12:30:28'),
 (12, 68, '2016-03-30 08:50:45'),
 (13, 67, '2016-04-01 08:55:19'),
-(14, 67, '2016-04-04 05:59:18');
+(14, 67, '2016-04-04 05:59:18'),
+(15, 68, '2016-04-05 07:13:53');
 
 -- --------------------------------------------------------
 
@@ -488,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `hyip_translations` (
   `english` varchar(1024) DEFAULT NULL,
   `vietnamese` varchar(1024) DEFAULT NULL,
   `chinese` varchar(1024) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `hyip_translations`
@@ -586,7 +611,9 @@ INSERT INTO `hyip_translations` (`id`, `tag`, `russian`, `english`, `vietnamese`
 (89, 'newdeposit_calc_3month', 'Доход за 3 месяца', NULL, NULL, NULL),
 (90, 'newdeposit_calc_6month', 'Доход за полгода', NULL, NULL, NULL),
 (91, 'newdeposit_calc_year', 'Доход за год', NULL, NULL, NULL),
-(92, 'leftmenu_reflink', 'Рекламные материалы', NULL, NULL, NULL);
+(92, 'leftmenu_reflink', 'Рекламные материалы', NULL, NULL, NULL),
+(93, 'ref_out_percent', 'Вывести процент', NULL, NULL, NULL),
+(94, 'auth_forgot', 'Забыли пароль?', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -615,11 +642,11 @@ CREATE TABLE IF NOT EXISTS `hyip_users` (
 
 INSERT INTO `hyip_users` (`id`, `full_name`, `email`, `password`, `active`, `role`, `parent_id`, `percents`, `last_ip`, `ip_track`, `last_browser`, `browser_track`) VALUES
 (12, 'Переподвыподверт', 'ak@rocketstation.ru', '$2y$10$/ppVJxGdwovP0FPFhqiz8eL8friAUx/73gGQSfwdlmsDFr5/zSBXC', 1, 'user', NULL, 0, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
-(7, 'Ivan Petrov', 'dezalator@gmail.com', '$2y$10$mxm5jyCihq/Lvx0WpTn3Gu5JH.6F.yHIaziAT1NrqIVWLJEz6BJyS', 1, 'admin', NULL, 0, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 1),
+(7, 'Ivan Petrov', 'dezalator@gmail.com', '$2y$10$mxm5jyCihq/Lvx0WpTn3Gu5JH.6F.yHIaziAT1NrqIVWLJEz6BJyS', 1, 'admin', NULL, 0, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
 (13, 'Тирьямпампам', 'test@test.bz', '$2y$10$DryQ4Ly64B7ph3vtRla5GeJllcDxhO8g7qDnNXVADRt1iFwB6scyS', 1, 'user', 2, 0, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
 (3, 'TEST NAME', 'test@test.com', '123456', 1, 'user', 2, 0, '', 0, '', 0),
 (5, 'Gans', 'test@test.eu', '123456', 1, 'user', 2, 0, '', 0, '', 0),
-(2, 'parampampam', 'test@test.ru', '$2y$10$LXneZrY9khNruirwMQLLY.hEBZwI2vbOUu45TJYIzMfOvDAHTA/P.', 1, 'user', NULL, 1.79, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 1),
+(2, 'parampampam', 'test@test.ru', '$2y$10$LXneZrY9khNruirwMQLLY.hEBZwI2vbOUu45TJYIzMfOvDAHTA/P.', 1, 'user', NULL, 1.79, '127.0.0.1', 0, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36', 0),
 (4, 'Mykola', 'test@test.ua', '123456', 1, 'user', 2, 0, '', 0, '', 0);
 
 --
@@ -740,7 +767,7 @@ ALTER TABLE `hyip_cash`
 -- AUTO_INCREMENT для таблицы `hyip_orders`
 --
 ALTER TABLE `hyip_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=272;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=296;
 --
 -- AUTO_INCREMENT для таблицы `hyip_payaccounts`
 --
@@ -770,12 +797,12 @@ ALTER TABLE `hyip_perfectmoney`
 -- AUTO_INCREMENT для таблицы `hyip_rate`
 --
 ALTER TABLE `hyip_rate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT для таблицы `hyip_translations`
 --
 ALTER TABLE `hyip_translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT для таблицы `hyip_users`
 --

@@ -18,11 +18,10 @@ class Controller_Auth extends Controller
         
         if(isset($_POST['restore']))
         {
-            var_dump($_POST);
-            if(!empty($POST['email']) )
+            if(!empty($_POST['email']) )
             {
-                $mail = $this->model->mysqli->quote($POST['email']);
-                $newpass = openssl_random_pseudo_bytes(8);
+                $mail = $this->model->mysqli->quote($_POST['email']);
+                $newpass = $this->model->generate_password();
                 if(mail($mail, 'Восстановление пароля', "Вы запросили восстановление пароля. Ваш новый пароль: $newpass"))
                 {
                     $message = 'register_message_mailsend_ok';
@@ -72,7 +71,7 @@ class Controller_Auth extends Controller
                             $message = 'register_message_ok';
                             if (mail($email, $text['register_activate_email_title'], "{$text['register_activate_email_text']} https://pa.itinvestproject.com/activate?email=" . $email))
                             {
-                                $message = 'register_message_mailsend_ok';
+                                header("Location: auth");
                             }
                             else
                             {

@@ -2,10 +2,25 @@
 
 class Model_Auth extends Model
 {
-    public function set_password($email,$pass)
+
+    public function set_password($email, $pass)
     {
-        $password = password_hash($pass,PASSWORD_DEFAULT);
+        $password = password_hash($pass, PASSWORD_DEFAULT);
         $this->mysqli->query("UPDATE hyip_users SET passwod='$password' WHERE email='$email'");
+    }
+
+    public function generate_password($length = 8)
+    {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++)
+        {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
     }
 
     public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
@@ -47,6 +62,7 @@ class Model_Auth extends Model
         $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
         return 'ok';
     }
+
     public function set_last_login_forced($id)
     {
         $ip = $_SERVER['REMOTE_ADDR'];

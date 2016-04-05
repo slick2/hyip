@@ -40,6 +40,6 @@ $text = $data['text'];
         $page1right = '   <li><a href="/deposits?page=' . ($data['page'] + 1) . '">' . ($data['page'] + 1) . '</a></li>';
 
 // Вывод меню
-    echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class=""><a href="#">' . $data['page'] . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
+    echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class="active"><a href="#">' . $data['page'] . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
     ?>
     
