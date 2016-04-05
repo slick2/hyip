@@ -2,7 +2,7 @@
 
 function out_payeer()
 {
-    require_once('cpayeer.php');
+    require_once('out/cpayeer.php');
     $accountNumber = $payeer['out_acc'];
     $apiId = $payeer['out_api_id'];
     $apiKey = $payeer['out_api_key'];
