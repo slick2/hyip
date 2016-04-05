@@ -8,3 +8,8 @@
     <tr><td><?php echo $data['text']['ref_percents']; ?></td><td><?php echo "$"."{$data['all']['pers']}" ?></td></tr>
   </table>
 </div>
+<div class="container-fluid small-top-marg">
+	<div class="row">
+		<a href="#" class="add-depos">Вывести процент</a>
+	</div>
+</div>
