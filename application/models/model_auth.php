@@ -2,6 +2,11 @@
 
 class Model_Auth extends Model
 {
+    public function set_password($email,$pass)
+    {
+        $password = password_hash($pass,PASSWORD_DEFAULT);
+        $this->mysqli->query("UPDATE hyip_users SET passwod='$password' WHERE email='$email'");
+    }
 
     public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
     {

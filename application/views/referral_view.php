@@ -10,6 +10,6 @@
 </div>
 <div class="container-fluid small-top-marg">
 	<div class="row">
-		<a href="#" class="add-depos">Вывести процент</a>
+		<a href="#" class="add-depos"><?php echo $data['text']['ref_out_percent']; ?></a>
 	</div>
 </div>

@@ -11,15 +11,37 @@ class Controller_Auth extends Controller
     
     function action_restore()
     {
-		$text = $this->model->get_messages('login', true);
-        $leftmenu = $this->model->get_messages('leftmenu');
-        $topmenu = $this->model->get_messages('topmenu');
-        $ref = $this->model->get_one_message('reflink');
-		$message = "";
-		$data = array();
+        $text = $this->model->get_messages('login', true);
+        $register = $this->model->get_messages('register', true);
+	$message = "";
+	$data = array();
+        
+        if(isset($_POST['restore']))
+        {
+            var_dump($_POST);
+            if(!empty($POST['email']) )
+            {
+                $mail = $this->model->mysqli->quote($POST['email']);
+                $newpass = openssl_random_pseudo_bytes(8);
+                if(mail($mail, 'Восстановление пароля', "Вы запросили восстановление пароля. Ваш новый пароль: $newpass"))
+                {
+                    $message = 'register_message_mailsend_ok';
+                }
+                else
+                {
+                    $message = 'register_message_mailsend_error';
+                }
+            }
+            else
+            {
+                $message = 'auth_message_emptyfields';
+            }
+        }
         $data['message'] = $message;
         $data['text'] = $text;
+        $data['register'] = $register;
         $this->view->generate('restore_view.php', 'empty_view.php',$data);
+        
     }
     function action_register()
     {

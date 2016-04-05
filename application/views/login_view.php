@@ -45,8 +45,10 @@ if (isset($data))
             </span>
         </div>
         <div class="log-reg">
-            <p><?php echo $text['login_noacc']; ?></p>
+            <p><?php echo $text['login_noacc']; ?>
             <a href= "/auth/register"><?php echo $text['login_register']; ?></a>
+            </p>
+            <p><a href="/auth/restore"><?php echo $text['auth_forgot']; ?></a> </p>
             <p><?php echo $text['auth_copyright']; ?></p>
         </div>
     </section>
