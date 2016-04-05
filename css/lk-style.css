@@ -543,7 +543,3 @@ textarea:focus{
 textarea.well{
     padding: 5px;
 }
- .log-reg a{
-    padding-bottom: 20px;
-    display: block;
-}
