@@ -527,3 +527,16 @@ input:-webkit-autofill:active {
     width: 100%;
     margin-top: 20px;
 }
+
+.well_well-banner{
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+textarea:focus{
+    outline:none;
+}
+
+textarea.well{
+    padding: 5px;
+}
