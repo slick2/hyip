@@ -8,7 +8,11 @@ class Controller_Auth extends Controller
         parent::__construct();
         $this->model = new Model_Auth();
     }
-
+    
+    function action_restore()
+    {
+        $this->view->generate('restore_view.php', 'empty_view.php');
+    }
     function action_register()
     {
         $text = $this->model->get_messages('register', true);
