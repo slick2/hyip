@@ -101,5 +101,16 @@ class Model_Admin extends Model
             ];
         return $data;
     }
+    public function getUsersList(){
+        $db = Database::getInstance();
+        $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+        $perPage = 10;
+        $query = "SELECT count(id) as userscount from hyip_users";
+        $usersCount = $db->query($query)->result[0]['userscount'];
+        $offset = ($page - 1)*$perPage;
+        $query = "SELECT id, full_name, email, role, active  FROM `hyip_users`  order by id limit $offset,$perPage";
+        $users = $db->query($query)->result;
+        return array('count'=>$usersCount, 'users'=>$users, 'page'=>$page);
+    }
 
 }

@@ -6,7 +6,8 @@ class Controller_Deposits extends Controller
     function __construct()
     {
         parent::__construct();
-        $this->model = new Model_Deposits();        
+        $this->model = new Model_Deposits();
+        
     }
 
     function action_index()
@@ -36,8 +37,9 @@ class Controller_Deposits extends Controller
     function action_add()
     {
         if (Session::get('email') !== false)
-        {
+        {            
             $data = array();
+            $data['activeSystems'] = $this->model->getActiveSysyems(); 
             $data['text'] = $this->model->get_messages('newdeposit');
             if (isset($_POST['addcash']))
             {

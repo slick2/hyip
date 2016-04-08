@@ -147,5 +147,17 @@ WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
 
         return $data;
     }
+    public function getActiveSysyems() {
+    $db = Database::getInstance();
+    $query = 'select 1 as active from hyip_payeer where active=1';
+    $payeer = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_perfectmoney where active=1';
+    $perfectmoney = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_bitcoin where active=1';
+    $bitcoin = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_advcash where active=1';
+    $advcash = !!(@$db->query($query)->result[0]['active'] == 1);
+    return array('Payeer'=>$payeer, 'Advcash'=>$advcash, 'Perfectmoney'=>$perfectmoney, 'Bitcoin'=>$bitcoin);
+}
 
 }

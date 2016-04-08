@@ -1,7 +1,9 @@
 <?php
+//header('Content-Type: text/html; charset=utf-8');
 $leftmenu = Session::get('leftmenu');
 $topmenu = Session::get('topmenu');
 $reflink = Session::get('reflink');
+$this->percent = Database::getInstance()->getCurrentPercent();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -13,12 +15,16 @@ $reflink = Session::get('reflink');
             <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css"/>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
             <link rel="stylesheet" type="text/css" href="/css/lk-style.css"/>
+            <script>
+                var currentPercent = <?php echo $this->percent  ;?>;
+            </script>
     </head>
     <body>
 <div class="container-fluid header_main">
     <div class="container">
-    <div class="row">
 
+    <div class="row">
+                    
                     <nav class="navbar navbar-default main-nav" role="navigation">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="col-md-3">
@@ -71,12 +77,13 @@ $reflink = Session::get('reflink');
                     <?php else: ?>
                     <li><a href="/admin" style="background: url(../img/icons_menu/icon_menu_8.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_admin_accounts']; ?></a></li>
                     <li><a href="/admin/translation" style="background: url(../img/icons_menu/icon_menu_7.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_translation']; ?></a></li>
+                    <li><a href='/admin/userlist' style="background: url(../img/icons_menu/userlist.png) no-repeat 10px 6px; background-size: 30px 30px;"><?php echo $leftmenu['leftmenu_userlist']; ?></a></li>
                     <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_logout']; ?></a></li>
                     <?php endif; ?>
                 </ul> 
             </div>
             
-            <div class="col-xs-9">
+            <div class="col-xs-9">                
             <div class="row right-block">
                 <?php if(Session::get('role') != 'admin'): ?>
                 <div class="col-xs-12">
@@ -84,7 +91,13 @@ $reflink = Session::get('reflink');
                     <div class="col-xs-12" style="border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8">
                         <div class="row"><div class=" ref-link"><p><?php echo $reflink; ?></p></div><div class="col-md-5"><h5><?php echo "https://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?></h5></div></div>
                     </div>
-                    
+                    <?php if(isset($_SESSION['session_activated']) && $_SESSION['session_activated']!=1){ ?>
+                    <div class='row'>
+                        <div class='col-xs-12'>
+                            <p class='alert-danger'>Ваш аккаунт не подтвержден</p>
+                        </div>
+                    </div>
+                    <?php } ?>                    
                 </div>
                 <?php endif; ?>
                 <div class="col-xs-12">
@@ -99,9 +112,9 @@ $reflink = Session::get('reflink');
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>
 	<script src="/js/time.js"></script>
-	<script src="/js/calc.js"></script>
         <script src="/js/addmoney.js"></script>
         <script src="/js/admin.js"></script>
         <script src="/js/out.js"></script>
+        <script src="/js/calc.js"></script>
     </body>
 </html>

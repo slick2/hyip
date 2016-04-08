@@ -23,12 +23,12 @@
                 {
                     if(isset($data['systems'][$value['name']]))
                     {
-                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='{$data['systems'][$value['name']]}'></td></tr>";
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' size='35' type='text' name='" . $value['name'] . "' value='{$data['systems'][$value['name']]}'></td></tr>";
                         
                     }
                     else
                     {
-                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value=''></td></tr>";
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' size='35' type='text' name='" . $value['name'] . "' value=''></td></tr>";
                     }
                 }
                 ?>

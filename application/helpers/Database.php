@@ -82,5 +82,9 @@ class Database
     {
         return $this->conn->real_escape_string($arg);
     }
+    public function getCurrentPercent(){
+        $query = "SELECT `amount` FROM `hyip_percents` where `name`='business_day'";
+        return self::query($query)->result[0]['amount'];
+    }
 
 }

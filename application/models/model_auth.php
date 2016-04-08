@@ -29,8 +29,10 @@ class Model_Auth extends Model
         $ip = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents,last_ip,last_browser) VALUES('$full_name','$email', '$password', '$active','$role',$parent_id,'$percents','$ip','$browser')";
-        $result = $this->mysqli->query($sql);
-        return true;
+        $this->mysqli->query($sql);
+        $query = "SELECT * from hyip_users where `email`='$email' LIMIT 1";
+        $result = $this->mysqli->query($query)->result;
+        return $result[0];
     }
 
     public function activate_user($email)

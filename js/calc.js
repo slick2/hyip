@@ -1,5 +1,5 @@
 function calc() {
-    var bday = Math.round($('#sum').val()*0.0236*100)/100;
+    var bday = Math.round($('#sum').val()*currentPercent*100)/100;
     var rday = Math.round($('#sum').val()*0.01*100)/100;
     var month = Math.round((bday*22+rday*8)*100)/100;
     var month3 = Math.round(month*3*100)/100;
@@ -12,21 +12,39 @@ function calc() {
     $('.6months').text("$"+month6);
     $('.year').text("$"+year);
 }
+$('#notice').hide(1);
+calc();
+$('#sum').on('change', function(){
 
-
-  $('#sum').on('change input',function () {
-
-function hide_notice() {
-    $('#notice').hide(500);
-}
+    if($('#sum').val()<10){
+        $('#sum').val(10);
+    }
+    if($('#sum').val()>10000){
+        $('#sum').val(10000);
+    }    
+});
+$('#sum').on('change input',function () {
+    if(isNaN($('#sum').val())){
+        $('#sum').val(10);
+    }
+    if($('#sum').val()<10 || $('#sum').val()>10000){
+        $('#notice').show(1);
+        $('#addcash').css('display', 'none');
+    } else {
+        $('#addcash').css('display', 'block');
+        $('#notice').hide(1);
+    }
+    function hide_notice() {
+        $('#notice').hide(500);
+    }
 
 
     if ($('#sum').val() < 10 || $('#sum').val() > 10000)
     {
-        $('#notice').show(200);
+        
     
     } else {
-        $('#notice').hide(500);
+        
         calc();
     }
 

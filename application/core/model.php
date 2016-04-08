@@ -42,11 +42,11 @@ class Model
     {
         if($auth)
         {
-            $mes = $this->mysqli->query("SELECT tag,$language FROM hyip_translations WHERE tag LIKE '$action%' OR tag LIKE 'auth%'")->fetchAll();
+            $mes = $this->mysqli->query("SELECT tag,`$language` FROM hyip_translations WHERE tag LIKE '$action%' OR tag LIKE 'auth%'")->fetchAll();
         }
         else
         {
-            $mes = $this->mysqli->query("SELECT tag,$language FROM hyip_translations WHERE tag LIKE '$action%'")->fetchAll();
+            $mes = $this->mysqli->query("SELECT tag,`$language` FROM hyip_translations WHERE tag LIKE '$action%'")->fetchAll();
         }
         
         $data = array();

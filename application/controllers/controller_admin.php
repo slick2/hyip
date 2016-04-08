@@ -98,5 +98,18 @@ class Controller_Admin extends Controller
             header("Location:/auth");
         }
     }
-
+    function action_userlist()
+{
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $data = $this->model->getUsersList();
+            
+            $this->view->generate('userlist_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }
 }
