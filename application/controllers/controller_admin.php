@@ -99,12 +99,26 @@ class Controller_Admin extends Controller
         }
     }
     function action_userlist()
-{
+    {
         if (Session::get('email') && Session::get('role') == 'admin')
         {
             $data = $this->model->getUsersList();
             
             $this->view->generate('userlist_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }
+    function action_userblock(){
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $id = (int) $_POST['id'];
+            $data = $this->model->userBlock($id);
+            
+            $this->view->generate('adminempty_view.php', 'template_view.php', $data);
         }
         else
         {

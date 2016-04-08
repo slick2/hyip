@@ -89,4 +89,9 @@ $(document).ready(function () {
                 }
         );
     });
+    $('.user_block').click(function(){
+    var id = ($(this).attr('data-id'));
+    $.post( "/admin/userblock", { id:id } );
+    location.reload();
+    });
 });

@@ -37,7 +37,7 @@ $page1right = "";
         <?php endforeach ?>
     </div>
     <div class='row-fluid'>
-        <?php 
+        <?php
             // Проверяем нужны ли стрелки назад
                 if ($page != 1)
                     $pervpage = '<li><a href=" /admin/userlist?page=1">&laquo;</a></li>

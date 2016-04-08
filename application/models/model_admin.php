@@ -112,5 +112,13 @@ class Model_Admin extends Model
         $users = $db->query($query)->result;
         return array('count'=>$usersCount, 'users'=>$users, 'page'=>$page);
     }
+    public function userBlock($id){
+        $query = "select active from hyip_users where id=$id";
+        $db = Database::getInstance();
+        $isActive = (int)$db->query($query)->result[0]['active'];
+        $active = $isActive ? 0 : 1;
+        $query = "update hyip_users set active=$active where id = $id";
+        $db->query($query);
+    }
 
 }
