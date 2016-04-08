@@ -12,29 +12,29 @@ $page1right = "";
 ?>
 <div class='container-fluid'>
     <div class='row-fluid'>
-        <?php foreach($users as $user): ?>
-        <div class=''>
-            <?php echo $user['id'];?>
-        </div>
-        <div class=''>
-            <?php echo $user['full_name'];?>
-        </div>   
-        <div class=''>
-            <?php echo $user['email'];?>
-        </div>
-        <div class=''>
-            <?php echo $user['role'];?>
-        </div>     
-        <div class=''>
-            <?php echo (!!$user['active'] ? 'активен' : 'не активен');?>
-        </div>
-        <div class=''>
-            <button class='user_block' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button>            
-        </div>   
-        <div class=''>
-            <button class='user_delete' data-id='<?php echo $user['id'];?>'>удалить</button>            
-        </div>          
-        <?php endforeach ?>
+        <h3>Список пользователей</h3>
+        <table class="table-history">
+        	<tr>
+        		<th>id</th>
+        		<th>Имя</th>
+        		<th>E-mail</th>
+        		<th>Права</th>
+        		<th>Активность</th>
+				<th colspan="2">Функции</th>
+        	</tr>
+        	<?php foreach($users as $user): ?>
+        	<tr>
+        		<td><?php echo $user['id'];?></td>
+        		<td><?php echo $user['full_name'];?></td>
+        		<td><?php echo $user['email'];?></td>
+        		<td><?php echo $user['role'];?></td>
+        		<td><?php echo (!!$user['active'] ? 'активен' : 'не активен');?></td>
+        		<td><button class='user_block btn btn-default' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button></td>
+        		<td><button class='user_delete btn btn-default' data-id='<?php echo $user['id'];?>'>удалить</button></td>
+        	</tr>
+        	<?php endforeach ?>
+        </table>         
+        
     </div>
     <div class='row-fluid'>
         <?php 
