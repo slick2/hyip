@@ -120,5 +120,9 @@ class Model_Admin extends Model
         $query = "update hyip_users set active=$active where id = $id";
         $db->query($query);
     }
-
+    public function userDelete($id){
+        $query = "delete from hyip_users where id=$id";
+        $db = Database::getInstance();
+        $db->query($query);
+    }
 }

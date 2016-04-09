@@ -71,7 +71,19 @@ class Controller_Deposits extends Controller
             header("Location:/auth");
         }
     }
+    function action_calcpublic()
+    {
+            $data = array();
+            $data['activeSystems'] = $this->model->getActiveSysyems(); 
+            $data['text'] = $this->model->get_messages('newdeposit');
 
+
+
+                    $data['newdeposit'] = $this->model->get_one_message('private_create_deposit');
+                    $data['all']  = array('message' => $data['text']['newdeposit_empty_field']);
+                    $data['systems'] = $this->model->get_paysystems();
+                    $this->view->generate('calcdeposit_view.php', 'templateempty_view.php', $data);
+    }
 }
 
 ?>

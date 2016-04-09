@@ -126,4 +126,18 @@ class Controller_Admin extends Controller
             header("Location:/auth");
         }
     }
+    function action_userdelete(){
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $id = (int) $_POST['id'];
+            $data = $this->model->userDelete($id);
+            
+            $this->view->generate('adminempty_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }    
 }

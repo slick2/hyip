@@ -89,9 +89,14 @@ $(document).ready(function () {
                 }
         );
     });
-    $('.user_block').click(function(){
-    var id = ($(this).attr('data-id'));
-    $.post( "/admin/userblock", { id:id } );
-    location.reload();
+    $('.user_delete').click(function(){
+        var id = ($(this).attr('data-id'));
+        $.post( "/admin/userdelete", { id:id } );
+        location.reload();
     });
+    $('.user_block').click(function(){
+        var id = ($(this).attr('data-id'));
+        $.post( "/admin/userblock", { id:id } );
+        location.reload();
+    });    
 });
