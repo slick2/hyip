@@ -31,11 +31,15 @@ class Model_Settings extends Model
         $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
         foreach ($systems as $val)
         {
-            if(!empty($_POST[$val['name']]))
+            
+            $v =str_replace(' ', '_', $val['name']);
+            //var_dump($_POST[$v]);
+            if(!empty($_POST[$v]))
             {
-              var_dump($systems);
-              $name = Database::getInstance()->quote($_POST[$val['name']]);
-              $system = Database::getInstance()->quote($val['name']);
+              
+              //var_dump($systems);
+              $name = Database::getInstance()->quote($_POST[$v]);
+              $system = str_replace('_', ' ', Database::getInstance()->quote($val['name']));
               //$query = "UPDATE hyip_payaccounts SET account='{$name}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}')";
               $query = "update hyip_payaccounts hp 
 
@@ -43,9 +47,10 @@ inner join hyip_paysystems hpay ON (hpay.id=hp.paysystem_id)
 set hp.account='{$name}'
 where hpay.name='$system' AND hp.user_id=$uid;";
 //              echo '<pre>';
-//              var_dump($query);
+//              var_dump($_POST);
+//              var_dump("UPDATE hyip_payaccounts SET account='{$_POST[$v]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
 //              echo '</pre>';
-                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$val['name']]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
+                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$v]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
             }
         }
         if (!empty($_POST['full_name']))
