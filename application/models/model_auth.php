@@ -32,6 +32,13 @@ class Model_Auth extends Model
         $this->mysqli->query($sql);
         $query = "SELECT * from hyip_users where `email`='$email' LIMIT 1";
         $result = $this->mysqli->query($query)->result;
+        $id = $result[0]['id'];
+        $accountsQuery = "insert into hyip_payaccounts (paysystem_id, user_id) select id, $id from hyip_paysystems";
+        $this->mysqli->query($accountsQuery);
+//        $accountIds = $this->mysqli->query("select id from hyip_payaccounts order by id desc limit 5")->result;
+//        foreach($accountIds as $accountId){
+//          
+//        }
         return $result[0];
     }
 

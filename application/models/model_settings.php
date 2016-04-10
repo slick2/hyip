@@ -33,7 +33,19 @@ class Model_Settings extends Model
         {
             if(!empty($_POST[$val['name']]))
             {
-                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$val['name']]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}' ");
+              var_dump($systems);
+              $name = Database::getInstance()->quote($_POST[$val['name']]);
+              $system = Database::getInstance()->quote($val['name']);
+              //$query = "UPDATE hyip_payaccounts SET account='{$name}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}')";
+              $query = "update hyip_payaccounts hp 
+
+inner join hyip_paysystems hpay ON (hpay.id=hp.paysystem_id)
+set hp.account='{$name}'
+where hpay.name='$system' AND hp.user_id=$uid;";
+//              echo '<pre>';
+//              var_dump($query);
+//              echo '</pre>';
+                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$val['name']]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
             }
         }
         if (!empty($_POST['full_name']))

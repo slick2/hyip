@@ -28,7 +28,7 @@ $page1right = "";
         		<td><?php echo $user['full_name'];?></td>
         		<td><?php echo $user['email'];?></td>
         		<td><?php echo $user['role'];?></td>
-        		<td><?php echo (!!$user['active'] ? 'активен' : 'не активен');?></td>
+        		<td><?php echo (!!$user['banned'] ? 'активен' : 'не активен');?></td>
         		<td><button class='user_block btn btn-default' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button></td>
         		<td><button class='user_delete btn btn-default' data-id='<?php echo $user['id'];?>'>удалить</button></td>
         	</tr>
@@ -43,7 +43,7 @@ $page1right = "";
                     $pervpage = '<li><a href=" /admin/userlist?page=1">&laquo;</a></li>
                                                        <li><a href=" /admin/userlist?page=' . ($page - 1) . '">&#60;</a></li> ';
             // Проверяем нужны ли стрелки вперед
-                if ($page != $count)
+                if ($page < $count)
                     $nextpage = ' <li><a href="/admin/userlist?page=' . ($page + 1) . '"<i class="fa fa-angle-right"></i></a></li>
                                                            <li><a href="/admin/userlist?page=' . ceil($count/10) . '">&raquo</a></li>';
 
@@ -52,9 +52,9 @@ $page1right = "";
                     $page2left = ' <li><a href="/admin/userlist?page=' . ($page - 2) . '">' . ($page - 2) . '</a></li>   ';
                 if ($page - 1 > 0)
                     $page1left = '<li><a href="/admin/userlist?page=' . ($page - 1) . '">' . ($page - 1) . '</a></li>   ';
-                if ($page + 2 <= $count)
+                if ($page + 2 < $count/10)
                     $page2right = '   <li><a href="/admin/userlist?page=' . ($page + 2) . '">' . ($page + 2) . '</a></li>';
-                if ($page + 1 <= $count)
+                if ($page + 1 < $count/10)
                     $page1right = '   <li><a href="/admin/userlist?page=' . ($page + 1) . '">' . ($page + 1) . '</a></li>';
 
             // Вывод меню

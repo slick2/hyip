@@ -108,16 +108,16 @@ class Model_Admin extends Model
         $query = "SELECT count(id) as userscount from hyip_users";
         $usersCount = $db->query($query)->result[0]['userscount'];
         $offset = ($page - 1)*$perPage;
-        $query = "SELECT id, full_name, email, role, active  FROM `hyip_users`  order by id limit $offset,$perPage";
+        $query = "SELECT id, full_name, email, role, active, banned  FROM `hyip_users`  order by id limit $offset,$perPage";
         $users = $db->query($query)->result;
         return array('count'=>$usersCount, 'users'=>$users, 'page'=>$page);
     }
     public function userBlock($id){
-        $query = "select active from hyip_users where id=$id";
+        $query = "select banned from hyip_users where id=$id";
         $db = Database::getInstance();
         $isActive = (int)$db->query($query)->result[0]['active'];
         $active = $isActive ? 0 : 1;
-        $query = "update hyip_users set active=$active where id = $id";
+        $query = "update hyip_users set banned=$active where id = $id";
         $db->query($query);
     }
     public function userDelete($id){
