@@ -46,6 +46,7 @@ class Model_Auth extends Model
     public function activate_user($email)
     {
         $res = $this->mysqli->query("UPDATE hyip_users SET active = TRUE WHERE email='$email'")->fetchAll();
+        $_SESSION['session_activated']=1;
         return $res;
     }
 
