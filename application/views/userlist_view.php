@@ -48,7 +48,7 @@ $page1right = "";
                     $pervpage = '<li><a href=" /admin/userlist?page=1">&laquo;</a></li>
                                                        <li><a href=" /admin/userlist?page=' . ($page - 1) . '">&#60;</a></li> ';
             // Проверяем нужны ли стрелки вперед
-                if ($page < $count)
+                if ($page < ceil($count/10))
                     $nextpage = ' <li><a href="/admin/userlist?page=' . ($page + 1) . '"<i class="fa fa-angle-right"></i></a></li>
                                                            <li><a href="/admin/userlist?page=' . ceil($count/10) . '">&raquo</a></li>';
 
@@ -63,7 +63,7 @@ $page1right = "";
                     $page1right = '   <li><a href="/admin/userlist?page=' . ($page + 1) . '">' . ($page + 1) . '</a></li>';
 
             // Вывод меню
-                echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class=""><a href="#">' . $page . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
+                echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class="active"><a href="#">' . $data['page'] . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
         ?>        
     </div>
 </div>

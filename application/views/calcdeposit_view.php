@@ -1,3 +1,29 @@
+<style>
+    body{
+        color:#433d60;
+    }
+
+    .calc_table td{
+        border-bottom: 1px dashed #5495c6;
+    }
+
+    .input-depos{
+        height: 35px;
+        border-color: #433d60;
+        color: #5495c6;
+    }
+
+    .input-depos:focus{
+        border-color:#5495c6;
+    }
+
+    select{
+        height: 35px !important;
+        border-color: #433d60 !important;
+        color: #5495c6 !important;
+    }
+    
+</style>
 <div class="container-fluid new-depos">
     <form action="" method="post" name="addcash" class="add-depos-form">
         <div class="col-xs-12 devider">
