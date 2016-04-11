@@ -18,7 +18,8 @@ class Controller_Settings extends Controller
             $this->model->update_user();
             $message = $text['settings_data_changed'];
         }
-        elseif(isset ($_POST["safety"]))
+       
+        if(isset ($_POST["safety"]))
         {
             $this->model->update_safety();
             $message = $text['settings_data_changed'];
@@ -28,11 +29,13 @@ class Controller_Settings extends Controller
         {
             $data = array();
             $data['systems'] = $this->model->get_data();
+            //var_dump($data);
             $data['text'] = $text;
             if(isset($message))
             {
                 $data['message'] = $message;
             }
+            //var_dump($data);
             $this->view->generate('settings_view.php', 'template_view.php', $data);
         }
         else

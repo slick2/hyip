@@ -82,17 +82,21 @@ where hpay.name='$system' AND hp.user_id=$uid;";
         $data = array();
         $mysqli = Database::getInstance();
         $uid = Session::get('id');
-        $qq = $this->mysqli->query("SELECT DISTINCT hsys.name AS name, hp.account AS account
+        $qq = $this->mysqli->query("SELECT DISTINCT hsys.name AS name, hp.account AS account, hu.browser_track as track, hu.ip_track as iptrack
 FROM hyip_payaccounts AS hp
 INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id)
 INNER JOIN hyip_paysystems AS hsys ON (hsys.id=hp.paysystem_id)
+INNER JOIN hyip_users as hu ON (hu.id=hc.user_id)
 WHERE hc.user_id=$uid")->fetchAll();
+        //var_dump($qq);
         $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
         foreach ($qq as $row)
         {   
             $data[$row['name']] = $row['account'];
         }
         $data['systems'] = $systems;
+        $data['iptrack'] = $qq[0]['iptrack'];
+        $data['btrack'] = $qq[0]['track'];
         return $data;
     }
 

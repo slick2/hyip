@@ -1,3 +1,8 @@
+<?php
+//echo '<pre>';
+//var_dump($data['systems']);
+//echo '</pre>';
+?>
 <div class="container-fluid new-depos">
     <form action="" method="post" name="change">
         <div class="col-xs-12 devider">
@@ -50,10 +55,10 @@
         <div class="col-xs-12 new-depos">
             <div class="col-xs-12 ip-adres"><?php echo $data['text']['settings_iptrack']; ?></div>
             <div class="col-xs-12 devider">
-                <input type="radio" name="ip" value="off" checked><?php echo $data['text']['settings_turn_off']; ?>
+                <input type="radio" name="ip" value="off" <?php echo !$data['systems']['iptrack'] ? "checked=checked": '' ;?>><?php echo $data['text']['settings_turn_off']; ?>
             </div>
             <div class="col-xs-12">
-                <input type="radio" name="ip" value="on"><?php echo $data['text']['settings_turn_on']; ?>
+                <input type="radio" name="ip" value="on" <?php echo !!$data['systems']['iptrack'] ? "checked=checked": '' ;?>><?php echo $data['text']['settings_turn_on']; ?>
             </div>
         </div>
     </div>
@@ -61,10 +66,10 @@
         <div class="col-xs-12 new-depos">
             <div class="col-xs-12 ip-adres"><?php echo $data['text']['settings_browser_track']; ?></div>
             <div class="col-xs-12 devider">
-                <input type="radio" name="browser" value="off" checked><?php echo $data['text']['settings_turn_off']; ?>
+                <input type="radio" name="browser" value="off" <?php echo !$data['systems']['btrack'] ? "checked=checked": '' ;?>><?php echo $data['text']['settings_turn_off']; ?>
             </div>
             <div class="col-xs-12">
-                <input type="radio" name="browser" value="on"><?php echo $data['text']['settings_turn_on']; ?>
+                <input type="radio" name="browser" value="on" <?php echo !!$data['systems']['btrack'] ? "checked=checked": '' ;?>><?php echo $data['text']['settings_turn_on']; ?>
             </div>
         </div>
     </div>
