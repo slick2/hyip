@@ -1,5 +1,13 @@
+<div class="container-fluid attention">
+    <div class="col-xs-12">
+        <h2>О реферальной системе</h2>
+        <h4>Вознаграждение за привлеченных инвесторов - 5%</h4>
+        <p>Выплаты реферальных процентов происходят в автоматическом режиме. </p>
+        <p>Для участия в реферальной программе инвестору необходимо указать кошельки всех платежных систем.</p>
+    </div>
+</div>
 <div class="container-fluid new-depos">
-  <table class="table-ref">
+    <table class="table-ref">
       <?php if(!empty($data['all']['parent'])):  ?>
     <tr><td><?php echo $data['text']['ref_inviteyou']; ?></td><td><?php echo "{$data['all']['parent']}" ?></td></tr>
     <?php endif; ?>

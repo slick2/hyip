@@ -22,7 +22,7 @@
         border-color: #433d60 !important;
         color: #5495c6 !important;
     }
-    
+
 </style>
 <div class="container-fluid">
     <form action="" method="post" name="addcash" class="add-depos-form">

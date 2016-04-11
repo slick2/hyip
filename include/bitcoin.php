@@ -30,6 +30,6 @@ if ($send):
     <form action="https://apibtc.com/merchant/invoice/?wallet=<?php echo $res['Res']['Adress'];?>" method="POST">
         <input type="hidden" name="amount" value="<?php echo $data['all']['sum']; ?>">
         <input type="hidden" name="return_user" value="https://itinvestproject.com/pay/success">
-        <input type="submit" value="Перейти на мерчант">
+        <input type="submit" class="pay" value="Отправить">
     </form>
 <?php endif; ?>
