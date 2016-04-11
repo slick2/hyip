@@ -22,7 +22,7 @@ INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
 WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
         if ($query == 0)
         {
-            $cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='$system'")->getInsertId();
+            //$cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='$system'")->getInsertId();
         }
         else
         {

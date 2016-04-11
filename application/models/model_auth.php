@@ -88,7 +88,7 @@ class Model_Auth extends Model
 
     public function get_user_by_mail($email)
     {
-        $query = $this->mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser FROM hyip_users WHERE email='$email'")->fetchAll();
+        $query = $this->mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser, banned FROM hyip_users WHERE email='$email'")->fetchAll();
         $res = array();
         $nr = $this->mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         if ($nr != 0)
@@ -103,7 +103,8 @@ class Model_Auth extends Model
                     'full_name' => $row['full_name'],
                     'id' => $row['id'],
                     'last_ip' => $row['last_ip'],
-                    'last_browser' => $row['last_browser']
+                    'last_browser' => $row['last_browser'],
+                    'banned' => $row['banned']
                 );
             }
         }

@@ -4,6 +4,7 @@ if (isset($data))
     $text = $data['text'];
     $message = $data['message'];
 }
+//var_dump($_SESSION);
 ?>
 <div class="container">
 
@@ -33,7 +34,13 @@ if (isset($data))
                 <input type="submit" name="submit" value="<?php echo $text['login_button']; ?>" name="login">
             </p>       
         </form>​
+        
         <div class="log-invalid">
+            <?php if(isset($_SESSION['session_isBanned']) && $_SESSION['session_isBanned']){ ?>
+            <div><p class="alert-danger"> <?php echo $_SESSION['bannedMessage']; ?></p></div>
+            <?php              
+            }
+            ?>
             <span>
                 <?php
                 if (isset($text[$message]) && isset($_POST["email"]))
@@ -53,3 +60,7 @@ if (isset($data))
     </section>
 
 </div>
+<?php if(isset($_SESSION['session_isBanned']) && $_SESSION['session_isBanned']){
+     //session_destroy();
+}; 
+?>

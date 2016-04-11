@@ -171,6 +171,8 @@ https://pa.itinvestproject.com/activate?email=$email
                     $role = $row['role'];
                     $fullname = $row['full_name'];
                     $id = $row['id'];
+                    $isBanned = (bool) $row['banned'];
+                    //var_dump($row); exit;
                 }
                 if ($email == $dbemail && password_verify($password, $dbpassword))
                 {
@@ -195,6 +197,10 @@ https://pa.itinvestproject.com/activate?email=$email
                             Session::set('leftmenu', $leftmenu);
                             Session::set('reflink', $ref);
                             Session::set('topmenu', $topmenu);
+                            Session::set('isBanned', $isBanned);
+                            if($isBanned){
+                                header("Location: /");
+                            }
                             if($active == 0){                                
                                 Session::set('activated', 0);
                             }

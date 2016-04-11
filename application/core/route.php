@@ -4,7 +4,8 @@ class Route
 {
 
     static function start()
-    {
+    {    
+        //var_dump($_SESSION);
         $models = array(
             'private' => 'Model_Orders', 
             'auth' => 'Model_Auth', 
@@ -18,8 +19,16 @@ class Route
         // контроллер и действие по умолчанию
         $controller_name = 'private';
         $action_name = 'index';
-
-
+        if(isset($_SESSION['session_isBanned']) && !!$_SESSION['session_isBanned']){
+            $db = Database::getInstance();
+            $query = "select * from hyip_translations where tag='banned'";
+            $message = $db->query($query)->result[0];
+            $lang = (isset($_SESSION['lang'])) ? $_SESSION['lang'] : 'russian';
+            $_SESSION['bannedMessage'] = $message[$lang];
+            if($_SERVER['REQUEST_URI']!='/auth'){
+                header('Location: /auth');
+            }
+        }
         $tr = explode('?', $_SERVER['REQUEST_URI']);
         $routes = explode('/', $tr[0]);
 

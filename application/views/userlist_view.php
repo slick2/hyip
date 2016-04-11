@@ -20,6 +20,7 @@ $page1right = "";
         		<th>E-mail</th>
         		<th>Права</th>
         		<th>Активность</th>
+                        <th>email</th>
 				<th colspan="2">Функции</th>
         	</tr>
         	<?php foreach($users as $user): ?>
@@ -28,9 +29,13 @@ $page1right = "";
         		<td><?php echo $user['full_name'];?></td>
         		<td><?php echo $user['email'];?></td>
         		<td><?php echo $user['role'];?></td>
-        		<td><?php echo (!!$user['banned'] ? 'активен' : 'не активен');?></td>
-        		<td><button class='user_block btn btn-default' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button></td>
-        		<td><button class='user_delete btn btn-default' data-id='<?php echo $user['id'];?>'>удалить</button></td>
+        		<td><?php echo (!!$user['banned'] ? 'блокирован' : 'активен');?></td>
+                        <td><?php echo (!!$user['active'] ? 'подтвержден': 'не подтвержден'); ?></td>
+        		<td>
+                            <button class='user_block btn btn-default' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button>
+                            <button class='user_delete btn btn-default' data-id='<?php echo $user['id'];?>'>удалить</button>
+                        </td>
+        		
         	</tr>
         	<?php endforeach ?>
         </table>         

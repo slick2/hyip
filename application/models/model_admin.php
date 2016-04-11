@@ -115,7 +115,7 @@ class Model_Admin extends Model
     public function userBlock($id){
         $query = "select banned from hyip_users where id=$id";
         $db = Database::getInstance();
-        $isActive = (int)$db->query($query)->result[0]['active'];
+        $isActive = (int)$db->query($query)->result[0]['banned'];
         $active = $isActive ? 0 : 1;
         $query = "update hyip_users set banned=$active where id = $id";
         $db->query($query);
