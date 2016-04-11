@@ -23,7 +23,9 @@ class Controller_Auth extends Controller
                 $mail = $this->model->mysqli->quote($_POST['email']);
                 $newpass = $this->model->generate_password();
                 $this->model->set_password($mail,$newpass);
-                $headers = "From: office@itinvestproject.com";
+                    $headers = "From: office@itinvestproject.com\r\n";
+                    $headers .= "Reply-To: office@itinvestproject.com\r\n";
+                    $headers .= "Return-Path: office@itinvestproject.com\r\n";
                 if(mail($mail, 'Восстановление пароля', "Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
 Вы запросили восстановление пароля. Ваш новый пароль: $newpass", $headers))
                 {
@@ -72,7 +74,9 @@ class Controller_Auth extends Controller
                         if ($result)
                         {
                             $message = 'register_message_ok';
-                            $headers = "From: office@itinvestproject.com";
+                            $headers = "From: office@itinvestproject.com\r\n";
+                            $headers .= "Reply-To: office@itinvestproject.com\r\n";
+                            $headers .= "Return-Path: office@itinvestproject.com\r\n";
                             if (mail($email, $text['register_activate_email_title'], "Уважаемый(ая) Инвестор, вы зарегистрировались на сайте https://itinvestproject.com
 Просим подтвердить вашу электронную почту для продолжения работы с системой.
 https://pa.itinvestproject.com/activate?email=$email
@@ -224,7 +228,9 @@ https://pa.itinvestproject.com/activate?email=$email
                         }
                         else
                         {
-                            $headers = "From: office@itinvestproject.com";
+                            $headers = "From: office@itinvestproject.com\r\n";
+                            $headers .= "Reply-To: office@itinvestproject.com\r\n";
+                            $headers .= "Return-Path: office@itinvestproject.com\r\n";
                             switch ($safety)
                             {
                                 case 'ip':

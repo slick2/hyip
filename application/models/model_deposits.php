@@ -34,7 +34,7 @@ class Model_Deposits extends Model
        
         //var_dump($system);exit;
             if($system=='Bitcoin'){
-                $sum*=400;
+                $sum=$sum/400;
             }
         $qr = $this->mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
 

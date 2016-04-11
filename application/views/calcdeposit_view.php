@@ -24,7 +24,7 @@
     }
     
 </style>
-<div class="container-fluid new-depos">
+<div class="container-fluid">
     <form action="" method="post" name="addcash" class="add-depos-form">
         <div class="col-xs-12 devider">
             <div class="col-xs-4">
