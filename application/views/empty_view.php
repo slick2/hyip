@@ -17,4 +17,5 @@
 </body>
 <script type="text/javascript" src="/js/jquery.placeholder.min"></script>
 <script type="text/javascript" src="/js/modernizr.custom.63321"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

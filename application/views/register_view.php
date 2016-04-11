@@ -40,11 +40,10 @@ if (isset($data))
                 <label for="repeat_password"><?php echo $text['register_repeat_password']; ?></label>
                 <input type="password" name="repeat_password" id="password" placeholder=""> 
             </p>
-            <div class="clearfix">
-                <label>Проверочный код:</label>
+            <p class="clearfix">
                 <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                 </div>
-            </div>
+            </p>
             <p style="color:#fff; text-align: center;"><?php echo $text['register_rulesfollow']; ?> <a href="https://itinvestproject.com/pravila-kompanii/" target="_blank"><?php echo $text['register_rules']; ?></a> <?php echo $text['register_itinvest']; ?></p>
             <p class="clearfix">
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">

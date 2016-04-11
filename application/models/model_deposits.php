@@ -16,22 +16,26 @@ class Model_Deposits extends Model
         $sum = (float) $this->mysqli->quote($_POST['sum']);
         $system = str_replace('_',' ',$this->mysqli->quote($_POST['moneyadd']));
         
-        $query = $this->mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
-INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
-INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
-WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
-        if ($query == 0)
-        {
-            $cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='$system'")->getInsertId();
-        }
-        else
-        {
-            $cid = $this->mysqli->query("SELECT hp.id AS id "
-                    . "FROM hyip_payaccounts as hp "
-                    . "INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id) "
-                    . "INNER JOIN hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) "
-                    . "WHERE hsys.name = '{$system}' AND hc.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
-        }
+//        $query = $this->mysqli->query("SELECT systems.id AS id FROM hyip_paysystems AS systems
+//INNER JOIN hyip_payaccounts AS  accounts ON (systems.id=accounts.paysystem_id)
+//INNER JOIN hyip_cash AS cash ON (accounts.id=cash.payaccount_id)
+//WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
+
+            //$cid = $this->mysqli->query("INSERT INTO hyip_payaccounts (paysystem_id) SELECT id FROM hyip_paysystems WHERE name='$system'")->getInsertId();
+
+//            $cid = $this->mysqli->query("SELECT hp.id AS id "
+//                    . "FROM hyip_payaccounts as hp "
+//                    //. "INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id) "
+//                    . "INNER JOIN hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) "
+//                    . "WHERE hsys.name = '{$system}' AND hp.user_id=$uid LIMIT 1")->fetchSingleRow()['id'];
+            $query = "select hp.id AS id from hyip_payaccounts as hp inner join hyip_paysystems AS hsys ON (hp.paysystem_id = hsys.id) where hsys.name = '$system'and hp.user_id = $uid";
+            //var_dump($this->mysqli->query($query)->result[0]);
+            $cid = $this->mysqli->query($query)->result[0]['id'];
+       
+        //var_dump($system);exit;
+            if($system=='Bitcoin'){
+                $sum*=400;
+            }
         $qr = $this->mysqli->query("INSERT INTO hyip_cash (user_id,payaccount_id,cash,outs) VALUES ($uid,$cid,$sum,0)");
 
         $addorder = $this->mysqli->query("INSERT INTO hyip_orders (cash_id,operation,sum,code) VALUES ({$this->mysqli->getInsertId()},0,$sum,1)");
@@ -45,8 +49,6 @@ WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
             {
                 $percent = $percent / GetExchangeRate();
             }
-            $percent = round($percent, 2);
-            $q = $this->mysqli->query("UPDATE hyip_users SET percents=percents+$percent WHERE id=$parent");
         }
         $ref = strtolower($system);
         return array(
@@ -149,5 +151,17 @@ WHERE cash.user_id = $uid AND systems.name = '$system'")->fetchNumRows();
 
         return $data;
     }
+    public function getActiveSysyems() {
+    $db = Database::getInstance();
+    $query = 'select 1 as active from hyip_payeer where active=1';
+    $payeer = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_perfectmoney where active=1';
+    $perfectmoney = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_bitcoin where active=1';
+    $bitcoin = !!(@$db->query($query)->result[0]['active'] == 1);
+    $query = 'select 1 as active from hyip_advcash where active=1';
+    $advcash = !!(@$db->query($query)->result[0]['active'] == 1);
+    return array('Payeer'=>$payeer, 'Advcash'=>$advcash, 'Perfectmoney'=>$perfectmoney, 'Bitcoin'=>$bitcoin);
+}
 
 }

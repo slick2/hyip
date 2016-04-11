@@ -13,7 +13,12 @@ class Model
     public function get_percents()
     {
         $res = $this->mysqli->query("SELECT name,amount FROM hyip_percents")->fetchAll();
-        return $res;
+        $data = [];
+        foreach ($res as $val)
+        {
+            $data[$val['name']] = $val['amount'];
+        }
+        return $data;
     }
 
     public function get_one_message($action,$language='russian')
@@ -37,11 +42,11 @@ class Model
     {
         if($auth)
         {
-            $mes = $this->mysqli->query("SELECT tag,$language FROM hyip_translations WHERE tag LIKE '$action%' OR tag LIKE 'auth%'")->fetchAll();
+            $mes = $this->mysqli->query("SELECT tag,`$language` FROM hyip_translations WHERE tag LIKE '$action%' OR tag LIKE 'auth%'")->fetchAll();
         }
         else
         {
-            $mes = $this->mysqli->query("SELECT tag,$language FROM hyip_translations WHERE tag LIKE '$action%'")->fetchAll();
+            $mes = $this->mysqli->query("SELECT tag,`$language` FROM hyip_translations WHERE tag LIKE '$action%'")->fetchAll();
         }
         
         $data = array();

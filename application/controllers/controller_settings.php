@@ -11,7 +11,7 @@ class Controller_Settings extends Controller
     }
 
     function action_index()
-    {
+    {              
         $text = $this->model->get_messages('settings');
         if (isset($_POST["change"]))
         {

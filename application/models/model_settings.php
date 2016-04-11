@@ -28,6 +28,31 @@ class Model_Settings extends Model
     {
         $uid = Session::get('id');
         $smail = Session::get('email');
+        $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
+        foreach ($systems as $val)
+        {
+            
+            $v =str_replace(' ', '_', $val['name']);
+            //var_dump($_POST[$v]);
+            if(!empty($_POST[$v]))
+            {
+              
+              //var_dump($systems);
+              $name = Database::getInstance()->quote($_POST[$v]);
+              $system = str_replace('_', ' ', Database::getInstance()->quote($val['name']));
+              //$query = "UPDATE hyip_payaccounts SET account='{$name}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}')";
+              $query = "update hyip_payaccounts hp 
+
+inner join hyip_paysystems hpay ON (hpay.id=hp.paysystem_id)
+set hp.account='{$name}'
+where hpay.name='$system' AND hp.user_id=$uid;";
+//              echo '<pre>';
+//              var_dump($_POST);
+//              var_dump("UPDATE hyip_payaccounts SET account='{$_POST[$v]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
+//              echo '</pre>';
+                $res = $this->mysqli->query("UPDATE hyip_payaccounts SET account='{$_POST[$v]}' WHERE id IN (SELECT payaccount_id FROM hyip_cash WHERE user_id=$uid) AND paysystem_id IN (SELECT id FROM hyip_paysystems WHERE name='{$val['name']}') ");
+            }
+        }
         if (!empty($_POST['full_name']))
         {
             $full_name = $this->mysqli->quote($_POST['full_name']);
@@ -43,7 +68,7 @@ class Model_Settings extends Model
             $password = $this->mysqli->quote($_POST['password']);
             $confirm = $this->mysqli->quote($_POST['password_confirm']);
             $old = $this->mysqli->quote($_POST['password_old']);
-            $old_hash = $this->mysqli->query("SELECT password FROM hyip_users WHERE id=$uid");
+            $old_hash = $this->mysqli->query("SELECT password FROM hyip_users WHERE id=$uid")->result[0]['password'];
             if ($password == $confirm && password_verify($old, $old_hash))
             {
                 $password = password_hash($password, PASSWORD_DEFAULT);
@@ -62,14 +87,12 @@ FROM hyip_payaccounts AS hp
 INNER JOIN hyip_cash AS hc ON (hp.id=hc.payaccount_id)
 INNER JOIN hyip_paysystems AS hsys ON (hsys.id=hp.paysystem_id)
 WHERE hc.user_id=$uid")->fetchAll();
-        
+        $systems = $this->mysqli->query("SELECT name FROM hyip_paysystems")->fetchAll();
         foreach ($qq as $row)
-        {
-            $data[] = array(
-                'name' => $row['name'],
-                'account' => $row['account']
-            );
+        {   
+            $data[$row['name']] = $row['account'];
         }
+        $data['systems'] = $systems;
         return $data;
     }
 

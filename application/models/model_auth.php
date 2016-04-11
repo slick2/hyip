@@ -3,14 +3,44 @@
 class Model_Auth extends Model
 {
 
+    public function set_password($email, $pass)
+    {
+        $password = password_hash($pass, PASSWORD_DEFAULT);
+        $this->mysqli->query("UPDATE hyip_users SET passwod='$password' WHERE email='$email'");
+    }
+
+    public function generate_password($length = 8)
+    {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++)
+        {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
+    }
+
     public function add_user($full_name, $email, $password, $active, $role, $parent_id = NULL, $percents)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $ip = $_SERVER['REMOTE_ADDR'];
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $sql = "INSERT INTO hyip_users (full_name, email, password, active, role, parent_id, percents,last_ip,last_browser) VALUES('$full_name','$email', '$password', '$active','$role',$parent_id,'$percents','$ip','$browser')";
-        $result = $this->mysqli->query($sql);
-        return true;
+        $this->mysqli->query($sql);
+        $query = "SELECT * from hyip_users where `email`='$email' LIMIT 1";
+        $result = $this->mysqli->query($query)->result;
+        $id = $result[0]['id'];
+        $accountsQuery = "insert into hyip_payaccounts (paysystem_id, user_id) select id, $id from hyip_paysystems";
+        $this->mysqli->query($accountsQuery);
+        $payAccounts =$this->mysqli->query("insert into `hyip_cash` (user_id, payaccount_id) select user_id, id from hyip_payaccounts where user_id = $id");
+//        $accountIds = $this->mysqli->query("select id from hyip_payaccounts order by id desc limit 5")->result;
+//        foreach($accountIds as $accountId){
+//          
+//        }
+        return $result[0];
     }
 
     public function activate_user($email)
@@ -42,6 +72,7 @@ class Model_Auth extends Model
         $change = $this->mysqli->query("UPDATE hyip_users SET last_ip='$ip',last_browser='$browser' WHERE id=$id");
         return 'ok';
     }
+
     public function set_last_login_forced($id)
     {
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -57,7 +88,7 @@ class Model_Auth extends Model
 
     public function get_user_by_mail($email)
     {
-        $query = $this->mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser FROM hyip_users WHERE email='$email'")->fetchAll();
+        $query = $this->mysqli->query("SELECT email,password,active,role,full_name,id,last_ip,last_browser, banned FROM hyip_users WHERE email='$email'")->fetchAll();
         $res = array();
         $nr = $this->mysqli->query("SELECT id FROM hyip_users WHERE email='$email'")->fetchNumRows();
         if ($nr != 0)
@@ -72,7 +103,8 @@ class Model_Auth extends Model
                     'full_name' => $row['full_name'],
                     'id' => $row['id'],
                     'last_ip' => $row['last_ip'],
-                    'last_browser' => $row['last_browser']
+                    'last_browser' => $row['last_browser'],
+                    'banned' => $row['banned']
                 );
             }
         }

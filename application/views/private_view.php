@@ -1,11 +1,19 @@
 <?php
 $text = $data['text'];
 $data = $data['alldata'];
+//var_dump($data['outs'][1]);
 ?>
 
 <div class=" balance">
-    <div class="col-md-2 balance-lbl"><?php echo $text['private_balance']; ?></div>
-    <div class="col-md-4" style="font-size: 30px;"><?php echo $data['cash'][0] . "."; ?><small><?php echo $data['cash'][1]; ?> $ </small></div>
+    <div class="col-xs-4 balance-lbl">
+        <div class="col-xs-4" style="font-size: 30px;">$<?php echo $data['cash'][0] . "."; ?><small><?php echo $data['cash'][1]; ?></small></div>    
+        <div class="col-xs-8"><span style="text-transform: uppercase"><?php echo $text['private_balance']; ?></span></div>
+    </div>
+    <div class="col-xs-4 balance-lbl">        
+        <div class="col-xs-4" style="font-size: 30px;">$<?php echo $data['outs'][0] . "."; ?><small><?php echo $data['outs'][1]; ?></small></div>
+        <div class="col-xs-8"><span style="text-transform: uppercase"><?php echo 'Выведено'; ?></span></div>
+    </div>
+    
     <a href="/deposits/add" class="add-depos"><?php echo $text['private_create_deposit']; ?></a>
 </div>
 <div class="" style="margin-bottom: 35px;">
@@ -45,6 +53,6 @@ $data = $data['alldata'];
         $page1right = '   <li><a href="./private?page=' . ($data['page'] + 1) . '">' . ($data['page'] + 1) . '</a></li>';
 
 // Вывод меню
-    echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class=""><a href="#">' . $data['page'] . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
+    echo '<ul class="pagination pages">' . $pervpage . $page2left . $page1left . '<li class="active"><a href="#">' . $data['page'] . '</a></li>' . $page1right . $page2right . $nextpage . '</ul>';
     ?>
 </div>

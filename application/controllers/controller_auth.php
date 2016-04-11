@@ -8,7 +8,43 @@ class Controller_Auth extends Controller
         parent::__construct();
         $this->model = new Model_Auth();
     }
-
+    
+    function action_restore()
+    {
+        $text = $this->model->get_messages('login', true);
+        $register = $this->model->get_messages('register', true);
+	$message = "";
+	$data = array();
+        
+        if(isset($_POST['restore']))
+        {
+            if(!empty($_POST['email']) )
+            {
+                $mail = $this->model->mysqli->quote($_POST['email']);
+                $newpass = $this->model->generate_password();
+                $this->model->set_password($mail,$newpass);
+                $headers = "From: office@itinvestproject.com";
+                if(mail($mail, 'Восстановление пароля', "Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
+Вы запросили восстановление пароля. Ваш новый пароль: $newpass", $headers))
+                {
+                    header("Location: auth");
+                }
+                else
+                {
+                    $message = 'register_message_mailsend_error';
+                }
+            }
+            else
+            {
+                $message = 'auth_message_emptyfields';
+            }
+        }
+        $data['message'] = $message;
+        $data['text'] = $text;
+        $data['register'] = $register;
+        $this->view->generate('restore_view.php', 'empty_view.php',$data);
+        
+    }
     function action_register()
     {
         $text = $this->model->get_messages('register', true);
@@ -36,14 +72,35 @@ class Controller_Auth extends Controller
                         if ($result)
                         {
                             $message = 'register_message_ok';
-                            if (mail($email, $text['register_activate_email_title'], "{$text['register_activate_email_text']} https://pa.itinvestproject.com/activate?email=" . $email))
+                            $headers = "From: office@itinvestproject.com";
+                            if (mail($email, $text['register_activate_email_title'], "Уважаемый(ая) Инвестор, вы зарегистрировались на сайте https://itinvestproject.com
+Просим подтвердить вашу электронную почту для продолжения работы с системой.
+https://pa.itinvestproject.com/activate?email=$email
+С уважением, админмстрация  IT Invest Project.", $headers))
+                            //
                             {
+                                if(@$result['active']==0){
+                                    Session::set('activated', 0);
+                                }
                                 $message = 'register_message_mailsend_ok';
+                                $text = $this->model->get_messages('login', true);
+                                $leftmenu = $this->model->get_messages('leftmenu');
+                                $topmenu = $this->model->get_messages('topmenu');
+                                $ref = $this->model->get_one_message('reflink');                            
+                                Session::set('email', $email);
+                                Session::set('name', $full_name);
+                                Session::set('role', 'user');
+                                Session::set('id', $result['id']);
+                                Session::set('leftmenu', $leftmenu);
+                                Session::set('reflink', $ref);
+                                Session::set('topmenu', $topmenu);
+                                header('Location: /private');                                
                             }
                             else
                             {
                                 $message = 'register_message_mailsend_error';
                             }
+
                         }
                         else
                         {
@@ -92,6 +149,11 @@ class Controller_Auth extends Controller
 
     function action_index()
     {
+        if(isset($_GET['email'])){
+            $email = $this->model->mysqli->quote($_GET['email']);
+            $res = $this->model->activate_user($email);
+            header("Location: private");
+        }
         $text = $this->model->get_messages('login', true);
         $leftmenu = $this->model->get_messages('leftmenu');
         $topmenu = $this->model->get_messages('topmenu');
@@ -112,10 +174,13 @@ class Controller_Auth extends Controller
                     $role = $row['role'];
                     $fullname = $row['full_name'];
                     $id = $row['id'];
+                    $isBanned = (bool) $row['banned'];
+                    //var_dump($row); exit;
                 }
                 if ($email == $dbemail && password_verify($password, $dbpassword))
                 {
-                    if ($active == 0)
+                    //if ($active == 0)
+                    if ($active < 0)
                     {
                         $message = 'login_message_activate';
                     }
@@ -135,6 +200,16 @@ class Controller_Auth extends Controller
                             Session::set('leftmenu', $leftmenu);
                             Session::set('reflink', $ref);
                             Session::set('topmenu', $topmenu);
+                            Session::set('isBanned', $isBanned);
+                            if($isBanned){
+                                header("Location: /");
+                            }
+                            if($active == 0){                                
+                                Session::set('activated', 0);
+                            }
+                            else {
+                                Session::set('activated', 1);
+                            }
                             switch ($role)
                             {
                                 case 'user':
@@ -149,16 +224,18 @@ class Controller_Auth extends Controller
                         }
                         else
                         {
-
+                            $headers = "From: office@itinvestproject.com";
                             switch ($safety)
                             {
                                 case 'ip':
                                     $message = 'login_message_ipchange';
-                                    mail($email,'Подтвердите операцию входа','Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT));
+                                    mail($email,'Подтвердите операцию входа','Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
+Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT), $headers);
                                     break;
                                 case 'browser':
                                     $message = 'login_message_browserchange';
-                                    mail($email,'Подтвердите операцию входа','Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT));
+                                    mail($email,'Подтвердите операцию входа','Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
+Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT),$headers);
                                     break;
                             }
                         }

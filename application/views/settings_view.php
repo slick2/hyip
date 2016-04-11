@@ -7,21 +7,29 @@
                         <?php echo Session::get('name'); ?>
                     </td></tr>
                 <tr><td><?php echo $data['text']['settings_newname']; ?></td><td>
-                        <input class="input input-depos" id="full_name" name="full_name"size="32"  type="text" value="">
+                        <input class="input input-depos" id="full_name" name="full_name"size="36"  type="text" value="">
                     </td></tr>
                 <tr><td><?php echo $data['text']['settings_oldpass']; ?></td><td>
-                        <input class="input input-depos" id="password_old" name="password_old" size="32"   type="password" value="">
+                        <input class="input input-depos" id="password_old" name="password_old" size="36"   type="password" value="">
                     </td></tr>
                 <tr><td><?php echo $data['text']['settings_newpass']; ?></td><td>
-                        <input class="input input-depos" id="password" name="password"size="32"   type="password" value="">
+                        <input class="input input-depos" id="password" name="password"size="36"   type="password" value="">
                     </td></tr>
                 <tr><td><?php echo $data['text']['settings_repeat']; ?></td><td>
-                        <input class="input input-depos" id="password_confirm" name="password_confirm" size="32"   type="password" value="">
+                        <input class="input input-depos" id="password_confirm" name="password_confirm" size="36"   type="password" value="">
                     </td></tr>
                 <?php
-                foreach ($data['systems'] as $value)
+                foreach ($data['systems']['systems'] as $value)
                 {
-                    echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' type='text' name='" . $value['name'] . "' value='" . $value['account'] . "'></td></tr>";
+                    if(isset($data['systems'][$value['name']]))
+                    {
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' size='36' type='text' name='" . $value['name'] . "' value='{$data['systems'][$value['name']]}'></td></tr>";
+                        
+                    }
+                    else
+                    {
+                        echo "<tr><td><label>{$value['name']} </label></td><td><input class='input-depos' size='36' type='text' name='" . $value['name'] . "' value=''></td></tr>";
+                    }
                 }
                 ?>
                 <tr><td><?php echo $data['text']['settings_email']; ?></td><td>

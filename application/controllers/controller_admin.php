@@ -62,12 +62,19 @@ class Controller_Admin extends Controller
     {
         if (Session::get('email') && Session::get('role') == 'admin')
         {
+            
+            if(isset($_POST['proc']))
+            {
+                $this->model->set_percents();
+            }
             if(isset($_POST['toggle']))
             {
                 $toggle = $this->model->mysqli->quote($_POST['toggle']);
                 $system = $this->model->mysqli->quote($_POST['system']);
                 $id = $this->model->mysqli->quote($_POST['id']);
                 $this->model->toggle($system,$toggle,$id);
+                //var_dump($toggle);
+                exit;
             }
             if(isset($_POST['admadd']))
             {
@@ -93,5 +100,46 @@ class Controller_Admin extends Controller
             header("Location:/auth");
         }
     }
-
+    function action_userlist()
+    {
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $data = $this->model->getUsersList();
+            
+            $this->view->generate('userlist_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }
+    function action_userblock(){
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $id = (int) $_POST['id'];
+            $data = $this->model->userBlock($id);
+            
+            $this->view->generate('adminempty_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }
+    function action_userdelete(){
+        if (Session::get('email') && Session::get('role') == 'admin')
+        {
+            $id = (int) $_POST['id'];
+            $data = $this->model->userDelete($id);
+            
+            $this->view->generate('adminempty_view.php', 'template_view.php', $data);
+        }
+        else
+        {
+            Session::destroy();
+            header("Location:/auth");
+        }
+    }    
 }

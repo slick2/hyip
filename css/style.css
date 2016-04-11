@@ -408,7 +408,7 @@
     font-family: 'Ubuntu', 'Lato', sans-serif;
     font-weight: 400;
     /* Size and position */
-    width: 300px;
+    width: 330px;
     position: relative;
     margin: 60px auto 30px;
     padding: 10px;
@@ -950,4 +950,21 @@
     opacity: 0.5;
     left: 0;
     color: #fff;
+}
+
+/*restore*/
+.restore{
+	width: 400px;
+}
+
+.restore__header{
+	color: #fff;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.restore input.restore__submit{
+	margin: 0 auto;
+	width: 200px;
+	display: block;
 }

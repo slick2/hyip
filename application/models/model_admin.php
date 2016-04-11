@@ -2,6 +2,19 @@
 
 class Model_Admin extends Model
 {
+    public function set_percents()
+    {
+        $business = (double)$this->mysqli->quote($_POST['business_day']);
+        $holiday = (double)$this->mysqli->quote($_POST['holiday']);
+        $ref1 = (double)$this->mysqli->quote($_POST['referral_first']);
+        $ref2 = (double)$this->mysqli->quote($_POST['referral_second']);
+        $data = ['business_day' => $business,'holiday'=>$holiday, 'referral_first'=> $ref1,'referral_second'=>$ref2];
+        foreach ($data as $key=>$val)
+        {
+            $r = $this->mysqli->query("UPDATE hyip_percents SET amount=$val WHERE name='$key'");
+        }
+    }
+
     public function set_string($id,$key,$value)
     {
         $res = $this->mysqli->query("UPDATE hyip_translations SET $key='$value' WHERE id=$id");
@@ -30,6 +43,7 @@ class Model_Admin extends Model
         {
             case 'payeer':
                 $qadd = $this->mysqli->query("UPDATE hyip_payeer SET active=$activity WHERE out_acc='$id'");
+                //var_dump("UPDATE hyip_payeer SET active=$activity WHERE out_acc='$id'");
                 break;
             case 'perfectmoney':
                 $qadd = $this->mysqli->query("UPDATE hyip_perfectmoney SET active=$activity WHERE in_acc='$id'");
@@ -38,6 +52,7 @@ class Model_Admin extends Model
                 $qadd = $this->mysqli->query("UPDATE hyip_advcash SET active=$activity WHERE in_acc='$id'");
                 break;
         }
+        
     }
 
     public function add_account()
@@ -88,5 +103,28 @@ class Model_Admin extends Model
             ];
         return $data;
     }
-
+    public function getUsersList(){
+        $db = Database::getInstance();
+        $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+        $perPage = 10;
+        $query = "SELECT count(id) as userscount from hyip_users";
+        $usersCount = $db->query($query)->result[0]['userscount'];
+        $offset = ($page - 1)*$perPage;
+        $query = "SELECT id, full_name, email, role, active, banned  FROM `hyip_users`  order by id limit $offset,$perPage";
+        $users = $db->query($query)->result;
+        return array('count'=>$usersCount, 'users'=>$users, 'page'=>$page);
+    }
+    public function userBlock($id){
+        $query = "select banned from hyip_users where id=$id";
+        $db = Database::getInstance();
+        $isActive = (int)$db->query($query)->result[0]['banned'];
+        $active = $isActive ? 0 : 1;
+        $query = "update hyip_users set banned=$active where id = $id";
+        $db->query($query);
+    }
+    public function userDelete($id){
+        $query = "delete from hyip_users where id=$id";
+        $db = Database::getInstance();
+        $db->query($query);
+    }
 }

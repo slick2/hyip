@@ -32,7 +32,8 @@ $(document).ready(function () {
         var toggle = 0;
         if ($(this).hasClass('payeer'))
         {
-            send = $('.payeersend').html();
+            send = $(this).parent().parent().find('.payeersend').html();
+            console.log($(this).parent().parent().find('.payeersend'));
             system = 'payeer';
         } 
         else
@@ -89,4 +90,14 @@ $(document).ready(function () {
                 }
         );
     });
+    $('.user_delete').click(function(){
+        var id = ($(this).attr('data-id'));
+        $.post( "/admin/userdelete", { id:id } );
+        location.reload();
+    });
+    $('.user_block').click(function(){
+        var id = ($(this).attr('data-id'));
+        $.post( "/admin/userblock", { id:id } );
+        location.reload();
+    });    
 });

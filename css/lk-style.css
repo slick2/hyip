@@ -167,11 +167,15 @@ color: #fff;
         width: 100%;
     text-align: center;
     /*border:1px solid #d8d8d8;*/
-        background: #111;
+        /*background: #111;*/
     border-radius: 0.4em;
     border: 1px solid #191919;
     box-shadow: inset 0 0 2px 1px rgba(255,255,255,0.08), 0 16px 10px -8px rgba(0, 0, 0, 0.6);
     border-top-left-radius: 4px;
+}
+
+.table-history>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
 }
 
 .table-history th{
@@ -186,7 +190,7 @@ color: #fff;
         font-size: 14px;
     font-weight: 400;
     padding: 10px;
-    background: #F7F8F8;
+    /*background: #F7F8F8;*/
 }
 
 
@@ -201,7 +205,7 @@ color: #fff;
 }
 
 .balance-lbl{
-        font-size: 20px;
+    font-size: 20px;
     line-height: 44px;
     font-weight: 300;
     color: #272727;
@@ -211,7 +215,7 @@ color: #fff;
     padding: 0px;
     float: left;
     height: 44px;
-    width: 160px;
+    
     border-radius: 4px;
     color:#fff;
 }
@@ -239,6 +243,7 @@ color: #fff;
 }
 
 .new-depos{
+        margin-bottom: 15px;
         margin-top: 25px;
     background: #f7f8f8;
     border: 1px solid #d8d8d8;
@@ -339,7 +344,7 @@ td .pay{
 }
 
 .table-setting td:nth-of-type(2){
-    padding-left: 130px;
+    padding-left: 60px;
 }
 
 .form{
@@ -403,6 +408,8 @@ input[type="radio"]{
     width: 63px;
     background: url(/img/user-logo.png);
     height: 59px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 
@@ -411,7 +418,19 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: white !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.users-table tr:nth-child(2n+1){
+    background-color: #d1d4d6;
+}
+
+.input-depos:-webkit-autofill,
+.input-depos:-webkit-autofill:hover,
+.input-depos:-webkit-autofill:focus,
+.input-depos:-webkit-autofill:active{
+     transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #34495e !important;
 }
 
 .log-reg{
@@ -474,8 +493,8 @@ input:-webkit-autofill:active {
 	word-break: break-all;
 }
 #notice{
-   padding-top: 30px;
-   padding-bottom: 30px;
+   padding-top: 15px;
+   padding-bottom: 10px;
 }
 
 #notice p{
@@ -558,3 +577,17 @@ textarea.well{
     color:#5495c6;
     text-transform: uppercase;
 }
+<<<<<<< HEAD
+=======
+.add-depos-form{
+    line-height: 0.6em;
+}
+.add-depos-form div {
+ padding-top: 4px;
+ padding-bottom:4px;
+}
+.system-select, .input-depos{
+    padding:3px;
+    height: 25px;
+}
+>>>>>>> 3316d58c18922eef7443d639be680a881e553119

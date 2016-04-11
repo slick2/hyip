@@ -1,4 +1,29 @@
-<div class="container-fluid new-depos">
+<style>
+    body{
+        color:#433d60;
+    }
+
+    .calc_table td{
+        border-bottom: 1px dashed #5495c6;
+    }
+
+    .input-depos{
+        height: 35px;
+        border-color: #433d60;
+        color: #5495c6;
+    }
+
+    .input-depos:focus{
+        border-color:#5495c6;
+    }
+
+    select{
+        height: 35px !important;
+        border-color: #433d60 !important;
+        color: #5495c6 !important;
+    }
+</style>
+<div class="container-fluid">
     <form action="" method="post" name="addcash" class="add-depos-form">
         <div class="col-xs-12 devider">
             <div class="col-xs-4">
@@ -40,8 +65,7 @@
         </div>
         <div class="col-xs-12 alert-danger" id="notice">
             <p class="">Введите значение от 10 до 10 000</p>
-        </div>
-        <input class="btn_save pay" id="addcash" name= "addcash" type="submit" value="<?php echo $data['newdeposit'] ?>">
+        </div>      
 
     </form>
 </div>

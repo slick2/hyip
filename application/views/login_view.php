@@ -4,6 +4,7 @@ if (isset($data))
     $text = $data['text'];
     $message = $data['message'];
 }
+//var_dump($_SESSION);
 ?>
 <div class="container">
 
@@ -25,7 +26,6 @@ if (isset($data))
             </p>
             <?php if ($message == "login_message_incorrect"): ?>
                 <div class="clearfix">
-                    <label>Проверочный код:</label>
                     <div class="g-recaptcha" data-sitekey="6LcT9RoTAAAAAJzG4Q3JKiwRc5nznlxkg9HoBXOj">                    
                     </div>
                 </div>
@@ -34,7 +34,13 @@ if (isset($data))
                 <input type="submit" name="submit" value="<?php echo $text['login_button']; ?>" name="login">
             </p>       
         </form>​
+        
         <div class="log-invalid">
+            <?php if(isset($_SESSION['session_isBanned']) && $_SESSION['session_isBanned']){ ?>
+            <div><p class="alert-danger"> <?php echo $_SESSION['bannedMessage']; ?></p></div>
+            <?php              
+            }
+            ?>
             <span>
                 <?php
                 if (isset($text[$message]) && isset($_POST["email"]))
@@ -45,10 +51,16 @@ if (isset($data))
             </span>
         </div>
         <div class="log-reg">
-            <p><?php echo $text['login_noacc']; ?></p>
+            <p><?php echo $text['login_noacc']; ?>
             <a href= "/auth/register"><?php echo $text['login_register']; ?></a>
+            </p>
+            <p><a href="/auth/restore"><?php echo $text['auth_forgot']; ?></a> </p>
             <p><?php echo $text['auth_copyright']; ?></p>
         </div>
     </section>
 
 </div>
+<?php if(isset($_SESSION['session_isBanned']) && $_SESSION['session_isBanned']){
+     //session_destroy();
+}; 
+?>

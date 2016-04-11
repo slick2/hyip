@@ -70,7 +70,11 @@ class Database
 
     public function fetchSingleRow()
     {
-        return $this->result[0];
+        if(isset($this->result[0])){
+            return $this->result[0];
+        }
+        else return array();
+        
     }
 
     public function fetchAll()
@@ -81,6 +85,10 @@ class Database
     public function quote($arg)
     {
         return $this->conn->real_escape_string($arg);
+    }
+    public function getCurrentPercent(){
+        $query = "SELECT `amount` FROM `hyip_percents` where `name`='business_day'";
+        return self::query($query)->result[0]['amount'];
     }
 
 }
