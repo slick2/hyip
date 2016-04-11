@@ -32,8 +32,8 @@ $page1right = "";
         		<td><?php echo (!!$user['banned'] ? 'блокирован' : 'активен');?></td>
                         <td><?php echo (!!$user['active'] ? 'подтвержден': 'не подтвержден'); ?></td>
         		<td>
-                            <button class='user_block btn btn-default' data-id='<?php echo $user['id'];?>'>блокировать/разблокировать</button>
-                            <button class='user_delete btn btn-default' data-id='<?php echo $user['id'];?>'>удалить</button>
+                            <button class='user_block btn col-xs-12 btn-warning' data-id='<?php echo $user['id'];?>'>блокирока</button>                            
+                            <button class='user_delete btn col-xs-12 btn-danger' data-id='<?php echo $user['id'];?>'>удалить</button>
                         </td>
         		
         	</tr>

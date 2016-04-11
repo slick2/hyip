@@ -18,7 +18,7 @@ inner join hyip_cash hc ON (hc.payaccount_id=hp.id)
 inner join hyip_users hu ON (hc.user_id=hu.id)
 inner join hyip_payaccounts acc ON (acc.id=hc.payaccount_id)
 inner join hyip_paysystems hsys ON (hsys.id=acc.paysystem_id)
-where acc.account is not null and DATE(hc.created) != CURDATE() LIMIT 1000")->fetchAll();
+where acc.account is not null and DATE(hc.created) != CURDATE() and hu.banned=0 LIMIT 1000")->fetchAll();
 foreach ($qcash as $row) 
 {
     $sum = $row['cash'];

@@ -4,7 +4,7 @@ $leftmenu = Session::get('leftmenu');
 $topmenu = Session::get('topmenu');
 $reflink = Session::get('reflink');
 $this->percent = Database::getInstance()->getCurrentPercent();
-
+var_dump($_SESSION);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>

@@ -70,7 +70,11 @@ class Database
 
     public function fetchSingleRow()
     {
-        return $this->result[0];
+        if(isset($this->result[0])){
+            return $this->result[0];
+        }
+        else return array();
+        
     }
 
     public function fetchAll()

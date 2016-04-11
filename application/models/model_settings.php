@@ -68,7 +68,7 @@ where hpay.name='$system' AND hp.user_id=$uid;";
             $password = $this->mysqli->quote($_POST['password']);
             $confirm = $this->mysqli->quote($_POST['password_confirm']);
             $old = $this->mysqli->quote($_POST['password_old']);
-            $old_hash = $this->mysqli->query("SELECT password FROM hyip_users WHERE id=$uid");
+            $old_hash = $this->mysqli->query("SELECT password FROM hyip_users WHERE id=$uid")->result[0]['password'];
             if ($password == $confirm && password_verify($old, $old_hash))
             {
                 $password = password_hash($password, PASSWORD_DEFAULT);

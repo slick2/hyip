@@ -20,6 +20,7 @@ class Controller_Pay extends Controller
     }
     function action_fail()
     {
+        header('Content-Type: text/html; charset=utf-8');
         $this->model->fail_pay();
         $data = ['message' => "Ошибка пополнения.<a href='/private'>Вернуться в личный кабинет</a>"];
         $this->view->generate('pay_view.php','template_view.php',$data);  

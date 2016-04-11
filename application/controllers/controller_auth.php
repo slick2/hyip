@@ -79,6 +79,9 @@ https://pa.itinvestproject.com/activate?email=$email
 С уважением, админмстрация  IT Invest Project.", $headers))
                             //
                             {
+                                if(@$result['active']==0){
+                                    Session::set('activated', 0);
+                                }
                                 $message = 'register_message_mailsend_ok';
                                 $text = $this->model->get_messages('login', true);
                                 $leftmenu = $this->model->get_messages('leftmenu');

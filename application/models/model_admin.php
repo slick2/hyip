@@ -43,6 +43,7 @@ class Model_Admin extends Model
         {
             case 'payeer':
                 $qadd = $this->mysqli->query("UPDATE hyip_payeer SET active=$activity WHERE out_acc='$id'");
+                //var_dump("UPDATE hyip_payeer SET active=$activity WHERE out_acc='$id'");
                 break;
             case 'perfectmoney':
                 $qadd = $this->mysqli->query("UPDATE hyip_perfectmoney SET active=$activity WHERE in_acc='$id'");
@@ -51,6 +52,7 @@ class Model_Admin extends Model
                 $qadd = $this->mysqli->query("UPDATE hyip_advcash SET active=$activity WHERE in_acc='$id'");
                 break;
         }
+        
     }
 
     public function add_account()

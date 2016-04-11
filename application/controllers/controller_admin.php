@@ -73,6 +73,8 @@ class Controller_Admin extends Controller
                 $system = $this->model->mysqli->quote($_POST['system']);
                 $id = $this->model->mysqli->quote($_POST['id']);
                 $this->model->toggle($system,$toggle,$id);
+                //var_dump($toggle);
+                exit;
             }
             if(isset($_POST['admadd']))
             {
