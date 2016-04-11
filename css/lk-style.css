@@ -167,11 +167,15 @@ color: #fff;
         width: 100%;
     text-align: center;
     /*border:1px solid #d8d8d8;*/
-        background: #111;
+        /*background: #111;*/
     border-radius: 0.4em;
     border: 1px solid #191919;
     box-shadow: inset 0 0 2px 1px rgba(255,255,255,0.08), 0 16px 10px -8px rgba(0, 0, 0, 0.6);
     border-top-left-radius: 4px;
+}
+
+.table-history>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
 }
 
 .table-history th{
@@ -186,7 +190,7 @@ color: #fff;
         font-size: 14px;
     font-weight: 400;
     padding: 10px;
-    background: #F7F8F8;
+    /*background: #F7F8F8;*/
 }
 
 
@@ -414,7 +418,19 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: white !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.users-table tr:nth-child(2n+1){
+    background-color: #d1d4d6;
+}
+
+.input-depos:-webkit-autofill,
+.input-depos:-webkit-autofill:hover,
+.input-depos:-webkit-autofill:focus,
+.input-depos:-webkit-autofill:active{
+     transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #34495e !important;
 }
 
 .log-reg{
@@ -561,6 +577,7 @@ textarea.well{
     color:#5495c6;
     text-transform: uppercase;
 }
+
 .add-depos-form{
     line-height: 0.6em;
 }
@@ -572,3 +589,4 @@ textarea.well{
     padding:3px;
     height: 25px;
 }
+

@@ -11,5 +11,5 @@
          <input type="hidden" name="ac_fail_url" value="http://pa.itinvestproject.com/pay/fail.php" />
          <input type="hidden" name="ac_fail_url_method" value="GET" />
 
-         <input type="submit" class="pay"/>
+         <input type="submit" class="pay" value="Отправить"/>
 </form>
