@@ -16,7 +16,7 @@
         <h4><?php echo $data['text']['newdeposit_sum'];?></h4> 
         </div>
         <div class="col-xs-4 col-xs-offset-4">
-        <h4><?php echo $data['all']['sum']; ?></h4>
+        <h4>$<?php echo $data['all']['sum']; ?></h4>
         </div>
         </div>
 
