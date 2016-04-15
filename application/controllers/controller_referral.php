@@ -39,6 +39,8 @@ class Controller_Referral extends Controller
                     
                 }
             }*/
+            $data['ref_warning_header'] = $this->model->get_messages('referal_warning_header')['referal_warning_header'];
+            $data['ref_warning_text'] = $this->model->get_messages('referal_warning_text')['referal_warning_text'];            
             $data['all'] = $this->model->get_data();
             $data['accounts'] = $this->model->user_accounts();
             $data['text'] = $this->model->get_messages('ref');

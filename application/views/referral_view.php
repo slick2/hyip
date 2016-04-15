@@ -1,16 +1,13 @@
 <?php if($data['accounts'] < 3): ?>
     <div class='row'>
         <div class='col-xs-12'>
-            <p class='alert-danger'>Уважаемый Инвестор, для участия в реферальной программе вы должны зарегистрировать аккаунты всех доступных платежных систем </p>
+            <p class='alert-danger'><?php echo $data['ref_warning_header']; ?></p>
         </div>
     </div>
 <?php endif; ?>              
 <div class="container-fluid attention">
     <div class="col-xs-12">
-        <h2>О реферальной системе</h2>
-        <h4>Вознаграждение за привлеченных инвесторов - 5%</h4>
-        <p>Выплаты реферальных процентов происходят в автоматическом режиме. </p>
-        <p>Для участия в реферальной программе инвестору необходимо указать кошельки всех платежных систем.</p>
+        <?php echo $data['ref_warning_text'] ; ?>
     </div>
 </div>
 <div class="container-fluid new-depos">
