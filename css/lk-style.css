@@ -52,6 +52,7 @@ margin: 0 auto;
 
 .navbar-default .navbar-toggle{
 	border-color: #fff;
+	background-color: #1F438A;
 }
 
 .navbar-default .navbar-toggle .icon-bar
