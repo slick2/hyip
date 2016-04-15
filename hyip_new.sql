@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2016 at 04:35 PM
+-- Generation Time: Apr 15, 2016 at 05:30 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `hyip_translations` (
   `vietnamese` varchar(1024) DEFAULT NULL,
   `chinese` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=106 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=107 ;
 
 --
 -- Dumping data for table `hyip_translations`
@@ -447,7 +447,8 @@ INSERT INTO `hyip_translations` (`id`, `tag`, `russian`, `english`, `vietnamese`
 (102, 'email_enter_operation', 'Подтвердите операцию входа'',''Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемых действий следуйте нижепреведенным инструкциям:\r\nПерейдите по ссылке: https://pa.itinvestproject.com/auth?verify=', NULL, NULL, NULL),
 (103, 'referal_warning_header', 'Уважаемый Инвестор, для участия в реферальной программе вы должны зарегистрировать аккаунты всех доступных платежных систем', 'Уважаемый Инвестор, для участия в реферальной программе вы должны зарегистрировать аккаунты всех доступных платежных систем EN', NULL, NULL),
 (104, 'referal_warning_text', '        <h2>О реферальной системе</h2>\r\n        <h4>Вознаграждение за привлеченных инвесторов - 5%</h4>\r\n        <p>Выплаты реферальных процентов происходят в автоматическом режиме. </p>\r\n        <p>Для участия в реферальной программе инвестору необходимо указать кошельки всех платежных систем.</p>', '        <h2>О реферальной системе EN</h2>\r\n        <h4>Вознаграждение за привлеченных инвесторов - 5%</h4>\r\n        <p>Выплаты реферальных процентов происходят в автоматическом режиме.EN </p>\r\n        <p>Для участия в реферальной программе инвестору необходимо указать кошельки всех платежных систем.EN</p>', NULL, NULL),
-(105, 'money_export', 'ВЫВЕДЕНО', 'ВЫВЕДЕНО EN', NULL, NULL);
+(105, 'money_export', 'ВЫВЕДЕНО', 'ВЫВЕДЕНО EN', NULL, NULL),
+(106, 'newdeposit_warning', 'Введите значение от 10 до 10 000', 'Введите значение от 10 до 10 000 EN', NULL, NULL);
 
 -- --------------------------------------------------------
 

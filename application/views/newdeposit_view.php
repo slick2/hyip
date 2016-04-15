@@ -39,7 +39,7 @@
         </table>
         </div>
         <div class="col-xs-12 alert-danger" id="notice" style='display:none'>
-            <p class="">Введите значение от 10 до 10 000</p>
+            <p class=""><?php echo $data['text']['newdeposit_warning']; ?></p>
         </div>
         <input class="btn_save pay" id="addcash" name= "addcash" type="submit" value="<?php echo $data['newdeposit'] ?>">
 
