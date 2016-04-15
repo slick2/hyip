@@ -28,34 +28,36 @@ $errmoney = Session::get('errmoney');
                     
                     <nav class="navbar navbar-default main-nav" role="navigation">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="col-md-3">
-                        <div class="navbar-header">
-                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                              </button>
-                              
-                          <a class="navbar-brand company-logo"  href="https://itinvestproject.com"></a>
-                             
-                        </div>
-                        </div>
+                        
+                        
+						<div class="col-md-3">
+						  <div class="navbar-header">
+							  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+							  </button>
+							  <a class="navbar-brand company-logo"  href="https://itinvestproject.com"></a>
+							</div>
+						</div>
 
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="col-md-9">
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                          <ul class="nav navbar-nav">
-                            <li><a href="https://itinvestproject.com/"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
-                            <li><a href="https://itinvestproject.com/o-nas/"><?php echo $topmenu['topmenu_aboutus']; ?></a></li>
-                            <li><a href="https://itinvestproject.com/investoram/"><?php echo $topmenu['topmenu_investors']; ?></a></li>
-                            <li><a href="https://itinvestproject.com/pravila-kompanii/"><?php echo $topmenu['topmenu_rules']; ?></a></li>
-                            <li><a href="https://itinvestproject.com/vopros-otvet/"><?php echo $topmenu['topmenu_faq']; ?></a></li>
-                            <li><a href="https://itinvestproject.com/contact/"><?php echo $topmenu['topmenu_contacts']; ?></a></li>
-                          </ul>
-                        </div><!-- /.navbar-collapse -->
-                        </div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="col-md-9">
+							<div class="row">
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								  <ul class="nav navbar-nav">
+									<li><a href="https://itinvestproject.com/"><span class="glyphicon glyphicon-home"></span><?php echo strtoupper($topmenu['topmenu_main']); ?></a></li>
+									<li><a href="https://itinvestproject.com/o-nas/"><?php echo $topmenu['topmenu_aboutus']; ?></a></li>
+									<li><a href="https://itinvestproject.com/investoram/"><?php echo $topmenu['topmenu_investors']; ?></a></li>
+									<li><a href="https://itinvestproject.com/pravila-kompanii/"><?php echo $topmenu['topmenu_rules']; ?></a></li>
+									<li><a href="https://itinvestproject.com/vopros-otvet/"><?php echo $topmenu['topmenu_faq']; ?></a></li>
+									<li><a href="https://itinvestproject.com/contact/"><?php echo $topmenu['topmenu_contacts']; ?></a></li>
+								  </ul>
+								</div><!-- /.navbar-collapse -->
+							</div>
+						</div>
+                        
                     </nav>
             </div>
 
@@ -118,6 +120,7 @@ $errmoney = Session::get('errmoney');
     </div>
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/js/readonly.js"></script>
         <script src="/js/activate.js"></script>
 	<script src="/js/time.js"></script>
