@@ -27,6 +27,7 @@ class Controller_Referral extends Controller
     {
         if (Session::get('email') !== false)
         {
+            /*
             if (isset($_POST['outperc']))
             {
                 if($this->model->user_accounts() < 4)
@@ -37,13 +38,11 @@ class Controller_Referral extends Controller
                 {
                     
                 }
-            }
-            else
-            {
-                $data['all'] = $this->model->get_data();
-                $data['text'] = $this->model->get_messages('ref');
-                $this->view->generate('referral_view.php', 'template_view.php', $data);
-            }
+            }*/
+            $data['all'] = $this->model->get_data();
+            $data['accounts'] = $this->model->user_accounts();
+            $data['text'] = $this->model->get_messages('ref');
+            $this->view->generate('referral_view.php', 'template_view.php', $data);
         }
         else
         {

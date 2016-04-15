@@ -8,7 +8,18 @@ class Model_Auth extends Model
         $password = password_hash($pass, PASSWORD_DEFAULT);
         $this->mysqli->query("UPDATE hyip_users SET passwod='$password' WHERE email='$email'");
     }
-
+    
+    public function get_error_money($id)
+    {
+        $sums = $this->mysqli->query("SELECT ho.sum FROM hyip_orders ho 
+        INNER JOIN hyip_cash hc ON(ho.cash_id=hc.id) 
+        WHERE hc.user_id=$id AND ho.operation=1 AND ho.code=1")->fetchAll();
+        $sum = 0;
+        foreach ($sums as $v) {
+            $sum += $v['sum'];
+        }
+        return $sum;
+    }
     public function generate_password($length = 8)
     {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

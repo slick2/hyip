@@ -38,7 +38,7 @@
             <tr><td>Доход за год:</td><td class="year"></td></tr>
         </table>
         </div>
-        <div class="col-xs-12 alert-danger" id="notice">
+        <div class="col-xs-12 alert-danger" id="notice" style='display:none'>
             <p class="">Введите значение от 10 до 10 000</p>
         </div>
         <input class="btn_save pay" id="addcash" name= "addcash" type="submit" value="<?php echo $data['newdeposit'] ?>">

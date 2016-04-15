@@ -1,6 +1,9 @@
 <?php
 require_once './application/helpers/Database.php';
 require_once 'out_functions.php';
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 $mysqli_local = Database::getInstance();
 $percents = $mysqli_local->query("SELECT amount FROM hyip_percents WHERE name='business_day' OR name='holiday'")->fetchAll();
 $perc_bus = (double)$percents[0]['amount'];
@@ -21,14 +24,15 @@ inner join hyip_paysystems hsys ON (hsys.id=acc.paysystem_id)
 where acc.account is not null and DATE(hc.created) != CURDATE() and hu.banned=0 LIMIT 1000")->fetchAll();
 foreach ($qcash as $row) 
 {
+    $code = 1;
     $sum = $row['cash'];
     $sum = round($sum,2);
-    if ($row['account'] != NULL) 
+    if ($row['account'] != NULL || !empty($row['account'])) 
     {
         out_money(strtolower($row['name']), $bitcoin, $advcash, $payeer, $perfectmoney, $row,$sum);
         $mysqli_local->query('START TRANSACTION;');
         $mysqli_local->query("UPDATE hyip_cash SET outs=outs+1 WHERE id={$row['id']}");
-        $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,0)");
+        $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,$code)");
         $mysqli_local->query('COMMIT');
         $message .= "Вывод суммы: $sum \n";
         $message .= "Пользователю: " . $row['email'] . "\n";

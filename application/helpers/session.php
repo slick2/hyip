@@ -9,8 +9,10 @@ class Session
     {
         if (self::$_sessionStarted == false)
         {
+          if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            self::$_sessionStarted = true;
+          }
+      self::$_sessionStarted = true;
         }
     }
 

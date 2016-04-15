@@ -8,6 +8,6 @@
         value="http://pa.itinvestproject.com/pay/success">
     <input type="hidden" name="NOPAYMENT_URL"
         value="http://pa.itinvestproject.com/pay/fail">
-    <input type="submit" class="pay" name="PAYMENT_METHOD" value="Отправить">
+    <input type="submit" class="pay" name="PAYMENT_METHOD" value="Оплатить">
 </p>
 </form>

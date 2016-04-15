@@ -4,7 +4,7 @@ $leftmenu = Session::get('leftmenu');
 $topmenu = Session::get('topmenu');
 $reflink = Session::get('reflink');
 $this->percent = Database::getInstance()->getCurrentPercent();
-
+$errmoney = Session::get('errmoney');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -92,14 +92,21 @@ $this->percent = Database::getInstance()->getCurrentPercent();
                     <div class="col-xs-12" style="border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8">
                         <div class="row"><div class=" ref-link"><p><?php echo $reflink; ?></p></div><div class="col-md-5"><h5><?php echo "https://". $_SERVER['SERVER_NAME']."/auth/register?ref=".Session::get('id');?></h5></div></div>
                     </div>
-                    <?php if(isset($_SESSION['session_activated']) && $_SESSION['session_activated']!=1){ ?>
+                    <?php if(isset($_SESSION['session_activated']) && $_SESSION['session_activated']!=1): ?>
 
                     <div class='row'>
                         <div class='col-xs-12'>
-                            <p class='alert-danger'>Ваш аккаунт не подтвержден</p>
+                            <p class='alert-danger'><?php echo Session::get('not_active'); ?></p>
                         </div>
                     </div>
-                    <?php } ?>                    
+                    <?php endif; ?>
+                    <?php if($errmoney != 0): ?>
+                    <div class='row'>
+                        <div class='col-xs-12'>
+                            <p class='alert-danger'>Уважаемый Инвестор, на сайте ведутся профилактические работы. На вашем счету $<?php echo $errmoney;?> которые будут выплачены в течении 72 часов</p>
+                        </div>
+                    </div>
+                    <?php endif; ?>                    
                 </div>
                 <?php endif; ?>
                 <div class="col-xs-12">
@@ -116,7 +123,7 @@ $this->percent = Database::getInstance()->getCurrentPercent();
 	<script src="/js/time.js"></script>
         <script src="/js/addmoney.js"></script>
         <script src="/js/admin.js"></script>
-        <script src="/js/out.js"></script>
+        <!--<script src="/js/out.js"></script>-->
         <script src="/js/calc.js"></script>
     </body>
 </html>

@@ -22,12 +22,13 @@ class Controller_Auth extends Controller
             {
                 $mail = $this->model->mysqli->quote($_POST['email']);
                 $newpass = $this->model->generate_password();
+                $emailRestore = $this->model->get_messages('password_restore_message')['password_restore_message'];
+                $emailRestoreTitle = $this->model->get_messages('restore_mail_header')['restore_mail_header'];
                 $this->model->set_password($mail,$newpass);
                     $headers = "From: office@itinvestproject.com\r\n";
                     $headers .= "Reply-To: office@itinvestproject.com\r\n";
                     $headers .= "Return-Path: office@itinvestproject.com\r\n";
-                if(mail($mail, 'Восстановление пароля', "Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
-Вы запросили восстановление пароля. Ваш новый пароль: $newpass", $headers))
+                if(mail($mail, $emailRestoreTitle, $emailRestore. $newpass, $headers))
                 {
                     header("Location: auth");
                 }
@@ -71,16 +72,16 @@ class Controller_Auth extends Controller
                             $refid = $this->model->mysqli->quote($_GET['ref']);
                         }
                         $result = $this->model->add_user($full_name, $email, $password, FALSE, 'user', $refid, 0);
+                        $emailBody = $this->model->get_messages('register_activate_email_body')['register_activate_email_body'];
+                        $emailFooter = $this->model->get_messages('register_activate_email_footer')['register_activate_email_footer'];
                         if ($result)
                         {
                             $message = 'register_message_ok';
                             $headers = "From: office@itinvestproject.com\r\n";
                             $headers .= "Reply-To: office@itinvestproject.com\r\n";
                             $headers .= "Return-Path: office@itinvestproject.com\r\n";
-                            if (mail($email, $text['register_activate_email_title'], "Уважаемый(ая) Инвестор, вы зарегистрировались на сайте https://itinvestproject.com
-Просим подтвердить вашу электронную почту для продолжения работы с системой.
-https://pa.itinvestproject.com/activate?email=$email
-С уважением, админмстрация  IT Invest Project.", $headers))
+                            if (mail($email, $text['register_activate_email_title'], $emailBody.
+"https://pa.itinvestproject.com/activate?email=$email".$emailFooter, $headers))
                             //
                             {
                                 if(@$result['active']==0){
@@ -160,7 +161,9 @@ https://pa.itinvestproject.com/activate?email=$email
         }
         $text = $this->model->get_messages('login', true);
         $leftmenu = $this->model->get_messages('leftmenu');
-        $topmenu = $this->model->get_messages('topmenu');
+        $topmenu = $this->model->get_messages('topmenu');        
+        $alertNotActive = $this->model->get_messages('not_active')['not_active'];
+        Session::set('not_active', $alertNotActive);
         $ref = $this->model->get_one_message('reflink');
         if (!empty($_POST['email']) && !empty($_POST['password']))
         {
@@ -195,6 +198,7 @@ https://pa.itinvestproject.com/activate?email=$email
                             $this->model->set_last_login_forced($id);
                         }
                         $safety = $this->model->set_last_login($id);
+                        $errmoney = $this->model->get_error_money($id);
                         if ($safety == 'ok')
                         {
                             Session::set('email', $email);
@@ -205,6 +209,7 @@ https://pa.itinvestproject.com/activate?email=$email
                             Session::set('reflink', $ref);
                             Session::set('topmenu', $topmenu);
                             Session::set('isBanned', $isBanned);
+                            Session::set('errmoney', $errmoney);
                             if($isBanned){
                                 header("Location: /");
                             }
@@ -235,13 +240,12 @@ https://pa.itinvestproject.com/activate?email=$email
                             {
                                 case 'ip':
                                     $message = 'login_message_ipchange';
-                                    mail($email,'Подтвердите операцию входа','Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
-Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT), $headers);
+                                    $mailOperaton = $this->model->get_messages('email_enter_operation')['email_enter_operation'];
+                                    mail($email,$mailOperaton.password_hash($email, PASSWORD_DEFAULT), $headers);
                                     break;
                                 case 'browser':
                                     $message = 'login_message_browserchange';
-                                    mail($email,'Подтвердите операцию входа','Уважаемый(ая) инвестор, Вы совершили операцию на сайте pa.itinvestproject.com Для подтверждения совершаемый действий следуйте нижепреведенным инструкциям:
-Перейдите по ссылке: https://pa.itinvestproject.com/auth?verify='.password_hash($email, PASSWORD_DEFAULT),$headers);
+                                    mail($email,$mailOperaton.password_hash($email, PASSWORD_DEFAULT),$headers);
                                     break;
                             }
                         }

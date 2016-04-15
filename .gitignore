@@ -7,4 +7,3 @@ nbactions.xml
 .nb-gradle/
 /include/const.php
 include/const.php
-bower_components/

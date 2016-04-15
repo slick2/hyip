@@ -1,0 +1,6 @@
+<?php
+define("DB_SERVER", "localhost");
+define("DB_USER", "anhifzyy_lk");
+define("DB_PASS", "Hhs1l!nI-O8m");
+define("DB_NAME", "anhifzyy_money");
+define("SESSION_PREFIX", "session_");

@@ -2,7 +2,7 @@
 $wallet = '1K2mA7WXLNihRm8GzQJYFApoFeH1bctxBx';
 $token = '4b88661478c1d8fc26aa8294cf8938a7cba649f5012a1eb2b778d7dd2d29c2f9';
 $hash = md5($data['account']['secret_key']);
-$my_callback_url = urlencode("https://itinvestproject.com/pay/success");
+$my_callback_url = urlencode("https://pa.itinvestproject.com/pay/success");
 $context = stream_context_create(array('http' => array('header' => 'Connection: close\r\n')));
 
 $url = "https://apibtc.com/api/create_wallet/?token={$token}&callback=" . $my_callback_url;
@@ -29,7 +29,7 @@ if ($send):
     ?>
     <form action="https://apibtc.com/merchant/invoice/?wallet=<?php echo $res['Res']['Adress'];?>" method="POST">
         <input type="hidden" name="amount" value="<?php echo $data['all']['sum']; ?>">
-        <input type="hidden" name="return_user" value="https://itinvestproject.com/pay/success">
-        <input type="submit" class="pay" value="Отправить">
+        <input type="hidden" name="return_user" value="https://pa.itinvestproject.com/pay/success">
+        <input type="submit" class="pay" value="Оплатить">
     </form>
 <?php endif; ?>

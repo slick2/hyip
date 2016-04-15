@@ -38,7 +38,7 @@
                 }
                 ?>
                 <tr><td><?php echo $data['text']['settings_email']; ?></td><td>
-                        <input class="input-depos" id="email" name="email" size="32"type="email" value="">
+                        <input class="input-depos" id="email" name="email" size="32" type="email" value="<?php echo Session::get('email'); ?>">
                     </td></tr>
             </table>
         </div>

@@ -45,10 +45,6 @@ class Model_Deposits extends Model
         {
             $parent = $this->mysqli->query("SELECT parent_id FROM hyip_users WHERE id=$uid AND parent_id IS NOT NULL")->fetchSingleRow()['parent_id'];
             $percent = $sum * REFERRAL_PERCENT;
-            if (!stripos($system, 'RUB'))
-            {
-                $percent = $percent / GetExchangeRate();
-            }
         }
         $ref = strtolower($system);
         return array(
@@ -152,16 +148,16 @@ class Model_Deposits extends Model
         return $data;
     }
     public function getActiveSysyems() {
-    $db = Database::getInstance();
-    $query = 'select 1 as active from hyip_payeer where active=1';
-    $payeer = !!(@$db->query($query)->result[0]['active'] == 1);
-    $query = 'select 1 as active from hyip_perfectmoney where active=1';
-    $perfectmoney = !!(@$db->query($query)->result[0]['active'] == 1);
-    $query = 'select 1 as active from hyip_bitcoin where active=1';
-    $bitcoin = !!(@$db->query($query)->result[0]['active'] == 1);
-    $query = 'select 1 as active from hyip_advcash where active=1';
-    $advcash = !!(@$db->query($query)->result[0]['active'] == 1);
-    return array('Payeer'=>$payeer, 'Advcash'=>$advcash, 'Perfectmoney'=>$perfectmoney, 'Bitcoin'=>$bitcoin);
+        $db = Database::getInstance();
+        $query = 'select 1 as active from hyip_payeer where active=1';
+        $payeer = !!(@$db->query($query)->result[0]['active'] == 1);
+        $query = 'select 1 as active from hyip_perfectmoney where active=1';
+        $perfectmoney = !!(@$db->query($query)->result[0]['active'] == 1);
+        $query = 'select 1 as active from hyip_bitcoin where active=1';
+        //$bitcoin = !!(@$db->query($query)->result[0]['active'] == 1);
+        $query = 'select 1 as active from hyip_advcash where active=1';
+        $advcash = !!(@$db->query($query)->result[0]['active'] == 1);
+        return array('Payeer'=>$payeer, 'Advcash'=>$advcash, 'Perfectmoney'=>$perfectmoney);
 }
 
 }

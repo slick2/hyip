@@ -28,6 +28,7 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
                     $historyId = $payeer_class->output();
                     if ($historyId > 0)
                     {
+                        $code = 0;
                         echo "Выплата успешна";
                     }
                     else
@@ -67,16 +68,19 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
                 echo 'Ivalid output';
                 exit;
             }
-
+            $code = 0;
             $ar = "";
             foreach ($result as $item)
             {
+                if(strtolower($item[1]) == 'error' )
+                    $code = 1;
                 $key = $item[1];
                 $ar[$key] = $item[2];
             }
-
+            $code = 0;
             echo '<pre>';
             print_r($ar);
+            
             echo '</pre>';
             break;
         case 'advcash':
@@ -109,6 +113,7 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
 
                 echo print_r($sendMoneyResponse, true) . "<br/><br/>";
                 echo $sendMoneyResponse->return . "<br/><br/>";
+                $code = 0;
             }
             catch (Exception $e)
             {
@@ -125,8 +130,9 @@ function out_money($system, $bitcoin, $advcash, $payeer, $perfectmoney, $row,$su
                 $out.=fgets($f);
             fclose($f);
 // searching for hidden fields
-
-            var_dump(json_decode($out));
+            $res = json_decode($out,true);
+            $code = !$res["success"];
+            var_dump($res);
             break;
     }
 }

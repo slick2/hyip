@@ -16,7 +16,11 @@
         <h4><?php echo $data['text']['newdeposit_sum'];?></h4> 
         </div>
         <div class="col-xs-4 col-xs-offset-4">
+        <?php if($data['all']['syst']!='Bitcoin') { ?>
         <h4>$<?php echo $data['all']['sum']; ?></h4>
+        <?php } else { ;?>
+        <h4>BTC <?php echo $data['all']['sum']; ?></h4>
+        <?php } ; ?>
         </div>
         </div>
 

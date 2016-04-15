@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $('.btn-full').click(function () {
         var cur = $(this).data('cur');
-        var min = cur == "usd" ? 10 : 700;
+        var min = cur == "usd" ? 5 : 700;
         $('.log_invalid span').text("Минимальная сумма для данной платежной системы составляет "+min+" "+cur.toUpperCase());
         $('.btn-full').each(function () {
             $(this).removeClass("btn-full-active");

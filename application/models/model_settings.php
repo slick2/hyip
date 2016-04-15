@@ -57,11 +57,14 @@ where hpay.name='$system' AND hp.user_id=$uid;";
         {
             $full_name = $this->mysqli->quote($_POST['full_name']);
             $query = $this->mysqli->query("UPDATE hyip_users SET full_name='$full_name' WHERE email='$smail'");
+            $_SESSION['session_name']=$_POST['full_name'];
         }
         if (!empty($_POST['email']))
         {
             $email = $this->mysqli->quote($_POST['email']);
             $query = $this->mysqli->query("UPDATE hyip_users SET email='$email' WHERE email='$smail'");
+            $_SESSION['email'] = $_POST['email'];
+            $smail = Session::get('email');
         }
         if (!empty($_POST['password']) && !empty($_POST['password_confirm']) && !empty($_POST['password_old']))
         {
@@ -95,8 +98,8 @@ WHERE hc.user_id=$uid")->fetchAll();
             $data[$row['name']] = $row['account'];
         }
         $data['systems'] = $systems;
-        $data['iptrack'] = $qq[0]['iptrack'];
-        $data['btrack'] = $qq[0]['track'];
+        $data['iptrack'] = @$qq[0]['iptrack'];
+        $data['btrack'] = @$qq[0]['track'];
         return $data;
     }
 

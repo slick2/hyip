@@ -1,0 +1,232 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #00111e;
+    height: 100%;
+    min-width: 1230px;
+    min-height: 100%;
+}
+
+.main-wrap {
+    background: url(../img/cab-bg1b.jpg) center top repeat-y;
+    min-height: 100%;
+    margin: 0 0 -20000px;
+    /*padding: 0 0 20000px;*/
+    overflow: hidden;
+}
+
+.header-lk{
+	height: 50px;
+    background: #008820;
+    min-width: 1200px;
+    margin-bottom: 5px;
+}
+
+.cabinet-wrap .container {
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
+}
+
+.container {
+    width: 1200px;
+}
+
+.left-menu {
+    float: left;
+    width: 240px;
+}
+
+.right-wrap {
+    width: 960px;
+    float: left;
+    height: 100%;
+    border-left: 1px solid #fdb733;
+}
+
+.balance-wrap {
+    width: 379px;
+    float: left;
+    padding: 11px;
+    height: 100%;
+}
+
+.balance-wrap h2{
+    border-bottom:1px solid rgb(253, 183, 51);
+}
+
+
+.oper-wrap {
+    width: 580px;
+    float: left;
+    padding: 11px;
+    border-left: 1px solid #fdb733;
+}
+
+.oper-wrap h2{
+    border-bottom:1px solid rgb(253, 183, 51);
+}
+
+.left-menue-lk{
+	list-style: none;
+    width: 240px;
+    padding: 0px;
+}
+
+.left-menue-lk li{
+    width: 100%;
+}
+
+.left-menue-lk li a{
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.left-menue-lk i{
+	text-align: left;
+	padding-right: 25px;
+	padding-left: 15px;
+}
+
+.left-menue-lk a{
+    padding-top: 10px;
+    padding-bottom: 10px;
+	display: block;
+	font-size:18px;
+	/*border-bottom: 1px dotted #23b9c0;*/
+	color: black;
+	transition: 500ms;
+	text-decoration: none;
+}
+
+.left-menue-lk a:hover{
+	text-decoration: none;
+	cursor: pointer;
+	margin-left: 15px;
+    color:rgb(253, 170, 12);
+	/*color:rgb(35, 185, 192);*/
+	/*background:rgba(35, 185, 192, 0.1);*/
+    background:rgba(253, 170, 12, 0.1);
+	transition: 500ms;
+}
+
+ .head-lk span a{
+	text-decoration: none;
+	color: #fff;
+}
+
+.head-lk span a:hover{
+	text-decoration: none;
+	cursor: pointer;
+	transition: 500ms;
+	color: #000;
+}
+
+.head-lk{
+    min-width: 1200px;
+	height: 55px;
+	background: rgba(253, 166, 0, 0.8);
+        margin-bottom: 5px;
+}
+
+.head-lk span{
+    min-width: 400px;
+    color: #fff;
+    /* position: relative; */
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+    /* padding-top: 50px; */
+    line-height: 50px;
+}
+
+.main_nav-lk{
+	height: 100%;
+	float: left;
+}
+
+.navigation-lk{
+    float: left;
+    margin-top: 17px;
+}
+
+.navigation-lk ul {
+  padding: 1em 0;
+}
+.navigation-lk a {
+text-decoration: none;
+  padding: 1em;
+  color: #fff;
+}
+.navigation-lk a:hover, .navigation-lk a:focus {background: #cc8400; color: #fff; text-decoration: none; transition: 500ms;}
+.navigation-lk li {
+  display: inline;
+}
+
+.btn-lk{
+    width: 30px;
+    padding: 6px;
+    border: 1px solid #d38f10;
+    border-radius: 5px;
+    background: #d38f10;
+    /*margin-left: 20px;*/
+    margin-top: 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: 200ms;
+}
+.btn-lk:hover{
+	background:rgba(253, 174, 23, 0.4);
+	color:#fff;
+	transition: 300ms;
+}
+
+.logo{
+    width: 20%;
+    height: 100%;
+    position: relative;
+    background: url(../img/logo.png) no-repeat;
+    background-position: center center;
+    background-size: 60%;
+    float: left;
+}
+
+.current_page{
+    border: 1px solid #fdb733;
+    width: 20px;
+    text-align: center;
+    border-radius: 2px;
+    color: #fdb733;
+    display: inline-block;
+}
+
+.pages_list{
+    margin-top: 20px;
+}
+
+.pages_list a:focus{
+    text-decoration: none;
+}
+
+.pages_list a:hover{
+    text-decoration: none;
+    color:#fdb733;
+}
+
+.cabinet-wrap{
+    /* position: absolute; */
+    left: 0;
+    right: 0;
+    height: 92%;
+    bottom: 0;
+    top: 61px;
+}
+
+small{
+    font-size: 65%;
+}

@@ -2,7 +2,10 @@ $(document).ready(function () {
 	$(".table-setting input").each(function () {
 		if($(this).val())
 		{
-			$(this).attr("readonly",true);
+		if($(this).attr('id')!='email'){
+			$(this).attr("readonly",true);		
+		}			
+			
 		}
 	});
 });
