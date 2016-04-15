@@ -57,11 +57,11 @@
 
          <div class="col-xs-12 calc-depos">
         <table class="calc_table">  
-            <tr><td>Доход в день:</td><td class="day"></td></tr>
-            <tr><td>Доход в месяц:</td><td class="month"></td></tr>
-            <tr><td>Доход за 3 месяца:</td><td class="3months"></td></tr>
-            <tr><td>Доход за полгода:</td><td class="6months"></td></tr>
-            <tr><td>Доход за год:</td><td class="year"></td></tr>
+            <tr><td><?php echo $data['text']['newdeposit_calc_day'] ;?>:</td><td class="day"></td></tr>
+            <tr><td><?php echo $data['text']['newdeposit_calc_month'] ;?>:</td><td class="month"></td></tr>
+            <tr><td><?php echo $data['text']['newdeposit_calc_3month'] ;?>:</td><td class="3months"></td></tr>
+            <tr><td><?php echo $data['text']['newdeposit_calc_6month'] ;?>:</td><td class="6months"></td></tr>
+            <tr><td><?php echo $data['text']['newdeposit_calc_year']; ?>:</td><td class="year"></td></tr>
         </table>
         </div>
         <div class="col-xs-12 alert-danger" id="notice">

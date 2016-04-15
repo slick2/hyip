@@ -15,6 +15,7 @@ class Controller_Private extends Controller
         {
             $data['text'] = $this->model->get_messages('private');
             $data['alldata'] = $this->model->get_data($data['text']);
+            $data['text']['money_export'] = $this->model->get_messages('money_export')['money_export'];            
             $this->view->generate('private_view.php', 'template_view.php', $data);
         }
         else

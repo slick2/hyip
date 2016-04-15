@@ -11,7 +11,7 @@ $data = $data['alldata'];
     </div>
     <div class="col-xs-4 balance-lbl">        
         <div class="col-xs-4" style="font-size: 30px;">$<?php echo $data['outs'][0] . "."; ?><small><?php echo $data['outs'][1]; ?></small></div>
-        <div class="col-xs-8"><span style="text-transform: uppercase"><?php echo 'Выведено'; ?></span></div>
+        <div class="col-xs-8"><span style="text-transform: uppercase"><?php echo $text['money_export']; ?></span></div>
     </div>
     
     <a href="/deposits/add" class="add-depos"><?php echo $text['private_create_deposit']; ?></a>
