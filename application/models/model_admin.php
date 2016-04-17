@@ -127,4 +127,37 @@ class Model_Admin extends Model
         $db = Database::getInstance();
         $db->query($query);
     }
+    public function getTransactions($page=1){
+      $page = isset($_GET['page'])? (int)$_GET['page']: 1;
+      //$page--;
+      $perPage = 10;
+      $mysqli_local = Database::getInstance();
+      $percents = $mysqli_local->query("SELECT amount FROM hyip_percents WHERE name='business_day' OR name='holiday'")->fetchAll();
+      $perc_bus = (double)$percents[0]['amount'];
+      $perc_hol = (double)$percents[1]['amount'];
+      $holidays = array(0, 6);      
+      $percent = in_array(date("w", strtotime("today")), $holidays) ? $perc_hol : $perc_bus;
+      $countQuery = "select count(hc.id) as count
+      from  hyip_payaccounts hp 
+      inner join hyip_cash hc ON (hc.payaccount_id=hp.id)
+      inner join hyip_users hu ON (hc.user_id=hu.id)
+      inner join hyip_payaccounts acc ON (acc.id=hc.payaccount_id)
+      inner join hyip_paysystems hsys ON (hsys.id=acc.paysystem_id)
+      where acc.account is not null and DATE(hc.created) != CURDATE() and hu.banned=0";
+      $count = $mysqli_local->query($countQuery)->fetchSingleRow()['count'];
+      $offset = ($page-1)*$perPage;
+      $query = "select hc.created as created, hc.id as id, hc.cash*$percent as cash, hu.email as email, acc.account as account, hsys.name as name 
+      from  hyip_payaccounts hp 
+      inner join hyip_cash hc ON (hc.payaccount_id=hp.id)
+      inner join hyip_users hu ON (hc.user_id=hu.id)
+      inner join hyip_payaccounts acc ON (acc.id=hc.payaccount_id)
+      inner join hyip_paysystems hsys ON (hsys.id=acc.paysystem_id)
+      where acc.account is not null and DATE(hc.created) != CURDATE() and hu.banned=0 LIMIT $offset, $perPage";
+      //var_dump($query);
+      $result = $mysqli_local->query($query)->fetchAll();
+      return array('operations'=>$result, 'count'=>$count);
+    }
+    function passOperation($id){
+      require_once 'include/outSingle.php';
+    }
 }

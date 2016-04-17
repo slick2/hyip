@@ -141,5 +141,13 @@ class Controller_Admin extends Controller
             Session::destroy();
             header("Location:/auth");
         }
-    }    
+    }
+    function action_operations(){
+      $operations = $this->model->getTransactions();
+      $this->view->generate('adminoperations_view.php', 'template_view.php', $operations);
+    }
+    function action_operationsend(){
+      $id = (int) $_POST['id'];
+      $data = $this->model->passOperation($id);
+    }
 }

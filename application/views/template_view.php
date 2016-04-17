@@ -81,6 +81,7 @@ $errmoney = Session::get('errmoney');
                     <li><a href="/admin" style="background: url(../img/icons_menu/icon_menu_8.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_admin_accounts']; ?></a></li>
                     <li><a href="/admin/translation" style="background: url(../img/icons_menu/icon_menu_7.png) no-repeat 10px 6px;"> <?php echo $leftmenu['leftmenu_translation']; ?></a></li>
                     <li><a href='/admin/userlist' style="background: url(../img/icons_menu/userlist.png) no-repeat 10px 6px; background-size: 30px 30px;"><?php echo $leftmenu['leftmenu_userlist']; ?></a></li>
+                    <li><a href='/admin/operations' style="background: url(../img/icons_menu/userlist.png) no-repeat 10px 6px; background-size: 30px 30px;">операции</a></li>
                     <li><a href="/auth/logout" style="background: url(../img/icons_menu/icon_menu_9.png) no-repeat 10px 6px;"><?php echo $leftmenu['leftmenu_logout']; ?></a></li>
                     <?php endif; ?>
                 </ul> 

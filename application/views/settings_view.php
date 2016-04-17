@@ -10,10 +10,7 @@
                 <tr><td><?php echo $data['text']['settings_oldname']; ?></td>
                     <td>
                         <?php echo Session::get('name'); ?>
-                    </td></tr>
-                <tr><td><?php echo $data['text']['settings_newname']; ?></td><td>
-                        <input class="input input-depos" id="full_name" name="full_name"size="36"  type="text" value="">
-                    </td></tr>
+                    </td></tr>                
                 <tr><td><?php echo $data['text']['settings_oldpass']; ?></td><td>
                         <input class="input input-depos" id="password_old" name="password_old" size="36"   type="password" value="">
                     </td></tr>

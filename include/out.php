@@ -29,14 +29,16 @@ foreach ($qcash as $row)
     $sum = round($sum,2);
     if ($row['account'] != NULL || !empty($row['account'])) 
     {
-        out_money(strtolower($row['name']), $bitcoin, $advcash, $payeer, $perfectmoney, $row,$sum);
-        $mysqli_local->query('START TRANSACTION;');
-        $mysqli_local->query("UPDATE hyip_cash SET outs=outs+1 WHERE id={$row['id']}");
-        $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,$code)");
-        $mysqli_local->query('COMMIT');
-        $message .= "Вывод суммы: $sum \n";
-        $message .= "Пользователю: " . $row['email'] . "\n";
-        $message .= "На кошелек: " . $row['name'] . " " . $row['account'] . "\n";
+        $successRequest = out_money(strtolower($row['name']), $bitcoin, $advcash, $payeer, $perfectmoney, $row,$sum);
+        if($successRequest){
+          $mysqli_local->query('START TRANSACTION;');
+          $mysqli_local->query("UPDATE hyip_cash SET outs=outs+1 WHERE id={$row['id']}");
+          $mysqli_local->query("INSERT INTO hyip_orders (cash_id,operation,`sum`,code) VALUES (" . $row['id'] . ",1,$sum,$code)");
+          $mysqli_local->query('COMMIT');
+          $message .= "Вывод суммы: $sum \n";
+          $message .= "Пользователю: " . $row['email'] . "\n";
+          $message .= "На кошелек: " . $row['name'] . " " . $row['account'] . "\n";          
+        }
     }
 }
 echo str_replace("\n", "<br>", $message);

@@ -99,5 +99,22 @@ $(document).ready(function () {
         var id = ($(this).attr('data-id'));
         $.post( "/admin/userblock", { id:id } );
         location.reload();
-    });    
+    });
+    $('.js-operation').click(function(){
+        var id = ($(this).attr('data-id'));
+        $.post( "/admin/operationsend", { id:id }, function(data){
+            console.log(data);
+        } )
+                .done(function(data){
+                    if(data!=''){
+                        alert(data);
+                    }                    
+                    location.reload();
+                })
+                .fail(function(xhr, data){
+                    
+                });
+        ;
+        
+    });
 });

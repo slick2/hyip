@@ -19,8 +19,10 @@ class Model_Pay extends Model {
         $mysqli = Database::getInstance();
         $uid = Session::get('id');
 
-        $cashid = $mysqli->query("SELECT id FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC")->fetchSingleRow()['id'];
-        $del = $mysqli->query("DELETE FROM hyip_cash WHERE id=$cashid");
+        $cashid = @$mysqli->query("SELECT id FROM hyip_cash WHERE user_id=$uid ORDER BY created DESC")->fetchSingleRow()['id'];
+        if($cashid){
+          $del = $mysqli->query("DELETE FROM hyip_cash WHERE id=$cashid");
+        }        
     }
 
     public function getActiveSysyems() {

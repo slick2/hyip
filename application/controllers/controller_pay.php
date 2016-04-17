@@ -12,13 +12,13 @@ class Controller_Pay extends Controller
     {
         $this->view->generate('pay_view.php','template_view.php');
     }
-    function action_success()
+    function action_syidsjhxtas()
     {
         $this->model->succeed_pay();
         $data = ['message' => "Пополнение выполнено успешно.<a href='/private'>Вернуться в личный кабинет</a>"];
         $this->view->generate('pay_view.php','template_view.php',$data);
     }
-    function action_fail()
+    function action_fqh4k981rlb()
     {
         header('Content-Type: text/html; charset=utf-8');
         $this->model->fail_pay();
