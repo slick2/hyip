@@ -40,7 +40,7 @@ foreach ($qcash as $row)
           $message .= "На кошелек: " . $row['name'] . " " . $row['account'] . "\n";          
         }
         else {
-          header_status(500);
+          
         }
     }
 }
