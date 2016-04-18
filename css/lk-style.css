@@ -591,3 +591,21 @@ textarea.well{
     height: 25px;
 }
 
+.lang{
+   padding-bottom: 30px;
+}
+
+.lang a{
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    background: #5495c6;
+    padding:3px;
+    border-radius: 4px;
+}
+
+
+.lang a:hover{
+    text-decoration: none;
+    background:
+}
