@@ -49,6 +49,17 @@ if (isset($data))
                 <input type="submit" name="register" value="<?php echo $text['register_button']; ?>" name="login" style="margin: 0;">
             </p>       
         </form>
+            
+        <div class="col-xs-12">
+        <div class="col-xs-2 col-xs-offset-5 lang">
+            <div class="row">
+                <div class="col-xs-3"><a href="">en</a></div>
+                <div class="col-xs-3"><a href="">ru</a></div>
+                <div class="col-xs-3"><a href="">vn</a></div>
+                <div class="col-xs-3"><a href="">cn</a></div>
+            </div>
+        </div>
+        </div>
         <div class="log-invalid">
             <span>
                 <?php
